@@ -3,19 +3,22 @@ const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const { config } = require('dotenv');
+const cors = require("cors");
 
 config();
 const authMiddleware = require('./middleware/authMiddleware');
 
 const jswAccessKey = process.env.JWT_KEY;
 const passwordKey = process.env.PASSWORD_KEY;
-const PORT = process.env.PORT || 6000;
+const PORT = process.env.PORT || 5000;
 
 const app = express();
-const cors = require("cors");
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: process.env.CLIENT_URL,
+    credentials: true
+}));
 app.use(cookieParser());
 
 app.get("/", authMiddleware, (reqsuest, response) => {
