@@ -1,0 +1,10 @@
+{
+    "words": [
+        {
+            "id": 1,
+            "name": "hello",
+            "translate": "hola",
+            "learned": false
+        }
+    ]
+}
