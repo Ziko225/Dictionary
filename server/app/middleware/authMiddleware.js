@@ -7,6 +7,7 @@ const authMiddleware = async (req, res, next) => {
 
         if (!token) {
             res.status(403).send();
+            return
         }
 
         const status = await jwt.verify(token, jswAccessKey);
