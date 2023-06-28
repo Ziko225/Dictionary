@@ -28,6 +28,7 @@ const useDictionary = () => {
         }
 
         getWords();
+        return true;
     };
 
     const removeWord = async (id) => {
