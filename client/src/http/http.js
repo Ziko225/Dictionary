@@ -57,3 +57,23 @@ export const httpPut = async (path, data) => {
         console.log(error);
     }
 };
+
+export const httpRemove = async (path = "", data = "") => {
+    try {
+        const response = await fetch(`${url}${path && "/" + path}${data && "/" + data}`, {
+            method: "DELETE",
+            origin: url,
+            credentials: "include",
+            params: data ? JSON.stringify(data) : undefined,
+        });
+
+        if (response.status === 403) {
+            return;
+        };
+
+        return response;
+
+    } catch (error) {
+        console.log(error);
+    }
+};

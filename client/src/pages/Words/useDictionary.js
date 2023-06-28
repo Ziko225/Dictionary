@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { httpGet, httpPut } from "../../http/http";
+import { httpGet, httpPost, httpPut, httpRemove } from "../../http/http";
 
 const useDictionary = () => {
     const [words, setWords] = useState();
@@ -7,8 +7,8 @@ const useDictionary = () => {
     const getWords = async () => {
         const response = await httpGet("");
         if (!response?.ok) {
+            setWords(null);
             return false;
-            setWords([]);
         }
 
         const result = await response.json();
@@ -30,12 +30,24 @@ const useDictionary = () => {
         getWords();
     };
 
-    const removeWord = () => {
+    const removeWord = async (id) => {
+        const response = await httpRemove(id);
+        if (!response?.ok) {
+            return false;
+        }
 
+        getWords();
+
+        return true;
     };
 
-    const toggleIsLearned = () => {
+    const toggleIsLearned = async (id) => {
+        const response = await httpPost(id);
+        if (!response?.ok) {
+            return false;
+        }
 
+        getWords();
     };
 
     return { words, getWords, addWord, removeWord, toggleIsLearned };

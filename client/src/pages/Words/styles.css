@@ -8,10 +8,16 @@
   align-items: center;
   margin: 40px 10px;
   min-width: 290px;
+  color: #222;
 }
 .container .container__learnedButton {
   margin-bottom: 20px;
   padding: 10px;
+  font-size: 20px;
+  font-weight: 700;
+  background-color: teal;
+  color: #fff;
+  border: none;
 }
 .container .title {
   margin: 0px 0 15px;
@@ -36,8 +42,8 @@
 .container .words {
   display: grid;
   width: 100%;
-  gap: 7px;
-  grid-template-columns: auto auto 1fr auto;
+  gap: 5px;
+  grid-template-columns: auto auto 1fr auto auto;
   align-items: center;
   background-color: white;
   box-shadow: 1px 1px 4px rgba(34, 34, 34, 0.3333333333);
@@ -45,6 +51,14 @@
   width: 100%;
   max-width: 700px;
   margin-bottom: 7px;
+}
+.container .words .words__speakButton {
+  width: 100%;
+  height: 100%;
+  background-color: teal;
+  color: #fff;
+  border: none;
+  padding: 0 10px;
 }
 .container .words .words__word {
   font-size: 24px;
@@ -57,22 +71,23 @@
 }
 .container .words .words__translate {
   display: block;
-  background-color: #222;
-  color: #222;
+  filter: blur(4px);
   padding: 5px 10px;
+  margin-right: 10px;
   font-size: 20px;
   font-weight: 700;
   cursor: pointer;
 }
 .container .words .words__translate:active {
   background-color: #eee;
+  filter: blur(0px);
 }
 @media (max-width: 780px) {
   .container .words .words__translate {
     font-size: 14px;
   }
   .container .words .words__translate:hover {
-    color: red;
+    filter: blur(0);
   }
 }
 .container .words .words__button {
@@ -87,6 +102,12 @@
   .container .words .words__button {
     font-size: 14px;
   }
+}
+.container .words .words__removeButton {
+  height: 100%;
+  background-color: red;
+  border: none;
+  color: #fff;
 }
 .container .addWord {
   display: flex;
