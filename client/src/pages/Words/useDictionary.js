@@ -50,7 +50,13 @@ const useDictionary = () => {
         getWords();
     };
 
-    return { words, getWords, addWord, removeWord, toggleIsLearned };
+    const speak = (word) => {
+        let utterance = new SpeechSynthesisUtterance(word);
+        utterance.lang = "en-US";
+        window.speechSynthesis.speak(utterance);
+    };
+
+    return { words, getWords, addWord, removeWord, toggleIsLearned, speak };
 };
 
 export default useDictionary;

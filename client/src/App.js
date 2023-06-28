@@ -8,9 +8,7 @@ function App() {
 
     return (
         <AuthContext.Provider value={{ isAuth, setIsUnAuth, login }}>
-            {isAuth
-                ? <Words />
-                : <Auth />}
+            {isAuth ? <Words /> : <Auth />}
         </AuthContext.Provider>
     );
 }

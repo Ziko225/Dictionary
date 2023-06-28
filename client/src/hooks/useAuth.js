@@ -9,10 +9,6 @@ const useAuth = () => {
         return;
     };
 
-    const addWordd = () => {
-
-    };
-
     const login = async (e, password) => {
         e.preventDefault(e);
 
@@ -22,12 +18,13 @@ const useAuth = () => {
             return;
         }
 
-        const utterance = new SpeechSynthesisUtterance('Добрий день!');
+        let utterance = new SpeechSynthesisUtterance("Welcome");
+        utterance.lang = "en-US";
         window.speechSynthesis.speak(utterance);
         setIsAuth(true);
     };
 
-    return { login, setIsUnAuth, isAuth, addWordd };
+    return { login, setIsUnAuth, isAuth };
 };
 
 export default useAuth;

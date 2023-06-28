@@ -7,7 +7,7 @@ const ModalsAddWord = ({ addWord }) => {
     const addNewWorld = async (e) => {
         e.preventDefault();
 
-        const isAdded = addWord(name, translate);
+        const isAdded = await addWord(name, translate);
 
         if (!isAdded) {
             return;

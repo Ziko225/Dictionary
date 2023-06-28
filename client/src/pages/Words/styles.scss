@@ -1,5 +1,11 @@
 @import "../../theme";
 
+@mixin buttonComponent {
+    background-color: $componentBackgroundColor;
+    color: $textInComponent;
+    border: none;
+}
+
 .blur {
     filter: blur(2px);
 }
@@ -13,13 +19,11 @@
     color: $textColor;
 
     .container__learnedButton {
+        @include buttonComponent;
         margin-bottom: 20px;
         padding: 10px;
         font-size: 20px;
         font-weight: 700;
-        background-color: $componentBackgroundColor;
-        color: $textInComponent;
-        border: none;
     }
 
     .title {
@@ -27,6 +31,7 @@
     }
 
     .addButton {
+        @include buttonComponent;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -35,9 +40,6 @@
         right: 0;
         margin: 20px;
         padding: 30px;
-        background-color: $componentBackgroundColor;
-        color: $textInComponent;
-        border: none;
         border-radius: 50%;
         height: 40px;
         width: 40px;
@@ -58,12 +60,10 @@
         margin-bottom: 7px;
 
         .words__speakButton {
+            @include buttonComponent;
             width: 100%;
             height: 100%;
-            background-color: $componentBackgroundColor;
-            color: $textInComponent;
-            border: none;
-            padding: 0 10px;
+            padding: 0 5px;
         }
 
         .words__word {
@@ -99,9 +99,7 @@
         }
 
         .words__button {
-            background-color: $componentBackgroundColor;
-            color: $textInComponent;
-            border: none;
+            @include buttonComponent;
             margin-left: auto;
             width: 100%;
             height: 100%;
@@ -112,10 +110,9 @@
         }
 
         .words__removeButton {
+            @include buttonComponent;
             height: 100%;
             background-color: red;
-            border: none;
-            color: $textInComponent;
         }
     }
 
