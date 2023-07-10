@@ -15,7 +15,7 @@ export const httpPost = async (path, data) => {
         return response;
 
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 };
 
@@ -28,14 +28,10 @@ export const httpGet = async (path = "", data = "") => {
             params: data ? JSON.stringify(data) : undefined,
         });
 
-        if (response.status === 403) {
-            return;
-        };
-
         return response;
 
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 };
 
@@ -54,7 +50,7 @@ export const httpPut = async (path, data) => {
         return response;
 
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 };
 
@@ -67,13 +63,9 @@ export const httpRemove = async (path = "", data = "") => {
             params: data ? JSON.stringify(data) : undefined,
         });
 
-        if (response.status === 403) {
-            return;
-        };
-
         return response;
 
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 };

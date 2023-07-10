@@ -3,16 +3,25 @@ import { httpGet, httpPost, httpPut, httpRemove } from "../../http/http";
 
 const useDictionary = () => {
     const [words, setWords] = useState();
+    const [isOffline, setIsOffline] = useState(false);
 
     const getWords = async () => {
         const response = await httpGet("");
+
+        if (!response) {
+            setWords(JSON.parse(localStorage.getItem("words")));
+            setIsOffline(true);
+            return true;
+        }
+
         if (!response?.ok) {
-            setWords(null);
             return false;
         }
 
         const result = await response.json();
+
         setWords(result.words);
+        localStorage.setItem("words", JSON.stringify(result.words));
 
         return true;
     };
@@ -57,7 +66,7 @@ const useDictionary = () => {
         window.speechSynthesis.speak(utterance);
     };
 
-    return { words, getWords, addWord, removeWord, toggleIsLearned, speak };
+    return { words, getWords, addWord, removeWord, toggleIsLearned, speak, isOffline };
 };
 
 export default useDictionary;

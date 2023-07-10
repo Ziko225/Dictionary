@@ -121,7 +121,7 @@ app.post("/:id", authMiddleware, (req, res) => {
             words[index].learned = !words[index].learned;
 
             fs.writeFile("./db.json", JSON.stringify({ words }), () => {
-                console.log(`removed word with id: ${id}`);
+                console.log(`toggle learned word with id: ${id}`);
             });
         });
 
