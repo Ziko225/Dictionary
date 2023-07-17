@@ -79,7 +79,13 @@ app.put("/", authMiddleware, (reqsuest, response) => {
 
                 const words = json.words;
 
-                const id = words ? words[words.length - 1].id : 1;
+                if (words.filter((e) => e.name === name)[0]) {
+                    response.status(400).send("This name already exist");
+                    console.log(name, "exist <!>");
+                    return;
+                };
+
+                const id = words[0] ? words[words.length - 1].id : 1;
 
                 words.push(
                     {
