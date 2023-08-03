@@ -1,4 +1,4 @@
-export const url = "http://mc.bychyk.it:5500";
+const url = process.env.REACT_APP_URL || "";
 
 export const httpPost = async (path, data) => {
     try {

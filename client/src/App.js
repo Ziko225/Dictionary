@@ -1,14 +1,24 @@
-import useAuth from './hooks/useAuth';
-import Auth from './pages/Auth';
-import Words from './pages/Words';
+import { BrowserRouter } from "react-router-dom";
 import { AuthContext } from './context/authContext';
+import Auth from './pages/Auth';
+import AppRouter from './AppRouter';
+import useAuth from './hooks/useAuth';
+import Navigation from './components/Navigation';
 
 function App() {
     const { isAuth, setIsUnAuth, login } = useAuth();
 
     return (
         <AuthContext.Provider value={{ isAuth, setIsUnAuth, login }}>
-            {isAuth ? <Words /> : <Auth />}
+            {isAuth
+                ? <>
+                    <BrowserRouter>
+                        <Navigation />
+                        <AppRouter />
+                    </BrowserRouter>
+                </>
+                : <Auth />
+            }
         </AuthContext.Provider>
     );
 }

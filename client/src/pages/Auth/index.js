@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
-import './styles.css';
 import { AuthContext } from '../../context/authContext';
+import './styles.css';
 
 const Auth = () => {
     const [password, setPassword] = useState("");

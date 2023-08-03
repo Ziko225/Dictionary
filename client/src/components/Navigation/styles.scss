@@ -1,0 +1,26 @@
+@import "../../theme";
+
+.nav {
+    display: flex;
+    width: 100%;
+    padding: 20px;
+    gap: 15px;
+}
+
+.nav__button {
+    color: $textColor;
+    text-decoration: none;
+    padding: 10px;
+    background-color: $textInComponent;
+    transition: 0.2s;
+    box-shadow: 2px 2px 4px #2224;
+
+    &:hover {
+        transform: translateY(-4px);
+    }
+}
+
+.active {
+    background-color: $componentBackgroundColor;
+    color: $textInComponent;
+}

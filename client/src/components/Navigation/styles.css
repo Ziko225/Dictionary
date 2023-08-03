@@ -1,0 +1,23 @@
+.nav {
+  display: flex;
+  width: 100%;
+  padding: 20px;
+  gap: 15px;
+}
+
+.nav__button {
+  color: #222;
+  text-decoration: none;
+  padding: 10px;
+  background-color: #fff;
+  transition: 0.2s;
+  box-shadow: 2px 2px 4px rgba(34, 34, 34, 0.2666666667);
+}
+.nav__button:hover {
+  transform: translateY(-4px);
+}
+
+.active {
+  background-color: teal;
+  color: #fff;
+}/*# sourceMappingURL=styles.css.map */

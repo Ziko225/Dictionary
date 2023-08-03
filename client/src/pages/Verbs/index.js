@@ -1,0 +1,7 @@
+const Verbs = () => {
+    return (
+        <h1>hello</h1>
+    );
+};
+
+export default Verbs;
