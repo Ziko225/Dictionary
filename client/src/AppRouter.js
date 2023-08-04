@@ -2,8 +2,8 @@ import { Route, Routes } from "react-router-dom";
 import Words from "./pages/Words";
 import Verbs from "./pages/Verbs";
 
-export const wordsPath = "words";
-export const verbsPath = "verbs";
+export const wordsPath = "/";
+export const verbsPath = "/verbs";
 
 const AppRouter = () => {
 

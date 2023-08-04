@@ -1,20 +1,15 @@
-import { useContext, useEffect, useState } from "react";
+import { ReactComponent as VolumeIco } from "./volume.svg";
 import { AuthContext } from "../../context/authContext";
+import { useContext, useState } from "react";
 import ModalsAddWord from "./ModalsAddWord";
 import useDictionary from "./useDictionary";
-import { ReactComponent as VolumeIco } from "./volume.svg";
 import "./styles.css";
 
 const Words = () => {
+    const { isOffline } = useContext(AuthContext);
     const [isBarOpen, setIsBarOpen] = useState(false);
     const [showLearned, setShowLearned] = useState(false);
-    const { words, getWords, addWord, removeWord, toggleIsLearned, speak, isOffline } = useDictionary();
-    const { isAuth, setIsUnAuth } = useContext(AuthContext);
-
-    useEffect(() => {
-        getWords().then((e) => !e && setIsUnAuth());
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isAuth, showLearned]);
+    const { words, addWord, removeWord, toggleIsLearned, speak } = useDictionary(isOffline);
 
     if (!words) {
         return (

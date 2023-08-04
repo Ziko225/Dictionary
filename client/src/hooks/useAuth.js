@@ -1,12 +1,26 @@
-import { useState } from 'react';
-import { httpPost } from "../http/http";
+import { useEffect, useState } from 'react';
+import { httpGet, httpPost } from "../http";
 
 const useAuth = () => {
     const [isAuth, setIsAuth] = useState(true);
+    const [isOffline, setIsOffline] = useState(false);
 
-    const setIsUnAuth = () => {
-        setIsAuth(false);
-        return;
+    const check = async () => {
+        const response = await httpGet("auth");
+
+        if (!response) {
+            setIsOffline(true);
+            return;
+        }
+
+        setIsOffline(false);
+
+        if (!response?.ok) {
+            setIsAuth(false);
+            return;
+        }
+
+        setIsAuth(true);
     };
 
     const login = async (e, password) => {
@@ -18,13 +32,14 @@ const useAuth = () => {
             return;
         }
 
-        let utterance = new SpeechSynthesisUtterance("Welcome");
-        utterance.lang = "en-US";
-        window.speechSynthesis.speak(utterance);
         setIsAuth(true);
     };
 
-    return { login, setIsUnAuth, isAuth };
+    useEffect(() => {
+        check();
+    }, []);
+
+    return { login, check, isAuth, isOffline, };
 };
 
 export default useAuth;

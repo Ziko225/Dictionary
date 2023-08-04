@@ -1,19 +1,16 @@
-import { useState } from 'react';
-import { httpGet, httpPost, httpPut, httpRemove } from "../../http/http";
+import { useEffect, useState } from 'react';
+import { httpGet, httpPost, httpPut, httpRemove } from "../../http";
 
-const useDictionary = () => {
+const useDictionary = (isOffline) => {
     const [words, setWords] = useState();
-    const [isOffline, setIsOffline] = useState(false);
 
     const getWords = async () => {
-        const response = await httpGet("");
-
-        if (!response) {
+        if (isOffline) {
             setWords(JSON.parse(localStorage.getItem("words")));
-            setIsOffline(true);
             return true;
         }
 
+        const response = await httpGet("words");
         if (!response?.ok) {
             return false;
         }
@@ -31,28 +28,17 @@ const useDictionary = () => {
             return;
         }
 
-        const response = await httpPut("", { name, translate });
+        const response = await httpPost("words", { name, translate });
         if (!response?.ok) {
             return false;
         }
 
         getWords();
-        return true;
-    };
-
-    const removeWord = async (id) => {
-        const response = await httpRemove(id);
-        if (!response?.ok) {
-            return false;
-        }
-
-        getWords();
-
         return true;
     };
 
     const toggleIsLearned = async (id) => {
-        const response = await httpPost(id);
+        const response = await httpPut("words", { id });
         if (!response?.ok) {
             return false;
         }
@@ -60,13 +46,29 @@ const useDictionary = () => {
         getWords();
     };
 
+    const removeWord = async (id) => {
+        const response = await httpRemove(`words/${id}`);
+        if (!response?.ok) {
+            return false;
+        }
+
+        getWords();
+
+        return true;
+    };
+
     const speak = (word) => {
-        let utterance = new SpeechSynthesisUtterance(word);
+        const utterance = new SpeechSynthesisUtterance(word);
         utterance.lang = "en-US";
         window.speechSynthesis.speak(utterance);
     };
 
-    return { words, getWords, addWord, removeWord, toggleIsLearned, speak, isOffline };
+    useEffect(() => {
+        getWords();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isOffline]);
+
+    return { words, getWords, addWord, removeWord, toggleIsLearned, speak };
 };
 
 export default useDictionary;
