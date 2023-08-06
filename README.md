@@ -50,14 +50,14 @@ Runs the app in the development mode at 5500 port.
 
 # Demo:
 
-## Dictionary (Unlearned words):
-![Auth and cart demostartion](./img/foto1.png)
-
-## Word adder:
-![Auth and cart demostartion](./img/add.png)
-
 ## Dictionary (Learned words):
-![Auth and cart demostartion](./img/foto2.png)
+![Words page](./img/words.png)
+
+## Dictionary (Unlearned words):
+![Unlearned words page](./img/learnedWords.png)
+
+## Dictionary (Irregular Verbs):
+![Irregular Verbs page](./img/verbs.png)
 
 ## Log in to the app:
-![Auth and cart demostartion](./img/auth.png)
+![Auth page](./img/auth.png)
