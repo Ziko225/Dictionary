@@ -1,6 +1,5 @@
-import { Route, Routes } from "react-router-dom";
-import Words from "./pages/Words";
-import Verbs from "./pages/Verbs";
+import { Navigate, Route, Routes } from "react-router-dom";
+import Dictionary from "./pages/Dictionary";
 
 export const wordsPath = "/";
 export const verbsPath = "/verbs";
@@ -9,8 +8,9 @@ const AppRouter = () => {
 
     return (
         <Routes>
-            <Route path={wordsPath} Component={Words} />
-            <Route path={verbsPath} Component={Verbs} />
+            <Route path={wordsPath} element={<Dictionary path={wordsPath} />} />
+            <Route path={verbsPath} element={<Dictionary path={verbsPath} />} />
+            <Route path="*" element={<Navigate replace to={wordsPath} />} />
         </Routes>
     );
 };

@@ -1,36 +1,43 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { httpGet, httpPost, httpPut, httpRemove } from "../../http";
+import { AuthContext } from '../../context/authContext';
 
-const useDictionary = (isOffline) => {
-    const [words, setWords] = useState();
+const useDictionary = (isWordsPage) => {
+    const { check, isOffline } = useContext(AuthContext);
+
+    const [data, setData] = useState();
+    const key = isWordsPage ? "words" : "verbs";
 
     const getWords = async () => {
         if (isOffline) {
-            setWords(JSON.parse(localStorage.getItem("words")));
+            setData(JSON.parse(localStorage.getItem(key)));
+            check();
             return true;
         }
 
-        const response = await httpGet("words");
+        const response = await httpGet(key);
+        if (!response) {
+            check();
+        }
+
         if (!response?.ok) {
+            check();
             return false;
         }
 
         const result = await response.json();
 
-        setWords(result.words);
-        localStorage.setItem("words", JSON.stringify(result.words));
+        setData(result);
+        localStorage.setItem(key, JSON.stringify(result));
 
         return true;
     };
 
-    const addWord = async (name, translate) => {
-        if (!name || !translate) {
-            return;
-        }
-
-        const response = await httpPost("words", { name, translate });
+    const add = async (data) => {
+        const response = await httpPost(key, data);
         if (!response?.ok) {
-            return false;
+            check();
+            return response.json();
         }
 
         getWords();
@@ -38,8 +45,9 @@ const useDictionary = (isOffline) => {
     };
 
     const toggleIsLearned = async (id) => {
-        const response = await httpPut("words", { id });
+        const response = await httpPut(key, { id });
         if (!response?.ok) {
+            check();
             return false;
         }
 
@@ -47,8 +55,9 @@ const useDictionary = (isOffline) => {
     };
 
     const removeWord = async (id) => {
-        const response = await httpRemove(`words/${id}`);
+        const response = await httpRemove(`${key}/${id}`);
         if (!response?.ok) {
+            check();
             return false;
         }
 
@@ -66,9 +75,9 @@ const useDictionary = (isOffline) => {
     useEffect(() => {
         getWords();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isOffline]);
+    }, [isOffline, isWordsPage]);
 
-    return { words, getWords, addWord, removeWord, toggleIsLearned, speak };
+    return { data, getWords, add, removeWord, toggleIsLearned, speak, isOffline };
 };
 
 export default useDictionary;

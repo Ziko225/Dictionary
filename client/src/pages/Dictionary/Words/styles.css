@@ -6,9 +6,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 40px 10px 120px;
+  margin: 20px 10px 120px;
   min-width: 290px;
-  color: #222;
+  color: #353535;
 }
 .container .container__learnedButton {
   background-color: teal;
@@ -18,9 +18,6 @@
   padding: 10px;
   font-size: 20px;
   font-weight: 700;
-}
-.container .title {
-  margin: 0px 0 15px;
 }
 .container .addButton {
   background-color: teal;
@@ -43,7 +40,6 @@
 .container .words {
   display: grid;
   width: 100%;
-  gap: 5px;
   grid-template-columns: auto auto 1fr auto auto;
   align-items: center;
   background-color: white;
@@ -53,19 +49,12 @@
   max-width: 700px;
   margin-bottom: 7px;
 }
-.container .words .words__speakButton {
-  background-color: teal;
-  color: #fff;
-  border: none;
-  width: 100%;
-  height: 100%;
-  padding: 0 5px;
-}
 .container .words .words__word {
   font-size: 24px;
   font-weight: 700;
+  margin-left: 5px;
 }
-@media (max-width: 780px) {
+@media (max-width: 767px) {
   .container .words .words__word {
     font-size: 15px;
   }
@@ -73,8 +62,8 @@
 .container .words .words__translate {
   display: block;
   filter: blur(4px);
-  padding: 5px 10px;
-  margin-right: 10px;
+  padding: 5px 0px 5px 10px;
+  margin-right: 3px;
   font-size: 20px;
   font-weight: 700;
   cursor: pointer;
@@ -83,7 +72,7 @@
   background-color: #eee;
   filter: blur(0px);
 }
-@media (max-width: 780px) {
+@media (max-width: 767px) {
   .container .words .words__translate {
     font-size: 14px;
   }
@@ -99,7 +88,7 @@
   width: 100%;
   height: 100%;
 }
-@media (max-width: 780px) {
+@media (max-width: 767px) {
   .container .words .words__button {
     font-size: 14px;
   }
@@ -129,4 +118,11 @@
   border-radius: 6px;
   padding: 12px 20px;
   margin-bottom: 9px;
+}
+
+.error {
+  color: #f90000;
+  font-weight: 600;
+  font-size: 17px;
+  margin-bottom: 7px;
 }/*# sourceMappingURL=styles.css.map */

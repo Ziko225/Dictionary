@@ -6,12 +6,13 @@
 }
 
 .nav__button {
-  color: #222;
+  color: #353535;
   text-decoration: none;
   padding: 10px;
   background-color: #eee;
   transition: 0.2s;
   box-shadow: 2px 2px 4px rgba(34, 34, 34, 0.2666666667);
+  font-weight: 800;
 }
 .nav__button:hover {
   transform: translateY(-4px);

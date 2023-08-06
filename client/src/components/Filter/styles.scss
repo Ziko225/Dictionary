@@ -1,0 +1,30 @@
+@import "../../theme";
+
+.filter {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 0 20px;
+    color: $textColor;
+
+    .filter__block {
+        display: flex;
+        align-items: center;
+
+        .block__button {
+            padding: 15px;
+            border: none;
+            box-shadow: 1px 1px 4px #2227;
+        }
+
+        .block__text {
+            margin-left: 10px;
+            font-weight: 700;
+        }
+
+        .active {
+            background-color: $componentBackgroundColor;
+        }
+    }
+}

@@ -1,5 +1,21 @@
 const url = process.env.REACT_APP_URL || "";
 
+export const httpGet = async (path = "", data = "") => {
+    try {
+        const response = await fetch(`${url}${path && "/" + path}${data && "/" + data}`, {
+            method: "GET",
+            origin: url,
+            credentials: "include",
+            params: data ? JSON.stringify(data) : undefined,
+        });
+
+        return response;
+
+    } catch (error) {
+        console.error(error);
+    }
+};
+
 export const httpPost = async (path, data) => {
     try {
         const response = await fetch(`${url}/${path}`, {
@@ -10,22 +26,6 @@ export const httpPost = async (path, data) => {
                 "Content-Type": "application/json",
             },
             body: data ? JSON.stringify(data) : undefined,
-        });
-
-        return response;
-
-    } catch (error) {
-        console.error(error);
-    }
-};
-
-export const httpGet = async (path = "", data = "") => {
-    try {
-        const response = await fetch(`${url}${path && "/" + path}${data && "/" + data}`, {
-            method: "GET",
-            origin: url,
-            credentials: "include",
-            params: data ? JSON.stringify(data) : undefined,
         });
 
         return response;

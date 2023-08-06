@@ -6,10 +6,10 @@ import useAuth from './hooks/useAuth';
 import Navigation from './components/Navigation';
 
 function App() {
-    const { isAuth, isOffline, login } = useAuth();
+    const { isAuth, isOffline, login, check } = useAuth();
 
     return (
-        <AuthContext.Provider value={{ isAuth, isOffline, login }}>
+        <AuthContext.Provider value={{ isAuth, isOffline, login, check }}>
             {isAuth
                 ? <BrowserRouter>
                     <Navigation />

@@ -1,0 +1,17 @@
+.search {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    width: 100%;
+    align-items: center;
+
+    .search__input {
+        color: teal;
+        outline-color: teal;
+        font-weight: 800;
+        padding: 7px 12px;
+        border: none;
+        border-radius: 6px;
+        box-shadow: 1px 1px 4px #3337;
+    }
+}

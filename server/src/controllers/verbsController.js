@@ -1,8 +1,8 @@
 const dbLogic = require('./dbLogic');
 const clean = require('../util/cleanFunc');
 
-const key = "words";
-class WordsController {
+const key = "verbs";
+class VerbsController {
 
     async get(req, res) {
         const result = await dbLogic.getData(key);
@@ -11,11 +11,16 @@ class WordsController {
 
     async create(req, res) {
         try {
-            const { name, translate } = req.body;
+            const { name, v2, v3, translate } = req.body;
+            if (!v2 || !v3) {
+                return res.status(400).json("v2 and v3 required");
+            }
 
             const data = {
                 id: 0,
                 name: clean(name),
+                v2: clean(v2),
+                v3: clean(v3),
                 translate: clean(translate),
                 learned: false
             };
@@ -66,4 +71,4 @@ class WordsController {
     };
 };
 
-module.exports = new WordsController();
+module.exports = new VerbsController();

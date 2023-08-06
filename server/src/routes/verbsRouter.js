@@ -1,5 +1,5 @@
 const Router = require('express');
-const wordsController = require('../controllers/wordsControler.js');
+const wordsController = require('../controllers/verbsController.js');
 
 const router = Router();
 

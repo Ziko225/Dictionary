@@ -1,0 +1,9 @@
+@import "../../theme";
+
+.button {
+    background-color: $componentBackgroundColor;
+    color: $textInComponent;
+    border: none;
+    align-self: stretch;
+    padding: auto 5px;
+}
