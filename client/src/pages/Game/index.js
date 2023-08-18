@@ -8,6 +8,7 @@ const Game = () => {
         submit,
         setTypedWord,
         newRandomWord,
+        dontKnow,
         typedWord,
         randomWord,
         status,
@@ -37,7 +38,7 @@ const Game = () => {
                 </form>
                 <div className="buttonsBlock">
                     <button onClick={newRandomWord} className="button">Skip</button>
-                    <button className="button">I don't know</button>
+                    <button onClick={dontKnow} className="button">I don't know</button>
                 </div>
             </div>
         </>

@@ -10,13 +10,14 @@ const useGame = () => {
 
     const [typedWord, setTypedWord] = useState("");
 
+    const [status, setStatus] = useState("");
+
+    const [startGame, toggleStartGame] = useToggle(false);
+
     useEffect(() => {
         setStatus("");
     }, [typedWord]);
 
-    const [status, setStatus] = useState("");
-
-    const [startGame, toggleStartGame] = useToggle(false);
 
     const clearWord = (word) => {
         return word.toLowerCase().trim();
@@ -45,9 +46,13 @@ const useGame = () => {
     const submit = (e) => {
         e.preventDefault();
 
+        if (!randomWord.learned) {
+            toggleIsLearned(randomWord.id);
+        }
+
         if (clearWord(typedWord) !== clearWord(randomWordName)) {
             setStatus("mistake");
-            return false;
+            return;
         }
 
         const ok = () => {
@@ -61,6 +66,23 @@ const useGame = () => {
         speak(randomWordName);
     };
 
+    const dontKnow = () => {
+        if (randomWord.learned) {
+            toggleIsLearned(randomWord.id);
+        }
+
+        setTypedWord(randomWordName);
+        speak(randomWordName);
+
+        const ok = () => {
+            setStatus("");
+            setTypedWord("");
+            newRandomWord();
+        };
+
+        setTimeout(ok, 3000);
+    };
+
     const start = () => {
         toggleStartGame();
         newRandomWord();
@@ -71,6 +93,7 @@ const useGame = () => {
         newRandomWord,
         start,
         submit,
+        dontKnow,
         status,
         startGame,
         randomWord,
