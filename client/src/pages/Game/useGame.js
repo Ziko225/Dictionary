@@ -25,19 +25,17 @@ const useGame = () => {
 
     const newRandomWord = () => {
         const getRandomWord = () => {
-            const learnedWords = data?.filter((e) => e.learned);
-
-            const max = learnedWords?.length;
+            const max = data?.length;
 
             const min = 3;
 
-            if (!learnedWords || max <= min) {
+            if (!data || max <= min) {
                 return false;
             }
 
             const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
 
-            return learnedWords[randomNumber];
+            return data[randomNumber];
         };
 
         setRandomWord(getRandomWord());

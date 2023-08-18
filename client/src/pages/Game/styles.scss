@@ -8,12 +8,20 @@
     margin-top: 20px;
     margin: auto;
     font-size: 20px;
+    @media (max-width: $mobileMax) {
+        font-size: 15px;
+    }
 
     .game__title {
         font-size: 50px;
         margin-bottom: 10vh;
         margin-top: 10vh;
         text-align: center;
+
+        @media (max-width: $mobileMax) {
+            flex-direction: column;
+            font-size: 35px;
+        }
     }
 
     .form {
@@ -21,6 +29,11 @@
         gap: 10px;
         margin-bottom: 20px;
         font-size: 30px;
+
+        @media (max-width: $mobileMax) {
+            flex-direction: column;
+            font-size: 25px;
+        }
 
         .input {
             border: none;
