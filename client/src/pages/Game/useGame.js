@@ -26,14 +26,13 @@ const useGame = () => {
     const newRandomWord = () => {
         const getRandomWord = () => {
             const max = data?.length;
-
             const min = 3;
 
-            if (!data || max <= min) {
+            if (!data || max < min) {
                 return false;
             }
 
-            const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+            const randomNumber = Math.floor(Math.random() * max);
 
             return data[randomNumber];
         };
@@ -44,16 +43,16 @@ const useGame = () => {
     const submit = (e) => {
         e.preventDefault();
 
-        if (!randomWord.learned) {
-            toggleIsLearned(randomWord.id);
-        }
-
         if (clearWord(typedWord) !== clearWord(randomWordName)) {
             setStatus("mistake");
             return;
         }
 
         const ok = () => {
+            if (!randomWord.learned) {
+                toggleIsLearned(randomWord.id);
+            }
+
             setStatus("");
             setTypedWord("");
             newRandomWord();

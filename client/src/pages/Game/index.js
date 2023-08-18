@@ -26,11 +26,9 @@ const Game = () => {
     }
 
     return (
-        <>
-            <div className="search">
+        randomWord
+            ? <div className="game">
                 {isOffline && <h1>Offline</h1>}
-            </div>
-            <div className="game">
                 <h2 className="game__title">{randomWord.translate}</h2>
                 <form onSubmit={(e) => submit(e)} className="form">
                     <input required onChange={(e) => setTypedWord(e.target.value)} value={typedWord} placeholder="Translate" className={`input ${status}`} />
@@ -41,7 +39,9 @@ const Game = () => {
                     <button onClick={dontKnow} className="button">I don't know</button>
                 </div>
             </div>
-        </>
+            : <div className="game">
+                <h3>Not enough words</h3>
+            </div>
     );
 };
 
