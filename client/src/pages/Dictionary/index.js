@@ -1,6 +1,6 @@
 import { useToggle } from "../../hooks/useToggle";
 import { useState } from "react";
-import useDictionary from "./useDictionary";
+import useDictionary from "../../hooks/useDictionary";
 import Filter from "../../components/Filter";
 import Words from "./Words";
 import Verbs from "./Verbs";
