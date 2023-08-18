@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
-import { httpGet, httpPost, httpPut, httpRemove } from "../../http";
-import { AuthContext } from '../../context/authContext';
+import { httpGet, httpPost, httpPut, httpRemove } from "../http";
+import { AuthContext } from '../context/authContext';
 
 const useDictionary = (isWordsPage) => {
     const { check, isOffline } = useContext(AuthContext);

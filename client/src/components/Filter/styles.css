@@ -5,6 +5,12 @@
   gap: 10px;
   margin: 0 20px;
   color: #353535;
+  position: fixed;
+}
+@media (max-width: 1200px) {
+  .filter {
+    position: relative;
+  }
 }
 .filter .filter__block {
   display: flex;

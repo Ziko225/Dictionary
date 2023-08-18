@@ -7,6 +7,11 @@
     gap: 10px;
     margin: 0 20px;
     color: $textColor;
+    position: fixed;
+
+    @media (max-width: $tabletMax) {
+        position: relative;
+    }
 
     .filter__block {
         display: flex;
