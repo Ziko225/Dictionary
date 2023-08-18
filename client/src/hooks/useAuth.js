@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { httpGet, httpPost } from "../http";
 
 const useAuth = () => {
@@ -34,10 +34,6 @@ const useAuth = () => {
 
         setIsAuth(true);
     };
-
-    useEffect(() => {
-        check();
-    }, []);
 
     return { login, check, isAuth, isOffline, };
 };

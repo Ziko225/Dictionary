@@ -16,9 +16,6 @@ const useDictionary = (isWordsPage) => {
         }
 
         const response = await httpGet(key);
-        if (!response) {
-            check();
-        }
 
         if (!response?.ok) {
             check();
