@@ -1,14 +1,19 @@
 # Dictionary
-### This app is made by me to help me in learning English
+### This app improves your English language learning experience!
 ### features:
-    ✓ Authorization using the JWT token
-    ✓ Listen to the pronunciation of words
-    ✓ See the translation of words when you click on them
-    ✓ Mark words as learning
-    ✓ Responsiveness for use with mobile
-    ✓ Very easy to set up (uses JSON as a database)
+- Authorization using the JWT token **✓**
+- Listen to the pronunciation of words **✓**
+- See the translation of words when you click on them **✓**
+- Mark words as learning **✓**
+- Responsiveness for use with mobile **✓**
+- Very easy to set up (uses JSON as a database) **✓**
 
-# Available Scripts
+#### Include game ✓
+* if you enter the correct word, it will be marked as learned.
+* if you click "I do not know" button, the word will switch to unlearned.
+* Selects a random word from your dictionary.
+
+# Available Scripts:
 
 ## **Client:**
 
@@ -58,6 +63,9 @@ Runs the app in the development mode at 5500 port.
 
 ## Dictionary (Irregular Verbs):
 ![Irregular Verbs page](./img/verbs.png)
+
+## Game:
+![Game page](./img/game.gif)
 
 ## Log in to the app:
 ![Auth page](./img/auth.png)
