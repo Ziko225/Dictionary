@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useToggle } from "../../../hooks/useToggle";
 import ModalsAddWord from "./ModalsAddWord";
 import SpeakButton from "../../../components/SpeakButton";
 import "./styles.css";
 
 const Words = ({ isOffline, words, speak, toggleIsLearned, remove, addWord }) => {
-    const [isBarOpen, setIsBarOpen] = useState(false);
+    const [isBarOpen, toggleIsBarOpen] = useToggle(false);
 
     return (
         <div className="container">
@@ -29,7 +29,7 @@ const Words = ({ isOffline, words, speak, toggleIsLearned, remove, addWord }) =>
                     </div>)
                 : <h2>Not found</h2>}
             {isBarOpen && <ModalsAddWord addWord={addWord} />}
-            {!isOffline && <button onClick={() => setIsBarOpen(!isBarOpen)} className='addButton'>+</button>}
+            {!isOffline && <button onClick={toggleIsBarOpen} className='addButton'>+</button>}
         </div>
     );
 };

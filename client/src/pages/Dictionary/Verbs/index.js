@@ -1,39 +1,10 @@
-import { useRef, useState } from "react";
 import SpeakButton from "../../../components/SpeakButton";
-import "./styles.css";
+import useVerbs from "./useVerbs";
+import "styles.css"
 
 const Verbs = ({ isOffline, verbs, speak, toggleIsLearned, remove, addVerb }) => {
-    const [msg, setMsg] = useState("");
-    const nameRef = useRef(null);
-    const v2Ref = useRef(null);
-    const v3Ref = useRef(null);
-    const translateRef = useRef(null);
 
-    const addNewVerb = async () => {
-        const name = nameRef.current.value;
-        const v2 = v2Ref.current.value;
-        const v3 = v3Ref.current.value;
-        const translate = translateRef.current.value;
-
-        setMsg("");
-
-        const data = {
-            name,
-            v2,
-            v3,
-            translate,
-        };
-
-        const response = await addVerb(data);
-        if (response !== true) {
-            return setMsg(response);
-        }
-
-        nameRef.current.value = "";
-        v2Ref.current.value = "";
-        v3Ref.current.value = "";
-        translateRef.current.value = "";
-    };
+    const { msg, nameRef, v2Ref, v3Ref, translateRef, addNewVerb } = useVerbs(addVerb);
 
     return (
         <div className="verbs">
@@ -44,7 +15,7 @@ const Verbs = ({ isOffline, verbs, speak, toggleIsLearned, remove, addVerb }) =>
                     <h4>Past Participle (V3)</h4>
                 </li>
                 {
-                    verbs[0] && verbs.map((verb) =>
+                    verbs?.map((verb) =>
                         <li key={verb.id} className="ul__li">
                             <div className="li__verb">
                                 <span className="verb__text">{verb.name}</span>
@@ -81,7 +52,7 @@ const Verbs = ({ isOffline, verbs, speak, toggleIsLearned, remove, addVerb }) =>
                     <input ref={v2Ref} className="addingBlock__input" placeholder="v2" />
                     <input ref={v3Ref} className="addingBlock__input" placeholder="v3" />
                     <input ref={translateRef} className="addingBlock__input" placeholder="Translation" />
-                    <button onClick={() => addNewVerb()} className="addingBlock__button">Add</button>
+                    <button onClick={addNewVerb} className="addingBlock__button">Add</button>
                 </div>
             }
         </div >
