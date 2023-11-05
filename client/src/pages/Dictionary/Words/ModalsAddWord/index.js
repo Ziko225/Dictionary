@@ -30,8 +30,22 @@ const ModalsAddWord = ({ addWord }) => {
     return (
         <form onSubmit={(e) => addNewWorld(e)} className='addWord'>
             <span className='error'>{msg}</span>
-            <input autoFocus ref={ref} value={name} onChange={(e) => setName(e.currentTarget.value)} required className='addWord__input' placeholder='Word' />
-            <input value={translate} onChange={(e) => setTranslate(e.currentTarget.value)} required className='addWord__input' placeholder='Translate' />
+            <input
+                autoFocus
+                ref={ref}
+                value={name}
+                onChange={(e) => setName(e.currentTarget.value)}
+                required
+                className='addWord__input'
+                placeholder='Word'
+            />
+            <input
+                value={translate}
+                onChange={(e) => setTranslate(e.currentTarget.value)}
+                required
+                className='addWord__input'
+                placeholder='Translate'
+            />
             <button className='addWord__button'>Add</button>
         </form>
     );

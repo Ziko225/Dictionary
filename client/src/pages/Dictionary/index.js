@@ -1,6 +1,6 @@
-import { useToggle } from "../../hooks/useToggle";
 import { useState } from "react";
 import useDictionary from "../../hooks/useDictionary";
+import useFilter from "../../hooks/useFilter";
 import Filter from "../../components/Filter";
 import Words from "./Words";
 import Verbs from "./Verbs";
@@ -11,13 +11,11 @@ const Dictionary = ({ path }) => {
 
     const { data, add, removeWord, toggleIsLearned, speak, isOffline } = useDictionary(isWordsPage);
 
-    const [showLearned, toggleShowLearned] = useToggle(false);
-
-    const [showUnLearned, toggleShowUnLearned] = useToggle(true);
+    const { filteredData, learned, unlearned, toggleHandler } = useFilter(data);
 
     const [search, setSearch] = useState("");
 
-    if (!data) {
+    if (!filteredData) {
         return (
             <div className="container">
                 <h2>Loading...</h2>
@@ -25,24 +23,23 @@ const Dictionary = ({ path }) => {
         );
     }
 
-    const filter = showLearned && showUnLearned
-        ? data
-        : data.filter((e) => e.learned === showLearned && e.learned !== showUnLearned);
-
-    const filteredAndSearchData = filter.filter((e) => e.name.match(search.toLowerCase()));
+    const searchData = filteredData.filter((e) => e.name.match(search.toLowerCase()));
 
     return (
         <>
             <Filter
-                toggleUnLearned={toggleShowUnLearned}
-                toggleLearned={toggleShowLearned}
-                learned={showLearned}
-                unlearned={showUnLearned}
+                toggleHandler={toggleHandler}
+                learned={learned}
+                unlearned={unlearned}
             />
 
             <div className="search">
                 {isOffline ? <h1>Offline</h1> : null}
-                <input className="search__input" onChange={(e) => setSearch(e.currentTarget.value)} placeholder="Search" />
+                <input
+                    className="search__input"
+                    onChange={(e) => setSearch(e.currentTarget.value)}
+                    placeholder="Search"
+                />
             </div>
             {isWordsPage
                 ? <Words
@@ -50,7 +47,7 @@ const Dictionary = ({ path }) => {
                     remove={removeWord}
                     toggleIsLearned={toggleIsLearned}
                     speak={speak}
-                    words={filteredAndSearchData}
+                    words={searchData}
                     isOffline={isOffline}
                 />
                 : <Verbs
@@ -58,7 +55,7 @@ const Dictionary = ({ path }) => {
                     remove={removeWord}
                     toggleIsLearned={toggleIsLearned}
                     speak={speak}
-                    verbs={filteredAndSearchData}
+                    verbs={searchData}
                     isOffline={isOffline}
                 />
             }
