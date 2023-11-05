@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { useToggle } from "../../hooks/useToggle";
 import useDictionary from "../../hooks/useDictionary";
+import useFilter from "../../hooks/useFilter";
 
 const useGame = () => {
     const { data, toggleIsLearned, speak, isOffline } = useDictionary(true);
+
+    const { filteredData, learned, unlearned, toggleHandler } = useFilter(data);
 
     const [randomWord, setRandomWord] = useState();
     const randomWordName = randomWord?.name;
@@ -14,10 +17,21 @@ const useGame = () => {
 
     const [startGame, toggleStartGame] = useToggle(false);
 
+    const isEnoughWords = filteredData?.length >= 3;
+
     useEffect(() => {
+        if (status === "") {
+            return;
+        }
+
         setStatus("");
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [typedWord]);
 
+    useEffect(() => {
+        newRandomWord();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [filteredData]);
 
     const clearWord = (word) => {
         return word.toLowerCase().trim();
@@ -25,19 +39,30 @@ const useGame = () => {
 
     const newRandomWord = () => {
         const getRandomWord = () => {
-            const max = data?.length;
+
+            const max = filteredData?.length;
             const min = 3;
 
-            if (!data || max < min) {
+            if (!filteredData || max < min) {
                 return false;
             }
 
             const randomNumber = Math.floor(Math.random() * max);
 
-            return data[randomNumber];
+            return filteredData[randomNumber];
         };
 
-        setRandomWord(getRandomWord());
+        const nextRandomWord = getRandomWord();
+
+        if (!randomWord) {
+            return setRandomWord(nextRandomWord);
+        }
+
+        if (nextRandomWord.name === randomWord.name) {
+            return newRandomWord();
+        }
+
+        setRandomWord(nextRandomWord);
     };
 
     const submit = (e) => {
@@ -91,11 +116,15 @@ const useGame = () => {
         start,
         submit,
         dontKnow,
+        toggleHandler,
+        learned,
+        unlearned,
         status,
         startGame,
         randomWord,
         typedWord,
-        isOffline
+        isOffline,
+        isEnoughWords
     };
 };
 

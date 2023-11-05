@@ -1,4 +1,5 @@
 
+import Filter from "../../components/Filter";
 import useGame from "./useGame";
 import "./styles.css";
 
@@ -9,11 +10,15 @@ const Game = () => {
         setTypedWord,
         newRandomWord,
         dontKnow,
+        toggleHandler,
+        learned,
+        unlearned,
         typedWord,
         randomWord,
         status,
         startGame,
-        isOffline
+        isOffline,
+        isEnoughWords
     } = useGame();
 
     if (!startGame) {
@@ -26,22 +31,36 @@ const Game = () => {
     }
 
     return (
-        randomWord
-            ? <div className="game">
-                {isOffline && <h1>Offline</h1>}
-                <h2 className="game__title">{randomWord.translate}</h2>
-                <form onSubmit={(e) => submit(e)} className="form">
-                    <input required onChange={(e) => setTypedWord(e.target.value)} value={typedWord} placeholder="Translate" className={`input ${status}`} />
-                    <button className="button">Submit</button>
-                </form>
-                <div className="buttonsBlock">
-                    <button onClick={newRandomWord} className="button">Skip</button>
-                    <button onClick={dontKnow} className="button">I don't know</button>
-                </div>
+        <>
+            <Filter
+                learned={learned}
+                unlearned={unlearned}
+                toggleHandler={toggleHandler}
+            />
+            <div className="game">
+                {isEnoughWords
+                    ? <>
+                        {isOffline && <h1>Offline</h1>}
+                        <h2 className="game__title">{randomWord?.translate}</h2>
+                        <form onSubmit={(e) => submit(e)} className="form">
+                            <input
+                                required
+                                onChange={(e) => setTypedWord(e.target.value)}
+                                value={typedWord}
+                                placeholder="Translate"
+                                className={`input ${status}`}
+                            />
+                            <button className="button">Submit</button>
+                        </form>
+                        <div className="buttonsBlock">
+                            <button onClick={newRandomWord} className="button">Skip</button>
+                            <button onClick={dontKnow} className="button">I don't know</button>
+                        </div>
+                    </>
+                    : <h3>Not enough words</h3>
+                }
             </div>
-            : <div className="game">
-                <h3>Not enough words</h3>
-            </div>
+        </>
     );
 };
 
