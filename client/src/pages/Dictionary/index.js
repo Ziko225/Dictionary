@@ -4,7 +4,6 @@ import useFilter from "../../hooks/useFilter";
 import Filter from "../../components/Filter";
 import Words from "./Words";
 import Verbs from "./Verbs";
-import "./styles.css";
 
 const Dictionary = ({ path }) => {
     const isWordsPage = path === "/";

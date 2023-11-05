@@ -1,6 +1,5 @@
 import { NavLink } from "react-router-dom";
 import { gamePath, verbsPath, wordsPath } from "../../AppRouter";
-import './styles.css';
 
 const Navigation = () => {
 

@@ -4,6 +4,8 @@ import Auth from './pages/Auth';
 import AppRouter from './AppRouter';
 import useAuth from './hooks/useAuth';
 import Navigation from './components/Navigation';
+import './styles.css';
+import 'normalize.css';
 
 function App() {
     const { isAuth, isOffline, login, check } = useAuth();

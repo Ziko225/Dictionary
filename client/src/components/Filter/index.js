@@ -1,5 +1,3 @@
-import "./styles.css";
-
 const Filter = ({ learned, unlearned, toggleHandler }) => {
 
     return (
