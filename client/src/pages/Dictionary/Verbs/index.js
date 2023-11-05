@@ -1,6 +1,5 @@
 import SpeakButton from "../../../components/SpeakButton";
 import useVerbs from "./useVerbs";
-import "styles.css"
 
 const Verbs = ({ isOffline, verbs, speak, toggleIsLearned, remove, addVerb }) => {
 

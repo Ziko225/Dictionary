@@ -1,7 +1,6 @@
 
 import Filter from "../../components/Filter";
 import useGame from "./useGame";
-import "./styles.css";
 
 const Game = () => {
     const {

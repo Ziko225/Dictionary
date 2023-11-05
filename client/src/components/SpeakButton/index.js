@@ -1,5 +1,4 @@
 import { ReactComponent as VolumeIco } from "./volume.svg";
-import "./styles.css";
 
 const SpeakButton = ({speak, data}) => {
     return (
