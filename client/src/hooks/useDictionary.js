@@ -1,11 +1,16 @@
 import { useContext, useEffect, useState } from 'react';
-import { httpGet, httpPost, httpPut, httpRemove } from "../http";
 import { AuthContext } from '../context/authContext';
+import useHttp from './useHttp';
 
 const useDictionary = (isWordsPage) => {
-    const { check, isOffline } = useContext(AuthContext);
+    const { check, isOffline, setIsOffline } = useContext(AuthContext);
 
     const [data, setData] = useState();
+
+    const getApi = useHttp();
+
+    const [isLoading, setIsLoading] = useState(false);
+
     const key = isWordsPage ? "words" : "verbs";
 
     const getWords = async () => {
@@ -15,7 +20,7 @@ const useDictionary = (isWordsPage) => {
             return true;
         }
 
-        const response = await httpGet(key);
+        const response = await getApi(key, "GET");
 
         if (!response?.ok) {
             check();
@@ -31,7 +36,7 @@ const useDictionary = (isWordsPage) => {
     };
 
     const add = async (data) => {
-        const response = await httpPost(key, data);
+        const response = await getApi(key, "POST", data);
         if (!response?.ok) {
             check();
             return response.json();
@@ -42,7 +47,7 @@ const useDictionary = (isWordsPage) => {
     };
 
     const toggleIsLearned = async (id) => {
-        const response = await httpPut(key, { id });
+        const response = await getApi(key, "PUT", { id });
         if (!response?.ok) {
             check();
             return false;
@@ -52,7 +57,7 @@ const useDictionary = (isWordsPage) => {
     };
 
     const removeWord = async (id) => {
-        const response = await httpRemove(`${key}/${id}`);
+        const response = await getApi(`${key}/${id}`, "DELETE");
         if (!response?.ok) {
             check();
             return false;
@@ -74,7 +79,16 @@ const useDictionary = (isWordsPage) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isOffline, isWordsPage]);
 
-    return { data, getWords, add, removeWord, toggleIsLearned, speak, isOffline };
+    return {
+        data,
+        getWords,
+        add,
+        removeWord,
+        toggleIsLearned,
+        speak,
+        isOffline,
+        isLoading
+    };
 };
 
 export default useDictionary;

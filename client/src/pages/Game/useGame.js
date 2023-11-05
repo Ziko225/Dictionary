@@ -4,7 +4,7 @@ import useDictionary from "../../hooks/useDictionary";
 import useFilter from "../../hooks/useFilter";
 
 const useGame = () => {
-    const { data, toggleIsLearned, speak, isOffline } = useDictionary(true);
+    const { data, toggleIsLearned, speak, isOffline, isLoading } = useDictionary(true);
 
     const { filteredData, learned, unlearned, toggleHandler } = useFilter(data);
 
@@ -124,7 +124,8 @@ const useGame = () => {
         randomWord,
         typedWord,
         isOffline,
-        isEnoughWords
+        isEnoughWords,
+        isLoading
     };
 };
 

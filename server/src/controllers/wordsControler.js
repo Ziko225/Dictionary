@@ -5,6 +5,7 @@ const key = "words";
 class WordsController {
 
     async get(req, res) {
+        // return
         const result = await dbLogic.getData(key);
         res.status(200).json(result);
     }
