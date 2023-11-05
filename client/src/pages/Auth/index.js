@@ -1,17 +1,16 @@
-import { useContext, useState } from 'react';
-import { AuthContext } from '../../context/authContext';
+import useLogin from './useLogin';
 
 const Auth = () => {
-    const [password, setPassword] = useState("");
-    const { login } = useContext(AuthContext);
+    const { handleSubmit, handlePassword, message } = useLogin();
 
     return (
         <div className='auth'>
             <h1 className='title'>Auth</h1>
-            <form className='auth__form' onSubmit={e => (login(e, password))}>
-                <input required className='input' type='password' onChange={(e) => setPassword(e.currentTarget.value)} placeholder='Password' />
+            <form className='auth__form' onSubmit={handleSubmit}>
+                <input required className='input' type='password' onChange={handlePassword} placeholder='Password' />
                 <button type='submit' className='button'>Log in</button>
             </form>
+            <h4 className="error">{message}</h4>
         </div>
     );
 };
