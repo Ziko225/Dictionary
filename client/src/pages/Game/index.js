@@ -1,5 +1,6 @@
 
 import Filter from "../../components/Filter";
+import Loading from "../../components/Loading";
 import useGame from "./useGame";
 
 const Game = () => {
@@ -17,7 +18,8 @@ const Game = () => {
         status,
         startGame,
         isOffline,
-        isEnoughWords
+        isEnoughWords,
+        isLoading
     } = useGame();
 
     if (!startGame) {
@@ -29,6 +31,10 @@ const Game = () => {
         );
     }
 
+    if (isLoading) {
+        return( <Loading />)
+    }
+
     return (
         <>
             <Filter
@@ -36,6 +42,8 @@ const Game = () => {
                 unlearned={unlearned}
                 toggleHandler={toggleHandler}
             />
+
+            
             <div className="game">
                 {isEnoughWords
                     ? <>

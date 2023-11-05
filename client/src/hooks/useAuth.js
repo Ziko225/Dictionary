@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { httpGet, httpPost } from "../http";
+import useHttp from './useHttp';
 
 const useAuth = () => {
     const [isAuth, setIsAuth] = useState(true);
     const [isOffline, setIsOffline] = useState(false);
 
+    const getApi = useHttp();
+
     const check = async () => {
-        const response = await httpGet("auth");
+        const response = await getApi("auth", "GET");
 
         if (!response) {
             setIsOffline(true);
@@ -26,7 +28,7 @@ const useAuth = () => {
     const login = async (e, password) => {
         e.preventDefault(e);
 
-        const response = await httpPost("auth", { password });
+        const response = await getApi("auth", "POST",{ password });
         if (!response?.ok) {
             setIsAuth(false);
             return;
@@ -35,7 +37,7 @@ const useAuth = () => {
         setIsAuth(true);
     };
 
-    return { login, check, isAuth, isOffline, };
+    return { login, check, isAuth, isOffline, setIsOffline };
 };
 
 export default useAuth;

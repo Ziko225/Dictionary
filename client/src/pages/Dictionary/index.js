@@ -4,22 +4,19 @@ import useFilter from "../../hooks/useFilter";
 import Filter from "../../components/Filter";
 import Words from "./Words";
 import Verbs from "./Verbs";
+import Loading from "../../components/Loading";
 
 const Dictionary = ({ path }) => {
     const isWordsPage = path === "/";
 
-    const { data, add, removeWord, toggleIsLearned, speak, isOffline } = useDictionary(isWordsPage);
+    const { data, add, removeWord, toggleIsLearned, speak, isOffline, isLoading } = useDictionary(isWordsPage);
 
     const { filteredData, learned, unlearned, toggleHandler } = useFilter(data);
 
     const [search, setSearch] = useState("");
 
-    if (!filteredData) {
-        return (
-            <div className="container">
-                <h2>Loading...</h2>
-            </div>
-        );
+    if (isLoading || !filteredData) {
+        return( <Loading />)
     }
 
     const searchData = filteredData.filter((e) => e.name.match(search.toLowerCase()));
