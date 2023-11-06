@@ -32,7 +32,7 @@ const Game = () => {
     }
 
     if (isLoading) {
-        return( <Loading />)
+        return (<Loading />);
     }
 
     return (
@@ -43,7 +43,7 @@ const Game = () => {
                 toggleHandler={toggleHandler}
             />
 
-            
+
             <div className="game">
                 {isEnoughWords
                     ? <>

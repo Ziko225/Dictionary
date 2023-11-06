@@ -1,44 +1,52 @@
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/authContext';
+import { useLocation } from "react-router-dom";
 import useHttp from './useHttp';
 
 const useDictionary = (isWordsPage) => {
-    const { check, isOffline, setIsOffline } = useContext(AuthContext);
+    const { isOffline } = useContext(AuthContext);
 
     const [data, setData] = useState();
 
-    const getApi = useHttp();
-
-    const [isLoading, setIsLoading] = useState(false);
+    const { getApi, isLoading } = useHttp();
 
     const key = isWordsPage ? "words" : "verbs";
 
+    const location = useLocation();
+
+    useEffect(() => {
+        getWords();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isOffline, isWordsPage]);
+
+    useEffect(() => {
+        if (isOffline) {
+            getApi("auth", "GET");
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [location]);
+
     const getWords = async () => {
         if (isOffline) {
+
             setData(JSON.parse(localStorage.getItem(key)));
-            check();
             return true;
         }
 
         const response = await getApi(key, "GET");
 
-        if (!response?.ok) {
-            check();
-            return false;
-        }
-
-        const result = await response.json();
+        const result = await response.json(); // if empty data problem
 
         setData(result);
         localStorage.setItem(key, JSON.stringify(result));
 
-        return true;
+        return response;
     };
 
     const add = async (data) => {
         const response = await getApi(key, "POST", data);
-        if (!response?.ok) {
-            check();
+
+        if (!response.ok) {
             return response.json();
         }
 
@@ -47,21 +55,13 @@ const useDictionary = (isWordsPage) => {
     };
 
     const toggleIsLearned = async (id) => {
-        const response = await getApi(key, "PUT", { id });
-        if (!response?.ok) {
-            check();
-            return false;
-        }
+        await getApi(key, "PUT", { id });
 
         getWords();
     };
 
     const removeWord = async (id) => {
-        const response = await getApi(`${key}/${id}`, "DELETE");
-        if (!response?.ok) {
-            check();
-            return false;
-        }
+        await getApi(`${key}/${id}`, "DELETE");
 
         getWords();
 
@@ -73,11 +73,6 @@ const useDictionary = (isWordsPage) => {
         utterance.lang = "en-US";
         window.speechSynthesis.speak(utterance);
     };
-
-    useEffect(() => {
-        getWords();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isOffline, isWordsPage]);
 
     return {
         data,

@@ -6,7 +6,7 @@ const useLogin = () => {
     const [password, setPassword] = useState("");
     const [status, setStatus] = useState("");
 
-    const { check } = useContext(AuthContext);
+    const { setIsAuth } = useContext(AuthContext);
 
     const { getApi } = useHttp();
 
@@ -23,7 +23,7 @@ const useLogin = () => {
             return;
         }
 
-        check();
+        setIsAuth(true);
     };
 
     const handlePassword = (e) => {
