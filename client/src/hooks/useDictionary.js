@@ -28,14 +28,17 @@ const useDictionary = (isWordsPage) => {
 
     const getWords = async () => {
         if (isOffline) {
-
             setData(JSON.parse(localStorage.getItem(key)));
             return true;
         }
 
         const response = await getApi(key, "GET");
 
-        const result = await response.json(); // if empty data problem
+        if (!response) {
+            return;
+        }
+
+        const result = await response.json();
 
         setData(result);
         localStorage.setItem(key, JSON.stringify(result));
