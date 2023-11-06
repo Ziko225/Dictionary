@@ -31,7 +31,7 @@ class VerbsController {
                 return res.status(400).json(result.msg);
             }
 
-            res.status(200).json(result);
+            res.status(201).json(result.msg);
 
         } catch (e) {
             res.status(500).json(e);

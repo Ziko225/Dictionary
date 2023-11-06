@@ -5,7 +5,6 @@ const key = "words";
 class WordsController {
 
     async get(req, res) {
-        // return
         const result = await dbLogic.getData(key);
         res.status(200).json(result);
     }
@@ -27,10 +26,10 @@ class WordsController {
                 return res.status(400).json(result.msg);
             }
 
-            res.status(200).json(result);
+            res.status(201).json(result.msg);
 
-        } catch (e) {
-            res.status(500).json(e);
+        } catch (error) {
+            res.status(500).json(error);
         }
     };
 
