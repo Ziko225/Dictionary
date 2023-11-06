@@ -2,9 +2,13 @@ const fs = require('fs');
 
 class DBLogic {
 
+    async readDB() {
+        return await JSON.parse(fs.readFileSync('./db.json'));
+    }
+
     async getData(dbTitle) {
         try {
-            const fileContent = await JSON.parse(fs.readFileSync('./db.json'));
+            const fileContent = await this.readDB();
             return fileContent[dbTitle];
         } catch (error) {
             fs.writeFileSync("./db.json", JSON.stringify(
@@ -15,14 +19,14 @@ class DBLogic {
             ));
             console.log("(!) ### created new DataBase ###");
 
-            const fileContent = await JSON.parse(fs.readFileSync('./db.json'));
+            const fileContent = await this.readDB();
             return fileContent[dbTitle];
         }
     };
 
     async add(dbTitle, data) {
         const result = {
-            status: true,
+            status: false,
             msg: ""
         };
 
@@ -33,28 +37,28 @@ class DBLogic {
         }
 
         try {
-            const db = await fs.readFileSync('./db.json');
-            const parsedData = JSON.parse(db);
+            const db = await this.readDB();
 
             const name = data.name;
 
-            if (parsedData[dbTitle].filter((e) => e.name === name)[0]) {
+            if (db[dbTitle].filter((e) => e.name === name)[0]) {
                 result.status = false;
                 result.msg = `${name} already exist!`;
                 console.log(`(!) Trying to add new word: ${name}`);
                 return result;
             };
 
-            const lastId = parsedData[dbTitle][parsedData[dbTitle].length - 1]?.id || 0;
+            const lastId = db[dbTitle][db[dbTitle].length - 1]?.id || 0;
 
             data.id = lastId + 1;
 
-            parsedData[dbTitle].push(data);
+            db[dbTitle].push(data);
 
             console.log(`(!) Added new word: ${name}`);
 
-            fs.writeFileSync("./db.json", JSON.stringify(parsedData));
+            fs.writeFileSync("./db.json", JSON.stringify(db));
 
+            result.status = true;
             return result;
         } catch (error) {
             console.error(error);
@@ -74,12 +78,11 @@ class DBLogic {
         }
 
         try {
-            const data = await fs.readFileSync('./db.json');
-            const parsedData = JSON.parse(data);
+            const db = await this.readDB();
 
-            const index = parsedData[dbTitle].findIndex((e) => e.id === id);
+            const index = db[dbTitle].findIndex((e) => e.id === id);
 
-            const selectedWord = parsedData[dbTitle][index];
+            const selectedWord = db[dbTitle][index];
 
             if (index === -1) {
                 result.status = false;
@@ -89,10 +92,10 @@ class DBLogic {
 
             selectedWord.learned = !selectedWord.learned;
 
-            fs.writeFile("./db.json", JSON.stringify(parsedData), () => {
+            fs.writeFile("./db.json", JSON.stringify(db), () => {
                 console.log(
                     `(!) Toggled learned word: ${selectedWord.name} ${selectedWord.learned
-                        ? "✓"
+                        ? "V"
                         : "X"}`
                 );
             });
@@ -104,8 +107,6 @@ class DBLogic {
     };
 
     async remove(dbTitle, id) {
-        const data = await fs.readFileSync('./db.json');
-
         const result = {
             status: true,
             msg: ""
@@ -118,9 +119,9 @@ class DBLogic {
         }
 
         try {
-            const parsedData = JSON.parse(data);
+            const db = await this.readDB();
 
-            const index = parsedData[dbTitle].findIndex((e) => e.id === id);
+            const index = db[dbTitle].findIndex((e) => e.id === id);
             if (index === -1) {
                 result.status = false;
                 result.msg = "id not found";
@@ -128,15 +129,15 @@ class DBLogic {
             }
 
             const newData = [
-                ...parsedData[dbTitle].slice(0, index),
-                ...parsedData[dbTitle].slice(index + 1)
+                ...db[dbTitle].slice(0, index),
+                ...db[dbTitle].slice(index + 1)
             ];
 
-            const selectedWord = parsedData[dbTitle][index]?.name;
+            const selectedWord = db[dbTitle][index]?.name;
 
-            parsedData[dbTitle] = newData;
+            db[dbTitle] = newData;
 
-            fs.writeFile("./db.json", JSON.stringify(parsedData), () => {
+            fs.writeFile("./db.json", JSON.stringify(db), () => {
                 console.log(`(!) Word: ${selectedWord} removed successful`);
             });
 
