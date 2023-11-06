@@ -18,17 +18,16 @@ const ModalsAddWord = ({ addWord }) => {
         const isAdded = await addWord(data);
 
         if (isAdded !== true) {
-            setMsg(isAdded);
-            return;
+            return setMsg(isAdded);
         }
 
         setName("");
         setTranslate("");
-        ref.current.focus();
+        ref.current?.focus();
     };
 
     return (
-        <form onSubmit={(e) => addNewWorld(e)} className='addWord'>
+        <form onSubmit={addNewWorld} className='addWord'>
             <span className='error'>{msg}</span>
             <input
                 autoFocus
