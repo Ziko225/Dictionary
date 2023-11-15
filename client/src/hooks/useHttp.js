@@ -44,6 +44,23 @@ const useHttp = () => {
             setIsloading(true);
         }
 
+        const checkResponseStatus = (responseStatus) => {
+            if (!responseStatus) {
+                return null;
+            }
+
+            stopTimer();
+
+            if (responseStatus === 401) {
+                setIsAuth(false);
+                return null;
+            }
+
+            if (responseStatus === 400) {
+                return response;
+            }
+        };
+
         try {
             switch (method) {
                 case "GET":
@@ -85,24 +102,15 @@ const useHttp = () => {
                     throw Error("The method is not correct");
             }
 
-            stopTimer();
+            const result = checkResponseStatus(response?.status);
 
-            return response;
+            return result;
         } catch (error) {
-            const responseStatus = error?.response?.status;
-
-            if (responseStatus === 401) {
-                stopTimer();
-                return setIsAuth(false);
-            }
-
-            if (responseStatus === 400) {
-                stopTimer();
-                return response;
-            }
+            const result = checkResponseStatus(error?.response?.status);
 
             setIsOffline(true);
-            return response;
+
+            return result;
         }
     };
 
