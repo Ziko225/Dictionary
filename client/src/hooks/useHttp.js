@@ -1,10 +1,8 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 
 const useHttp = () => {
-    const [isLoading, setIsloading] = useState(false);
-
-    const { setIsOffline, setIsAuth, isOffline } = useContext(AuthContext);
+    const { setIsOffline, setIsAuth, isOffline, setIsLoading } = useContext(AuthContext);
 
     const getApi = async (path, method, data) => {
         const url = process.env.REACT_APP_URL || "";
@@ -25,24 +23,19 @@ const useHttp = () => {
         const timeout = setTimeout(() => {
             response = null;
 
-            setIsloading(false);
             setIsOffline(true);
+            setIsLoading(false);
 
             return response;
         }, responseTimeout);
 
         const stopTimer = () => {
             clearTimeout(timeout);
-            setIsloading(false);
 
             if (isOffline) {
                 setIsOffline(false);
             }
         };
-
-        if (path === "words" || path === "verbs") {
-            setIsloading(true);
-        }
 
         const checkResponseStatus = (responseStatus) => {
             if (!responseStatus) {
@@ -56,14 +49,13 @@ const useHttp = () => {
                 return null;
             }
 
-            if (responseStatus === 400) {
-                return response;
-            }
+            return response;
         };
 
         try {
             switch (method) {
                 case "GET":
+
                     response = await fetch(urlWithPath, {
                         method: method,
                         origin: url,
@@ -103,10 +95,13 @@ const useHttp = () => {
             }
 
             const result = checkResponseStatus(response?.status);
+            setIsLoading(false);
 
             return result;
         } catch (error) {
+
             const result = checkResponseStatus(error?.response?.status);
+            setIsLoading(false);
 
             setIsOffline(true);
 
@@ -114,7 +109,7 @@ const useHttp = () => {
         }
     };
 
-    return { getApi, isLoading };
+    return { getApi };
 };
 
 export default useHttp;

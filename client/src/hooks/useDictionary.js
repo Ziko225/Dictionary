@@ -4,11 +4,11 @@ import { useLocation } from "react-router-dom";
 import useHttp from './useHttp';
 
 const useDictionary = (isWordsPage) => {
-    const { isOffline } = useContext(AuthContext);
+    const { isOffline, isLoading } = useContext(AuthContext);
 
     const [data, setData] = useState();
 
-    const { getApi, isLoading } = useHttp();
+    const { getApi } = useHttp();
 
     const key = isWordsPage ? "words" : "verbs";
 
@@ -29,6 +29,7 @@ const useDictionary = (isWordsPage) => {
     const getWords = async () => {
         if (isOffline) {
             setData(JSON.parse(localStorage.getItem(key)));
+
             return true;
         }
 
@@ -49,8 +50,8 @@ const useDictionary = (isWordsPage) => {
     const add = async (data) => {
         const response = await getApi(key, "POST", data);
 
-        if (!response.ok) {
-            return response.json();
+        if (!response?.ok) {
+            return "Something get wrong";
         }
 
         getWords();

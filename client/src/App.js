@@ -8,10 +8,10 @@ import './styles.css';
 import 'normalize.css';
 
 function App() {
-    const { isAuth, isOffline, setIsAuth, setIsOffline } = useAuth();
+    const { isAuth, isOffline, isLoading, setIsLoading, setIsAuth, setIsOffline } = useAuth();
 
     return (
-        <AuthContext.Provider value={{ isAuth, isOffline, setIsAuth, setIsOffline }}>
+        <AuthContext.Provider value={{ isAuth, isOffline, isLoading, setIsLoading, setIsAuth, setIsOffline }}>
             {isAuth
                 ? <BrowserRouter>
                     <Navigation />

@@ -5,5 +5,5 @@ export function useToggle(defaultValue) {
 
     const toggle = useCallback(() => setValue(x => !x), []);
 
-    return [value, toggle];
+    return [value, toggle, setValue];
 }
