@@ -38,7 +38,7 @@ const useGame = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [learned, unlearned, backward]);
 
-    const clearWord = (word) => {
+    const cleanWord = (word) => {
         return word.toLowerCase().trim();
     };
 
@@ -73,24 +73,55 @@ const useGame = () => {
     const submit = (e) => {
         e.preventDefault();
 
-        if (clearWord(typedWord) !== clearWord(randomWordCurrentName)) {
-            setStatus("mistake");
-            return;
-        }
+        const cleanTypedWord = cleanWord(typedWord);
+
+        const splitString = (word = "") => {
+            if (!word) {
+                return [];
+            }
+    
+            if (word.includes("(")) {
+                const optional = word.slice(word.lastIndexOf("(", word.lastIndexOf(")")));
+                word = word.replace(optional, "").trim();
+            }
+    
+            word = word.replace("/", "@");
+            word = word.replace(";", "@");
+            word = word.replace(",", "@");
+    
+            return word.split("@").map((name) => name = name.trim());
+        };
 
         const ok = () => {
             if (!randomWord.learned) {
                 toggleIsLearned(randomWord.id);
             }
 
-            setStatus("");
-            setTypedWord("");
-            newRandomWord();
+            setStatus("ok");
+            speak(randomWordName);
+
+            const timeout = setTimeout(() => {
+                setStatus("");
+                setTypedWord("");
+                newRandomWord();
+                clearTimeout(timeout);
+            }, 1000);
         };
 
-        setTimeout(ok, 1000);
-        setStatus("ok");
-        speak(randomWordName);
+        if (backward) {
+            const translate = cleanWord(randomWord.translate);
+            const isArrayIncludeTypedWord = splitString(translate).includes(cleanTypedWord);
+
+            if (isArrayIncludeTypedWord) {
+                return ok();
+            }
+        }
+
+        if (cleanTypedWord === cleanWord(randomWordCurrentName)) {
+            return ok();
+        }
+
+        setStatus("mistake");
     };
 
     const dontKnow = () => {

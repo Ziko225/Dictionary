@@ -15,10 +15,10 @@ const ModalsAddWord = ({ addWord }) => {
         e.preventDefault();
         setMsg("");
 
-        const isAdded = await addWord(data);
+        const response = await addWord(data);
 
-        if (isAdded !== true) {
-            return setMsg(isAdded);
+        if (response !== true) {
+            return setMsg(response);
         }
 
         setName("");
