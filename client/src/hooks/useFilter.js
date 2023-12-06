@@ -10,17 +10,19 @@ const useFilter = () => {
             return [];
         }
 
-        if (learned && !unlearned) {
+        if (learned && unlearned) {
+            return data;
+        }
+
+        if (learned) {
             return data.filter((e) => e.learned);
         }
 
-        if (unlearned && !learned) {
+        if (unlearned) {
             return data.filter((e) => !e.learned);
         }
 
-        if (!unlearned && !learned) {
-            return [];
-        }
+        return [];
     };
 
     const toggleHandler = (e) => {
@@ -37,9 +39,7 @@ const useFilter = () => {
         toggleUnlearned();
     };
 
-    const filter = { learned, unlearned, backward, getFilteredData, toggleHandler };
-
-    return filter;
+    return { learned, unlearned, backward, getFilteredData, toggleHandler };
 };
 
 export default useFilter;

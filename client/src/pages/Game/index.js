@@ -10,6 +10,7 @@ const Game = () => {
         setTypedWord,
         newRandomWord,
         dontKnow,
+        backward,
         toggleHandler,
         learned,
         unlearned,
@@ -21,6 +22,8 @@ const Game = () => {
         isEnoughWords,
         isLoading
     } = useGame();
+
+    const word = backward ? randomWord.name : randomWord.translate;
 
     if (!startGame) {
         return (
@@ -48,7 +51,7 @@ const Game = () => {
                 {isEnoughWords
                     ? <>
                         {isOffline && <h1>Offline</h1>}
-                        <h2 className="game__title">{randomWord?.translate}</h2>
+                        <h2 className="game__title">{word}</h2>
                         <form onSubmit={(e) => submit(e)} className="form">
                             <input
                                 required

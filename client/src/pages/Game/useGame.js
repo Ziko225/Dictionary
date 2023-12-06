@@ -6,10 +6,15 @@ import { FilterContext } from "../../context/filterContext";
 const useGame = () => {
     const { data, toggleIsLearned, speak, isOffline, isLoading } = useDictionary(true);
 
-    const { filteredData, learned, unlearned, backward, toggleHandler } = useContext(FilterContext);
+    const { getFilteredData, learned, unlearned, backward, toggleHandler } = useContext(FilterContext);
 
-    const [randomWord, setRandomWord] = useState();
-    const randomWordName = randomWord?.name;
+    const filteredData = getFilteredData(data);
+
+    const [randomWord, setRandomWord] = useState({ name: "" });
+
+    const randomWordCurrentName = backward ? randomWord.translate : randomWord.name;
+
+    const randomWordName = randomWord.name;
 
     const [typedWord, setTypedWord] = useState("");
 
@@ -31,7 +36,7 @@ const useGame = () => {
     useEffect(() => {
         newRandomWord();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [filteredData]);
+    }, [learned, unlearned, backward]);
 
     const clearWord = (word) => {
         return word.toLowerCase().trim();
@@ -68,7 +73,7 @@ const useGame = () => {
     const submit = (e) => {
         e.preventDefault();
 
-        if (clearWord(typedWord) !== clearWord(randomWordName)) {
+        if (clearWord(typedWord) !== clearWord(randomWordCurrentName)) {
             setStatus("mistake");
             return;
         }
@@ -93,7 +98,7 @@ const useGame = () => {
             toggleIsLearned(randomWord.id);
         }
 
-        setTypedWord(randomWordName);
+        setTypedWord(randomWordCurrentName);
         speak(randomWordName);
 
         const ok = () => {
@@ -116,6 +121,7 @@ const useGame = () => {
         start,
         submit,
         dontKnow,
+        backward,
         toggleHandler,
         learned,
         unlearned,
