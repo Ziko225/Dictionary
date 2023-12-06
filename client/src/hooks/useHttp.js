@@ -55,7 +55,6 @@ const useHttp = () => {
         try {
             switch (method) {
                 case "GET":
-
                     response = await fetch(urlWithPath, {
                         method: method,
                         origin: url,

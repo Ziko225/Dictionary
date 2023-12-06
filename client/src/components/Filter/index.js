@@ -1,4 +1,8 @@
-const Filter = ({ learned, unlearned, toggleHandler }) => {
+import { useContext } from "react";
+import { FilterContext } from "../../context/filterContext";
+
+const Filter = ({ game }) => {
+    const { learned, unlearned, backward, toggleHandler } = useContext(FilterContext);
 
     return (
         <div className="filter">
@@ -10,6 +14,11 @@ const Filter = ({ learned, unlearned, toggleHandler }) => {
                 <button value="unlearned" onClick={toggleHandler} className={`block__button ${unlearned ? "active" : ""}`} />
                 <span className="block__text">Show unlearned</span>
             </div>
+            {game &&
+                <div className="filter__block">
+                    <button value="backward" onClick={toggleHandler} className={`block__button ${backward ? "active" : ""}`} />
+                    <span className="block__text">Backwards words</span>
+                </div>}
         </div>
     );
 };

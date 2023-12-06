@@ -1,12 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useToggle } from "../../hooks/useToggle";
 import useDictionary from "../../hooks/useDictionary";
-import useFilter from "../../hooks/useFilter";
+import { FilterContext } from "../../context/filterContext";
 
 const useGame = () => {
     const { data, toggleIsLearned, speak, isOffline, isLoading } = useDictionary(true);
 
-    const { filteredData, learned, unlearned, toggleHandler } = useFilter(data);
+    const { filteredData, learned, unlearned, backward, toggleHandler } = useContext(FilterContext);
 
     const [randomWord, setRandomWord] = useState();
     const randomWordName = randomWord?.name;

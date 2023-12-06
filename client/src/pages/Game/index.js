@@ -41,8 +41,8 @@ const Game = () => {
                 learned={learned}
                 unlearned={unlearned}
                 toggleHandler={toggleHandler}
+                game
             />
-
 
             <div className="game">
                 {isEnoughWords

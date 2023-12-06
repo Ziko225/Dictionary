@@ -1,38 +1,34 @@
-import { useEffect, useState } from "react";
 import { useToggle } from "./useToggle";
 
-const useFilter = (data) => {
-    const [learned, toggleLearned] = useToggle();
+const useFilter = () => {
+    const [learned, toggleLearned] = useToggle(false);
     const [unlearned, toggleUnlearned] = useToggle(true);
+    const [backward, toggleBackward] = useToggle(false);
 
-    const [filteredData, setFilteredData] = useState(null);
-
-    useEffect(() => {
-        setFilteredData(data);
-    }, [data]);
-
-    useEffect(() => {
+    const getFilteredData = (data) => {
         if (!data) {
-            return setFilteredData([]);
+            return [];
         }
 
         if (learned && !unlearned) {
-            return setFilteredData(data.filter((e) => e.learned));
+            return data.filter((e) => e.learned);
         }
 
         if (unlearned && !learned) {
-            return setFilteredData(data.filter((e) => !e.learned));
+            return data.filter((e) => !e.learned);
         }
 
         if (!unlearned && !learned) {
-           return setFilteredData([]);
+            return [];
         }
-
-        setFilteredData(data);
-    }, [data, learned, unlearned]);
+    };
 
     const toggleHandler = (e) => {
-        const value = e?.currentTarget?.value;
+        const value = e.currentTarget.value;
+
+        if (value === "backward") {
+            return toggleBackward();
+        }
 
         if (value === "learned") {
             return toggleLearned();
@@ -41,7 +37,9 @@ const useFilter = (data) => {
         toggleUnlearned();
     };
 
-    return { filteredData, learned, unlearned, toggleHandler };
+    const filter = { learned, unlearned, backward, getFilteredData, toggleHandler };
+
+    return filter;
 };
 
 export default useFilter;
