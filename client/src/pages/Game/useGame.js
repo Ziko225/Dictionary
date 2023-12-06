@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useToggle } from "../../hooks/useToggle";
 import useDictionary from "../../hooks/useDictionary";
 import { FilterContext } from "../../context/filterContext";
@@ -11,6 +11,8 @@ const useGame = () => {
     const filteredData = getFilteredData(data);
 
     const [randomWord, setRandomWord] = useState({ name: "" });
+
+    const inputRef = useRef(null)
 
     const randomWordCurrentName = backward ? randomWord.translate : randomWord.name;
 
@@ -68,6 +70,7 @@ const useGame = () => {
         }
 
         setRandomWord(nextRandomWord);
+        inputRef.current?.focus()
     };
 
     const submit = (e) => {
@@ -160,6 +163,7 @@ const useGame = () => {
         toggleHandler,
         learned,
         unlearned,
+        inputRef,
         status,
         startGame,
         randomWord,

@@ -14,6 +14,7 @@ const Game = () => {
         toggleHandler,
         learned,
         unlearned,
+        inputRef,
         typedWord,
         randomWord,
         status,
@@ -55,7 +56,7 @@ const Game = () => {
                         <form onSubmit={(e) => submit(e)} className="form">
                             <input
                                 required
-                                disabled={status === "ok"}
+                                ref={inputRef}
                                 onChange={(e) => setTypedWord(e.target.value)}
                                 value={typedWord}
                                 placeholder="Translate"
