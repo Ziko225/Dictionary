@@ -370,6 +370,9 @@
   border-radius: 6px;
   padding: 5px;
 }
+.game .form .input:disabled {
+  background-color: white;
+}
 .game .form .ok {
   outline: 4px solid rgba(0, 255, 0, 0.4666666667);
 }

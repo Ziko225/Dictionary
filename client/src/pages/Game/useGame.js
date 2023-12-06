@@ -1,15 +1,22 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useToggle } from "../../hooks/useToggle";
 import useDictionary from "../../hooks/useDictionary";
-import useFilter from "../../hooks/useFilter";
+import { FilterContext } from "../../context/filterContext";
 
 const useGame = () => {
     const { data, toggleIsLearned, speak, isOffline, isLoading } = useDictionary(true);
 
-    const { filteredData, learned, unlearned, toggleHandler } = useFilter(data);
+    const { getFilteredData, learned, unlearned, backward, toggleHandler } = useContext(FilterContext);
 
-    const [randomWord, setRandomWord] = useState();
-    const randomWordName = randomWord?.name;
+    const filteredData = getFilteredData(data);
+
+    const [randomWord, setRandomWord] = useState({ name: "" });
+
+    const inputRef = useRef(null)
+
+    const randomWordCurrentName = backward ? randomWord.translate : randomWord.name;
+
+    const randomWordName = randomWord.name;
 
     const [typedWord, setTypedWord] = useState("");
 
@@ -26,14 +33,14 @@ const useGame = () => {
 
         setStatus("");
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [typedWord]);
+    }, [randomWord]);
 
     useEffect(() => {
         newRandomWord();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [filteredData]);
+    }, [learned, unlearned, backward]);
 
-    const clearWord = (word) => {
+    const cleanWord = (word) => {
         return word.toLowerCase().trim();
     };
 
@@ -63,29 +70,65 @@ const useGame = () => {
         }
 
         setRandomWord(nextRandomWord);
+        inputRef.current?.focus()
     };
 
     const submit = (e) => {
         e.preventDefault();
 
-        if (clearWord(typedWord) !== clearWord(randomWordName)) {
-            setStatus("mistake");
-            return;
-        }
+        const cleanTypedWord = cleanWord(typedWord);
+
+        const splitString = (word = "") => {
+            if (!word) {
+                return [];
+            }
+
+            word = word.replace("/", "@");
+            word = word.replace(";", "@");
+            word = word.replace("'", "");
+            word = word.replace(",", "@");
+
+            return word.split("@").map((name) => {
+                if (name.includes("(")) {
+                    const optional = name.slice(name.lastIndexOf("(", name.lastIndexOf(")")));
+                    return name = name.replace(optional, "").trim();
+                }
+
+                return name = name.trim();
+            });
+        };
 
         const ok = () => {
             if (!randomWord.learned) {
                 toggleIsLearned(randomWord.id);
             }
 
-            setStatus("");
-            setTypedWord("");
-            newRandomWord();
+            setStatus("ok");
+            speak(randomWordName);
+            setTypedWord(randomWordCurrentName);
+
+            const timeout = setTimeout(() => {
+                setStatus("");
+                setTypedWord("");
+                newRandomWord();
+                clearTimeout(timeout);
+            }, 1000);
         };
 
-        setTimeout(ok, 1000);
-        setStatus("ok");
-        speak(randomWordName);
+        if (backward) {
+            const translate = cleanWord(randomWord.translate);
+            const isArrayIncludeTypedWord = splitString(translate).includes(cleanTypedWord);
+
+            if (isArrayIncludeTypedWord) {
+                return ok();
+            }
+        }
+
+        if (cleanTypedWord === cleanWord(randomWordCurrentName)) {
+            return ok();
+        }
+
+        setStatus("mistake");
     };
 
     const dontKnow = () => {
@@ -93,7 +136,7 @@ const useGame = () => {
             toggleIsLearned(randomWord.id);
         }
 
-        setTypedWord(randomWordName);
+        setTypedWord(randomWordCurrentName);
         speak(randomWordName);
 
         const ok = () => {
@@ -116,9 +159,11 @@ const useGame = () => {
         start,
         submit,
         dontKnow,
+        backward,
         toggleHandler,
         learned,
         unlearned,
+        inputRef,
         status,
         startGame,
         randomWord,

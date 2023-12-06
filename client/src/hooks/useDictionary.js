@@ -50,12 +50,16 @@ const useDictionary = (isWordsPage) => {
     const add = async (data) => {
         const response = await getApi(key, "POST", data);
 
-        if (!response?.ok) {
-            return "Something get wrong";
+        if (response.ok) {
+            getWords();
+            return true;
         }
 
-        getWords();
-        return true;
+        if (response.status === 400) {
+            return await response.json();
+        }
+
+        return "Something get wrong";
     };
 
     const toggleIsLearned = async (id) => {

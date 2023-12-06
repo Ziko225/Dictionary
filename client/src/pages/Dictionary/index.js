@@ -1,22 +1,26 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import useDictionary from "../../hooks/useDictionary";
-import useFilter from "../../hooks/useFilter";
 import Filter from "../../components/Filter";
 import Words from "./Words";
 import Verbs from "./Verbs";
 import Loading from "../../components/Loading";
+import { FilterContext } from "../../context/filterContext";
 
 const Dictionary = ({ path }) => {
     const isWordsPage = path === "/";
 
     const { data, add, removeWord, toggleIsLearned, speak, isOffline, isLoading } = useDictionary(isWordsPage);
 
-    const { filteredData, learned, unlearned, toggleHandler } = useFilter(data);
+    const { getFilteredData, learned, unlearned, toggleHandler } = useContext(FilterContext);
+
+    const filteredData = getFilteredData(data);
 
     const [search, setSearch] = useState("");
 
     if (isLoading || !filteredData) {
-        return( <Loading />)
+        return (
+            <Loading />
+        );
     }
 
     const searchData = filteredData.filter((e) => e.name.match(search.toLowerCase()));
@@ -30,7 +34,7 @@ const Dictionary = ({ path }) => {
             />
 
             <div className="search">
-                {isOffline ? <h1>Offline</h1> : null}
+                {isOffline && <h1>Offline</h1>}
                 <input
                     className="search__input"
                     onChange={(e) => setSearch(e.currentTarget.value)}
