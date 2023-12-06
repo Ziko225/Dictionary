@@ -31,7 +31,7 @@ const useGame = () => {
 
         setStatus("");
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [typedWord]);
+    }, [randomWord]);
 
     useEffect(() => {
         newRandomWord();
@@ -79,17 +79,20 @@ const useGame = () => {
             if (!word) {
                 return [];
             }
-    
-            if (word.includes("(")) {
-                const optional = word.slice(word.lastIndexOf("(", word.lastIndexOf(")")));
-                word = word.replace(optional, "").trim();
-            }
-    
+
             word = word.replace("/", "@");
             word = word.replace(";", "@");
+            word = word.replace("'", "");
             word = word.replace(",", "@");
-    
-            return word.split("@").map((name) => name = name.trim());
+
+            return word.split("@").map((name) => {
+                if (name.includes("(")) {
+                    const optional = name.slice(name.lastIndexOf("(", name.lastIndexOf(")")));
+                    return name = name.replace(optional, "").trim();
+                }
+
+                return name = name.trim();
+            });
         };
 
         const ok = () => {
@@ -99,6 +102,7 @@ const useGame = () => {
 
             setStatus("ok");
             speak(randomWordName);
+            setTypedWord(randomWordCurrentName);
 
             const timeout = setTimeout(() => {
                 setStatus("");

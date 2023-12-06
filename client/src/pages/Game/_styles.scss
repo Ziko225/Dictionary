@@ -8,6 +8,7 @@
     margin-top: 20px;
     margin: auto;
     font-size: 20px;
+
     @media (max-width: $mobileMax) {
         font-size: 15px;
     }
@@ -39,6 +40,10 @@
             border: none;
             border-radius: 6px;
             padding: 5px;
+        }
+
+        .input:disabled {
+            background-color: white
         }
 
         .ok {

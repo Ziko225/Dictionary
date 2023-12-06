@@ -55,6 +55,7 @@ const Game = () => {
                         <form onSubmit={(e) => submit(e)} className="form">
                             <input
                                 required
+                                disabled={status === "ok"}
                                 onChange={(e) => setTypedWord(e.target.value)}
                                 value={typedWord}
                                 placeholder="Translate"
