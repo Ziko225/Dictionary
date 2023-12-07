@@ -1,17 +1,30 @@
+@import "../../theme";
+
 .search {
     display: flex;
-    flex-direction: column;
     margin-top: 20px;
     width: 100%;
+    max-width: 400px;
+    margin: auto;
+    justify-content: center;
     align-items: center;
+    position: relative;
 
     .search__input {
-        color: teal;
-        outline-color: teal;
+        color: $componentBackgroundColor;
+        outline-color: $componentBackgroundColor;
+        width: 100%;
         font-weight: 800;
-        padding: 7px 12px;
+        padding: 10px 16px;
         border: none;
         border-radius: 6px;
         box-shadow: 1px 1px 4px #3337;
+    }
+
+    .search__ico {
+        position: absolute;
+        right: 10px;
+        pointer-events: none;
+        color: $componentBackgroundColor;
     }
 }

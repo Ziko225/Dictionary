@@ -113,7 +113,7 @@ $shadow: 1px 1px 4px #2227;
                 }
 
                 .controller__button--remove {
-                    background-color: red;
+                    background-color: $removeColor;
                     padding: 0 6px;
 
                     @media (max-width: $mobileMax) {

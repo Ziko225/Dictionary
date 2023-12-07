@@ -54,6 +54,8 @@
         width: 100%;
         max-width: 700px;
         margin-bottom: 7px;
+        border-radius: 6px;
+        overflow: hidden;
 
         .words__word {
             font-size: 24px;
@@ -102,7 +104,7 @@
         .words__removeButton {
             @include buttonComponent;
             height: 100%;
-            background-color: red;
+            background-color: $removeColor
         }
     }
 
