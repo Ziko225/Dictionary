@@ -61,16 +61,16 @@ const Game = () => {
                                 ref={inputRef}
                                 onChange={(e) => setTypedWord(e.target.value)}
                                 value={typedWord}
-                                placeholder="Translate"
+                                placeholder="Translate it"
                                 className={`input ${status}`}
                             />
-                            <button className="button">Submit</button>
                         </form>
                         <div className="buttonsBlock">
-                            {backward && <SpeakButton speak={() =>speak(word)} />}
+                            {backward && <SpeakButton speak={() => speak(word)} />}
                             <button onClick={newRandomWord} className="button">Skip</button>
                             <button onClick={dontKnow} className="button">I don't know</button>
                         </div>
+                        <button className="button button--primary">Submit</button>
                     </>
                     : <h3>Not enough words</h3>
                 }

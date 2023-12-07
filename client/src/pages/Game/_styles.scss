@@ -1,5 +1,7 @@
 @import "../../theme";
 
+$shadow: 2px 4px 4px #3332;
+
 .game {
     display: flex;
     flex-direction: column;
@@ -15,7 +17,6 @@
 
     .game__title {
         font-size: 50px;
-        margin-bottom: 10vh;
         margin-top: 10vh;
         text-align: center;
 
@@ -27,19 +28,25 @@
 
     .form {
         display: flex;
-        gap: 10px;
-        margin-bottom: 20px;
+        justify-content: center;
         font-size: 30px;
-
-        @media (max-width: $mobileMax) {
-            flex-direction: column;
-            font-size: 25px;
-        }
+        width: 100%;
 
         .input {
             border: none;
-            border-radius: 6px;
-            padding: 5px;
+            border-radius: 15px;
+            padding: 16px 14px;
+            width: 100%;
+            max-width: 700px;
+            box-shadow: $shadow;
+            margin-bottom: 20px;
+
+            @media (max-width: $mobileMax) {
+                flex-direction: column;
+                font-size: 25px;
+                max-width: 100%;
+                border-radius: 0;
+            }
         }
 
         .input:disabled {
@@ -54,26 +61,29 @@
             outline: 4px solid #f007;
         }
 
-        .button {
-            color: $textInComponent;
-            outline-color: teal;
-            font-weight: 800;
-            border: none;
-            border-radius: 6px;
-            box-shadow: 1px 1px 4px #3337;
-            margin: auto;
-        }
     }
 
     .button {
         color: $textInComponent;
         outline-color: teal;
         font-weight: 800;
-        padding: 7px 18px;
+        padding: 14px 24px;
         border: none;
-        border-radius: 6px;
-        box-shadow: 1px 1px 4px #3337;
+        border-radius: 10px;
+        box-shadow: $shadow;
         margin: auto;
+    }
+
+    .button--primary {
+        padding: 17px 28px;
+        margin-top: 15px;
+        max-width: 500px;
+        width: 50%;
+
+        @media (max-width: $mobileMax) {
+            margin-top: 25px;
+            min-width: 300px;
+        }
     }
 
     .buttonsBlock {
