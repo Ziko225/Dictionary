@@ -8,6 +8,8 @@ const useGame = () => {
 
     const { getFilteredData, learned, unlearned, backward, toggleHandler } = useContext(FilterContext);
 
+    const [isPause, setIsPause] = useState();
+
     const filteredData = getFilteredData(data);
 
     const [randomWord, setRandomWord] = useState({ name: "" });
@@ -44,37 +46,47 @@ const useGame = () => {
         return word.toLowerCase().trim();
     };
 
-    const newRandomWord = () => {
-        const getRandomWord = () => {
+    const getRandomWord = () => {
+        const max = filteredData?.length;
+        const min = 3;
 
-            const max = filteredData?.length;
-            const min = 3;
+        if (!filteredData || max < min) {
+            return false;
+        }
 
-            if (!filteredData || max < min) {
-                return false;
-            }
+        const randomNumber = Math.floor(Math.random() * max);
 
-            const randomNumber = Math.floor(Math.random() * max);
-
-            return filteredData[randomNumber];
-        };
-
-        const nextRandomWord = getRandomWord();
+        const nextRandomWord = filteredData[randomNumber];
 
         if (!randomWord) {
+            setIsPause(false);
             return setRandomWord(nextRandomWord);
         }
 
         if (nextRandomWord.name === randomWord.name) {
-            return newRandomWord();
+            return getRandomWord();
         }
 
         setRandomWord(nextRandomWord);
+        setIsPause(false);
         inputRef.current?.focus();
     };
 
-    const submit = (e) => {
-        e.preventDefault();
+    const newRandomWord = () => {
+        if (isPause) {
+            return;
+        }
+
+        getRandomWord();
+    };
+
+    const submit = (event) => {
+        event.preventDefault();
+
+        if (isPause) {
+            return;
+        }
+
 
         const cleanTypedWord = cleanWord(typedWord);
 
@@ -104,6 +116,7 @@ const useGame = () => {
                 toggleIsLearned(randomWord.id);
             }
 
+            setIsPause(true);
             setStatus("ok");
             speak(randomWordName);
             setTypedWord(randomWordCurrentName);
@@ -111,9 +124,9 @@ const useGame = () => {
             const timeout = setTimeout(() => {
                 setStatus("");
                 setTypedWord("");
-                newRandomWord();
+                getRandomWord();
                 clearTimeout(timeout);
-            }, 1000);
+            }, 2000);
         };
 
         if (backward) {
@@ -123,9 +136,7 @@ const useGame = () => {
             if (isArrayIncludeTypedWord) {
                 return ok();
             }
-        }
-
-        if (cleanTypedWord === cleanWord(randomWordCurrentName)) {
+        } else if (cleanTypedWord === cleanWord(randomWordCurrentName)) {
             return ok();
         }
 
@@ -133,17 +144,23 @@ const useGame = () => {
     };
 
     const dontKnow = () => {
+        if (isPause) {
+            return;
+        }
+
         if (randomWord.learned) {
             toggleIsLearned(randomWord.id);
         }
 
+        setIsPause(true);
+        setStatus("warn");
         setTypedWord(randomWordCurrentName);
         speak(randomWordName);
 
         const ok = () => {
-            setStatus("");
+
             setTypedWord("");
-            newRandomWord();
+            getRandomWord();
         };
 
         setTimeout(ok, 3000);

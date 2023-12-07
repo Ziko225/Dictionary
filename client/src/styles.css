@@ -443,6 +443,9 @@
 .game .form .mistake {
   outline: 4px solid rgba(255, 0, 0, 0.4666666667);
 }
+.game .form .warn {
+  outline: 4px solid rgba(165, 179, 12, 0.4666666667);
+}
 .game .button {
   color: #fff;
   outline-color: teal;

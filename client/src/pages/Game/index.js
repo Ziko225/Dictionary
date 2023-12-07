@@ -55,7 +55,7 @@ const Game = () => {
                     ? <>
                         {isOffline && <h1>Offline</h1>}
                         <h2 className="game__title">{word}</h2>
-                        <form onSubmit={(e) => submit(e)} className="form">
+                        <form onSubmit={submit} className="form">
                             <input
                                 required
                                 ref={inputRef}
@@ -70,7 +70,7 @@ const Game = () => {
                             <button onClick={newRandomWord} className="button">Skip</button>
                             <button onClick={dontKnow} className="button">I don't know</button>
                         </div>
-                        <button className="button button--primary">Submit</button>
+                        <button onClick={submit} className="button button--primary">Submit</button>
                     </>
                     : <h3>Not enough words</h3>
                 }
