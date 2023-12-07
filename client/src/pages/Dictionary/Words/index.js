@@ -18,7 +18,7 @@ const Words = ({ isOffline, words, speak, toggleIsLearned, remove, addWord }) =>
             {words[0]
                 ? words.map((word) =>
                     <div className={`words ${isBarOpen && "blur"}`} key={word.id}>
-                        <SpeakButton speak={speak} data={word.name} />
+                        <SpeakButton className="words__speak" speak={speak} data={word.name} />
                         <span className='words__word'>{word.name}:</span>
                         <span className='words__translate'>{word.translate}</span>
                         {!isOffline &&
@@ -26,7 +26,7 @@ const Words = ({ isOffline, words, speak, toggleIsLearned, remove, addWord }) =>
                                 onClick={() => toggleIsLearned(word.id)}
                                 className='words__button'
                                 type='submit'>
-                                {word.learned ? "Unlearned" : "Learned"}
+                                {word.learned ? "Learned" : "✓"}
                             </button>
                         }
                         {(word.learned && !isOffline)

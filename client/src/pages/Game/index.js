@@ -1,6 +1,7 @@
 
 import Filter from "../../components/Filter";
 import Loading from "../../components/Loading";
+import SpeakButton from "../../components/SpeakButton";
 import useGame from "./useGame";
 
 const Game = () => {
@@ -10,6 +11,7 @@ const Game = () => {
         setTypedWord,
         newRandomWord,
         dontKnow,
+        speak,
         backward,
         toggleHandler,
         learned,
@@ -53,21 +55,22 @@ const Game = () => {
                     ? <>
                         {isOffline && <h1>Offline</h1>}
                         <h2 className="game__title">{word}</h2>
-                        <form onSubmit={(e) => submit(e)} className="form">
+                        <form onSubmit={submit} className="form">
                             <input
                                 required
                                 ref={inputRef}
                                 onChange={(e) => setTypedWord(e.target.value)}
                                 value={typedWord}
-                                placeholder="Translate"
+                                placeholder="Translate it"
                                 className={`input ${status}`}
                             />
-                            <button className="button">Submit</button>
                         </form>
                         <div className="buttonsBlock">
+                            {backward && <SpeakButton speak={() => speak(word)} />}
                             <button onClick={newRandomWord} className="button">Skip</button>
                             <button onClick={dontKnow} className="button">I don't know</button>
                         </div>
+                        <button onClick={submit} className="button button--primary">Submit</button>
                     </>
                     : <h3>Not enough words</h3>
                 }

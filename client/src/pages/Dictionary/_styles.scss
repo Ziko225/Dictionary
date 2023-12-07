@@ -1,17 +1,41 @@
+@import "../../theme";
+
 .search {
     display: flex;
-    flex-direction: column;
     margin-top: 20px;
     width: 100%;
+    max-width: 400px;
+    margin: auto;
+    justify-content: center;
     align-items: center;
+    position: relative;
+
+    @media (max-width: $mobileMax) {
+        margin-top: 30px;
+        border: 0;
+        max-width: 100%;
+        padding: 0 20px;
+    }
 
     .search__input {
-        color: teal;
-        outline-color: teal;
+        color: $componentBackgroundColor;
+        outline-color: $componentBackgroundColor;
+        width: 100%;
         font-weight: 800;
-        padding: 7px 12px;
+        padding: 10px 37px 10px 16px;
         border: none;
         border-radius: 6px;
         box-shadow: 1px 1px 4px #3337;
+    }
+
+    .search__ico {
+        position: absolute;
+        right: 12px;
+        pointer-events: none;
+        color: #555;
+
+        @media (max-width: $mobileMax) {
+            right: 32px;
+        }
     }
 }

@@ -36,11 +36,10 @@
         bottom: 0;
         right: 0;
         margin: 20px;
-        padding: 30px;
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
-        font-size: 60px;
+        width: 50px;
+        height: 50px;
+        border-radius: 10px;
+        font-size: 50px;
     }
 
     .words {
@@ -54,11 +53,17 @@
         width: 100%;
         max-width: 700px;
         margin-bottom: 7px;
+        border-radius: 6px;
+        overflow: hidden;
+
+        .words__speak {
+            background: none;
+            color: $componentBackgroundColor
+        }
 
         .words__word {
             font-size: 24px;
             font-weight: 700;
-            margin-left: 5px;
 
             @media (max-width: $mobileMax) {
                 font-size: 15px;
@@ -102,7 +107,7 @@
         .words__removeButton {
             @include buttonComponent;
             height: 100%;
-            background-color: red;
+            background-color: $removeColor
         }
     }
 
@@ -113,14 +118,20 @@
         bottom: 0;
         right: 0;
         margin: 90px 40px;
-        max-width: 240px;
+        width: 100%;
+        max-width: 280px;
+        background-color: $textInComponent;
+        padding: 40px 30px;
+        border-radius: 15px;
+        box-shadow: $shadow;
 
         .addWord__input {
             border-radius: 6px;
-            padding: 0 20px;
+            padding: 0 12px;
             margin-bottom: 9px;
             height: 45px;
             font-size: 15px;
+            border: 2px solid $backgroundColor
         }
 
         .addWord__button {

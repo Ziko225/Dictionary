@@ -1,6 +1,7 @@
 @import "../../../_theme.scss";
 
-$shadow: 1px 1px 4px #2227;
+$shadow: 3px 2px 8px rgba(20, 20, 20, 0.3);
+$shadowLite: 2px 2px 6px rgba(20, 20, 20, 0.3);
 
 @mixin text {
     font-size: 20px;
@@ -27,7 +28,7 @@ $shadow: 1px 1px 4px #2227;
 
         .ul__header {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: repeat(3, 1fr);
             text-align: center;
             @include text;
         }
@@ -36,15 +37,20 @@ $shadow: 1px 1px 4px #2227;
             background-color: $textInComponent;
             box-shadow: $shadow;
             margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
 
             .blured {
                 padding: 5px 2px;
+                background-color: $componentBackgroundColor;
+                opacity: 30%;
                 cursor: pointer;
-                filter: blur(4px);
+                filter: blur(7px);
+                color: $textInComponent;
 
                 &:active {
                     filter: blur(0px);
-                    color: $textColor;
+                    opacity: 100%;
                 }
 
                 @media (max-width: $mobileMax) {
@@ -52,15 +58,22 @@ $shadow: 1px 1px 4px #2227;
 
                     &:hover {
                         filter: blur(0px);
-                        color: $textColor;
+                        opacity: 100%;
                     }
                 }
             }
 
             .li__verb {
                 display: grid;
-                grid-template-columns: 1fr 1fr 1fr;
+                grid-template-columns: 1px repeat(3, 1fr);
+                gap: 6px;
                 margin-bottom: 3px;
+
+                .li__speak {
+                    background: none;
+                    color: $componentBackgroundColor;
+                    z-index: 2;
+                }
 
                 .verb__text {
                     display: flex;
@@ -80,9 +93,9 @@ $shadow: 1px 1px 4px #2227;
                 align-items: stretch;
 
                 .controller__translate {
-                    margin: 0 auto 0 5px;
+                    margin: 0 auto 0 0;
                     @include text;
-                    padding: 5px;
+                    padding: 3px;
 
                     @media (max-width: $mobileMax) {
                         padding: 3px;
@@ -99,25 +112,39 @@ $shadow: 1px 1px 4px #2227;
                             padding: 2px;
                         }
                     }
+
+                    .translate__text {
+                        background: none;
+                        color: black;
+                        opacity: 100%;
+                    }
                 }
 
                 .controller__button {
                     background-color: $componentBackgroundColor;
                     color: $textInComponent;
+                    min-width: 40px;
                     border: none;
-                    margin-left: 5px;
+                    margin-right: 20px;
+                    border-radius: 8px 8px 0 0;
 
                     @media (max-width: $mobileMax) {
                         padding: 3px;
+                        margin-left: 0;
+                        border-radius: 8px 0 0;
                     }
                 }
 
                 .controller__button--remove {
-                    background-color: red;
+                    background-color: $removeColor;
                     padding: 0 6px;
+                    border-radius: 8px 0 0;
+                    margin-right: 0;
+                    min-width: 0;
 
                     @media (max-width: $mobileMax) {
                         padding: 0 6px;
+                        border-radius: 0;
                     }
                 }
             }
@@ -144,16 +171,18 @@ $shadow: 1px 1px 4px #2227;
             width: 150px;
             border: none;
             padding: 10px;
-            box-shadow: $shadow
+            box-shadow: $shadowLite;
+            border-radius: 6px;
         }
 
         .addingBlock__button {
             width: 100px;
             border: none;
+            border-radius: 6px;
             background-color: $componentBackgroundColor;
             color: $textInComponent;
             padding: 10px;
-            box-shadow: $shadow
+            box-shadow: $shadowLite
         }
     }
 }

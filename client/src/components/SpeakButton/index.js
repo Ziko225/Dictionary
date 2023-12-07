@@ -1,8 +1,8 @@
 import { ReactComponent as VolumeIco } from "./volume.svg";
 
-const SpeakButton = ({speak, data}) => {
+const SpeakButton = ({ speak, data, className }) => {
     return (
-        <button className="button" onClick={() => speak(data)}><VolumeIco /></button>
+        <button className={`button ${className}`} onClick={() => speak(data)}><VolumeIco /></button>
     );
 };
 

@@ -17,23 +17,26 @@ const Verbs = ({ isOffline, verbs, speak, toggleIsLearned, remove, addVerb }) =>
                     verbs?.map((verb) =>
                         <li key={verb.id} className="ul__li">
                             <div className="li__verb">
+                                <SpeakButton className="li__speak" speak={speak} data={`${verb.name}, ${verb.v2}, ${verb.v3}`} />
                                 <span className="verb__text">{verb.name}</span>
                                 <span className="verb__text blured">{verb.v2}</span>
                                 <span className="verb__text blured">{verb.v3}</span>
                             </div>
                             <div className="li__controller">
-                                <SpeakButton speak={speak} data={`${verb.name}, ${verb.v2}, ${verb.v3}`} />
                                 <div className="controller__translate">
                                     <span >Translation:</span>
-                                    <span className="blured">{verb.translate}</span>
+                                    <span className="blured translate__text">{verb.translate}</span>
                                 </div>
                                 {!isOffline &&
                                     <button className="controller__button" onClick={() => toggleIsLearned(verb.id)}>
-                                        {verb.learned ? "Unlearned" : "Learned"}
+                                        {verb.learned ? "Learned" : "✓"}
                                     </button>
                                 }
                                 {verb.learned && !isOffline
-                                    ? <button className="controller__button controller__button--remove" onClick={() => remove(verb.id)}>
+                                    ? <button
+                                        className="controller__button controller__button--remove"
+                                        onClick={() => remove(verb.id)}
+                                    >
                                         X
                                     </button>
                                     : null

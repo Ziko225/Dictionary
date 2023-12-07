@@ -5,6 +5,7 @@ import Words from "./Words";
 import Verbs from "./Verbs";
 import Loading from "../../components/Loading";
 import { FilterContext } from "../../context/filterContext";
+import { ReactComponent as SearchIco } from "./search.svg";
 
 const Dictionary = ({ path }) => {
     const isWordsPage = path === "/";
@@ -40,6 +41,7 @@ const Dictionary = ({ path }) => {
                     onChange={(e) => setSearch(e.currentTarget.value)}
                     placeholder="Search"
                 />
+                <SearchIco className="search__ico"/>
             </div>
             {isWordsPage
                 ? <Words
