@@ -37,21 +37,34 @@
   align-items: center;
   position: relative;
 }
+@media (max-width: 767px) {
+  .search {
+    margin-top: 30px;
+    border: 0;
+    max-width: 100%;
+    padding: 0 20px;
+  }
+}
 .search .search__input {
   color: teal;
   outline-color: teal;
   width: 100%;
   font-weight: 800;
-  padding: 10px 16px;
+  padding: 10px 37px 10px 16px;
   border: none;
   border-radius: 6px;
   box-shadow: 1px 1px 4px rgba(51, 51, 51, 0.4666666667);
 }
 .search .search__ico {
   position: absolute;
-  right: 10px;
+  right: 12px;
   pointer-events: none;
-  color: teal;
+  color: #555;
+}
+@media (max-width: 767px) {
+  .search .search__ico {
+    right: 32px;
+  }
 }
 
 .verbs {
@@ -71,7 +84,7 @@
 }
 .verbs .verbs__ul .ul__header {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   text-align: center;
   font-size: 20px;
 }
@@ -82,17 +95,22 @@
 }
 .verbs .verbs__ul .ul__li {
   background-color: #fff;
-  box-shadow: 1px 1px 4px rgba(34, 34, 34, 0.4666666667);
+  box-shadow: 3px 2px 8px rgba(20, 20, 20, 0.3);
   margin-bottom: 20px;
+  border-radius: 8px;
+  overflow: hidden;
 }
 .verbs .verbs__ul .ul__li .blured {
   padding: 5px 2px;
+  background-color: teal;
+  opacity: 30%;
   cursor: pointer;
-  filter: blur(4px);
+  filter: blur(7px);
+  color: #fff;
 }
 .verbs .verbs__ul .ul__li .blured:active {
   filter: blur(0px);
-  color: #353535;
+  opacity: 100%;
 }
 @media (max-width: 767px) {
   .verbs .verbs__ul .ul__li .blured {
@@ -100,13 +118,19 @@
   }
   .verbs .verbs__ul .ul__li .blured:hover {
     filter: blur(0px);
-    color: #353535;
+    opacity: 100%;
   }
 }
 .verbs .verbs__ul .ul__li .li__verb {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1px repeat(3, 1fr);
+  gap: 6px;
   margin-bottom: 3px;
+}
+.verbs .verbs__ul .ul__li .li__verb .li__speak {
+  background: none;
+  color: teal;
+  z-index: 2;
 }
 .verbs .verbs__ul .ul__li .li__verb .verb__text {
   display: flex;
@@ -128,9 +152,9 @@
   align-items: stretch;
 }
 .verbs .verbs__ul .ul__li .li__controller .controller__translate {
-  margin: 0 auto 0 5px;
+  margin: 0 auto 0 0;
   font-size: 20px;
-  padding: 5px;
+  padding: 3px;
 }
 @media (max-width: 767px) {
   .verbs .verbs__ul .ul__li .li__controller .controller__translate {
@@ -153,24 +177,37 @@
     padding: 2px;
   }
 }
+.verbs .verbs__ul .ul__li .li__controller .controller__translate .translate__text {
+  background: none;
+  color: black;
+  opacity: 100%;
+}
 .verbs .verbs__ul .ul__li .li__controller .controller__button {
   background-color: teal;
   color: #fff;
+  min-width: 40px;
   border: none;
-  margin-left: 5px;
+  margin-right: 20px;
+  border-radius: 8px 8px 0 0;
 }
 @media (max-width: 767px) {
   .verbs .verbs__ul .ul__li .li__controller .controller__button {
     padding: 3px;
+    margin-left: 0;
+    border-radius: 8px 0 0;
   }
 }
 .verbs .verbs__ul .ul__li .li__controller .controller__button--remove {
   background-color: rgb(217, 18, 18);
   padding: 0 6px;
+  border-radius: 8px 0 0;
+  margin-right: 0;
+  min-width: 0;
 }
 @media (max-width: 767px) {
   .verbs .verbs__ul .ul__li .li__controller .controller__button--remove {
     padding: 0 6px;
+    border-radius: 0;
   }
 }
 .verbs .title {
@@ -191,15 +228,17 @@
   width: 150px;
   border: none;
   padding: 10px;
-  box-shadow: 1px 1px 4px rgba(34, 34, 34, 0.4666666667);
+  box-shadow: 2px 2px 6px rgba(20, 20, 20, 0.3);
+  border-radius: 6px;
 }
 .verbs .addingBlock .addingBlock__button {
   width: 100px;
   border: none;
+  border-radius: 6px;
   background-color: teal;
   color: #fff;
   padding: 10px;
-  box-shadow: 1px 1px 4px rgba(34, 34, 34, 0.4666666667);
+  box-shadow: 2px 2px 6px rgba(20, 20, 20, 0.3);
 }
 
 .blur {
@@ -235,11 +274,10 @@
   bottom: 0;
   right: 0;
   margin: 20px;
-  padding: 30px;
-  border-radius: 50%;
-  height: 40px;
-  width: 40px;
-  font-size: 60px;
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  font-size: 50px;
 }
 .container .words {
   display: grid;
@@ -255,10 +293,13 @@
   border-radius: 6px;
   overflow: hidden;
 }
+.container .words .words__speak {
+  background: none;
+  color: teal;
+}
 .container .words .words__word {
   font-size: 24px;
   font-weight: 700;
-  margin-left: 5px;
 }
 @media (max-width: 767px) {
   .container .words .words__word {
@@ -313,14 +354,20 @@
   bottom: 0;
   right: 0;
   margin: 90px 40px;
-  max-width: 240px;
+  width: 100%;
+  max-width: 280px;
+  background-color: #fff;
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 3px 2px 8px rgba(20, 20, 20, 0.3);
 }
 .container .addWord .addWord__input {
   border-radius: 6px;
-  padding: 0 20px;
+  padding: 0 12px;
   margin-bottom: 9px;
   height: 45px;
   font-size: 15px;
+  border: 2px solid #eee;
 }
 .container .addWord .addWord__button {
   border-radius: 6px;
@@ -511,8 +558,8 @@ body {
   font-family: "Open Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #eee;
-  color: #252525;
+  background-color: #efefef;
+  color: #151515;
 }
 
 button {

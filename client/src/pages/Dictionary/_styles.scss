@@ -10,12 +10,19 @@
     align-items: center;
     position: relative;
 
+    @media (max-width: $mobileMax) {
+        margin-top: 30px;
+        border: 0;
+        max-width: 100%;
+        padding: 0 20px;
+    }
+
     .search__input {
         color: $componentBackgroundColor;
         outline-color: $componentBackgroundColor;
         width: 100%;
         font-weight: 800;
-        padding: 10px 16px;
+        padding: 10px 37px 10px 16px;
         border: none;
         border-radius: 6px;
         box-shadow: 1px 1px 4px #3337;
@@ -23,8 +30,12 @@
 
     .search__ico {
         position: absolute;
-        right: 10px;
+        right: 12px;
         pointer-events: none;
-        color: $componentBackgroundColor;
+        color: #555;
+
+        @media (max-width: $mobileMax) {
+            right: 32px;
+        }
     }
 }

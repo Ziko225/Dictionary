@@ -1,30 +1,7 @@
-import { useRef, useState } from "react";
+import useAddWord from "./useAddWord";
 
 const ModalsAddWord = ({ addWord }) => {
-    const [name, setName] = useState("");
-    const [translate, setTranslate] = useState("");
-    const [msg, setMsg] = useState("");
-    const ref = useRef(null);
-
-    const data = {
-        name,
-        translate
-    };
-
-    const addNewWorld = async (e) => {
-        e.preventDefault();
-        setMsg("");
-
-        const response = await addWord(data);
-
-        if (response !== true) {
-            return setMsg(response);
-        }
-
-        setName("");
-        setTranslate("");
-        ref.current?.focus();
-    };
+    const { name, translate, ref, msg, addNewWorld, inputHandler } = useAddWord(addWord);
 
     return (
         <form onSubmit={addNewWorld} className='addWord'>
@@ -33,16 +10,18 @@ const ModalsAddWord = ({ addWord }) => {
                 autoFocus
                 ref={ref}
                 value={name}
-                onChange={(e) => setName(e.currentTarget.value)}
+                onChange={inputHandler}
                 required
+                name="name"
                 className='addWord__input'
                 placeholder='Word'
             />
             <input
                 value={translate}
-                onChange={(e) => setTranslate(e.currentTarget.value)}
+                onChange={inputHandler}
                 required
                 className='addWord__input'
+                name="translate"
                 placeholder='Translate'
             />
             <button className='addWord__button'>Add</button>
