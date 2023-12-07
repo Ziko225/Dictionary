@@ -1,6 +1,7 @@
 
 import Filter from "../../components/Filter";
 import Loading from "../../components/Loading";
+import SpeakButton from "../../components/SpeakButton";
 import useGame from "./useGame";
 
 const Game = () => {
@@ -10,6 +11,7 @@ const Game = () => {
         setTypedWord,
         newRandomWord,
         dontKnow,
+        speak,
         backward,
         toggleHandler,
         learned,
@@ -65,6 +67,7 @@ const Game = () => {
                             <button className="button">Submit</button>
                         </form>
                         <div className="buttonsBlock">
+                            {backward && <SpeakButton speak={() =>speak(word)} />}
                             <button onClick={newRandomWord} className="button">Skip</button>
                             <button onClick={dontKnow} className="button">I don't know</button>
                         </div>

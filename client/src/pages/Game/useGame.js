@@ -12,7 +12,7 @@ const useGame = () => {
 
     const [randomWord, setRandomWord] = useState({ name: "" });
 
-    const inputRef = useRef(null)
+    const inputRef = useRef(null);
 
     const randomWordCurrentName = backward ? randomWord.translate : randomWord.name;
 
@@ -70,7 +70,7 @@ const useGame = () => {
         }
 
         setRandomWord(nextRandomWord);
-        inputRef.current?.focus()
+        inputRef.current?.focus();
     };
 
     const submit = (e) => {
@@ -83,12 +83,13 @@ const useGame = () => {
                 return [];
             }
 
-            word = word.replace("/", "@");
-            word = word.replace(";", "@");
-            word = word.replace("'", "");
-            word = word.replace(",", "@");
+            const cleanWord = word
+                .replaceAll("/", "@")
+                .replaceAll(";", "@")
+                .replaceAll("'", "")
+                .replaceAll(",", "@");
 
-            return word.split("@").map((name) => {
+            return cleanWord.split("@").map((name) => {
                 if (name.includes("(")) {
                     const optional = name.slice(name.lastIndexOf("(", name.lastIndexOf(")")));
                     return name = name.replace(optional, "").trim();
@@ -159,6 +160,7 @@ const useGame = () => {
         start,
         submit,
         dontKnow,
+        speak,
         backward,
         toggleHandler,
         learned,
