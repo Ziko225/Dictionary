@@ -498,6 +498,7 @@
 .active {
   background-color: teal;
   color: #fff;
+  transform: translateY(-4px);
 }
 
 .filter {

@@ -25,4 +25,5 @@
 .active {
     background-color: $componentBackgroundColor;
     color: $textInComponent;
+    transform: translateY(-4px);
 }
