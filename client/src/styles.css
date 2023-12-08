@@ -27,10 +27,38 @@
   padding: 12px 20px;
 }
 
+.offline {
+  margin: 10px 0 20px;
+  text-align: center;
+}
+
+.fixedSearch {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  padding: 10px;
+  background-color: #fff;
+  z-index: 3;
+  box-shadow: 2px 2px 5px rgba(51, 51, 51, 0.1333333333);
+  opacity: 95%;
+}
+.fixedSearch .fixedSearch__button {
+  margin-left: 12px;
+  border-radius: 6px;
+  border: 0;
+  padding: 5px 10px;
+  background-color: teal;
+  color: #fff;
+}
+.fixedSearch .search {
+  margin: 0;
+}
+
 .search {
   display: flex;
   margin-top: 20px;
-  width: 100%;
   max-width: 400px;
   margin: auto;
   justify-content: center;

@@ -8,6 +8,8 @@ const useDictionary = (isWordsPage) => {
 
     const [data, setData] = useState();
 
+    const [fixSearch, setFixSearch] = useState(false);
+
     const { getApi } = useHttp();
 
     const key = isWordsPage ? "words" : "verbs";
@@ -25,6 +27,26 @@ const useDictionary = (isWordsPage) => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location]);
+
+    useEffect(() => {
+        window.addEventListener("scroll", windowSearchHandler);
+
+        return () => {
+            window.removeEventListener("scroll", windowSearchHandler);
+        };
+    }, []);
+
+    const up = () => {
+        window.scrollTo(0, 0);
+    };
+
+    const windowSearchHandler = () => {
+        if (window.scrollY > 200) {
+            setFixSearch(true);
+        } else if (window.scrollY < 100) {
+            setFixSearch(false);
+        }
+    };
 
     const getWords = async () => {
         if (isOffline) {
@@ -86,9 +108,11 @@ const useDictionary = (isWordsPage) => {
         data,
         getWords,
         add,
+        up,
         removeWord,
         toggleIsLearned,
         speak,
+        fixSearch,
         isOffline,
         isLoading
     };

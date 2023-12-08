@@ -10,7 +10,17 @@ import { ReactComponent as SearchIco } from "./search.svg";
 const Dictionary = ({ path }) => {
     const isWordsPage = path === "/";
 
-    const { data, add, removeWord, toggleIsLearned, speak, isOffline, isLoading } = useDictionary(isWordsPage);
+    const {
+        data,
+        add,
+        removeWord,
+        toggleIsLearned,
+        speak,
+        up,
+        fixSearch,
+        isOffline,
+        isLoading
+    } = useDictionary(isWordsPage);
 
     const { getFilteredData, learned, unlearned, toggleHandler } = useContext(FilterContext);
 
@@ -18,13 +28,13 @@ const Dictionary = ({ path }) => {
 
     const [search, setSearch] = useState("");
 
+    const searchData = filteredData.filter((e) => e.name.match(search.toLowerCase()));
+
     if (isLoading || !filteredData) {
         return (
             <Loading />
         );
     }
-
-    const searchData = filteredData.filter((e) => e.name.match(search.toLowerCase()));
 
     return (
         <>
@@ -33,15 +43,17 @@ const Dictionary = ({ path }) => {
                 learned={learned}
                 unlearned={unlearned}
             />
-
-            <div className="search">
-                {isOffline && <h1>Offline</h1>}
-                <input
-                    className="search__input"
-                    onChange={(e) => setSearch(e.currentTarget.value)}
-                    placeholder="Search"
-                />
-                <SearchIco className="search__ico"/>
+            {isOffline && <h2 className="offline">Offline</h2>}
+            <div className={fixSearch && "fixedSearch"}>
+                <div className="search">
+                    <input
+                        className="search__input"
+                        onChange={(e) => setSearch(e.currentTarget.value)}
+                        placeholder="Search"
+                    />
+                    <SearchIco className="search__ico" />
+                </div>
+                {fixSearch && <button onClick={up} className="fixedSearch__button">Up</button>}
             </div>
             {isWordsPage
                 ? <Words

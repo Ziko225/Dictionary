@@ -53,7 +53,7 @@ const Game = () => {
             <div className="game">
                 {isEnoughWords
                     ? <>
-                        {isOffline && <h1>Offline</h1>}
+                        {isOffline && <h2>Offline</h2>}
                         <h2 className="game__title">{word}</h2>
                         <form onSubmit={submit} className="form">
                             <input
