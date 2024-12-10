@@ -100,7 +100,7 @@ const useDictionary = (isWordsPage) => {
 
     const speak = (word) => {
         const utterance = new SpeechSynthesisUtterance(word);
-        utterance.lang = "en-US";
+        utterance.lang = process.env.REACT_APP_LANGUAGE_SPEAK || "en-US";
         window.speechSynthesis.speak(utterance);
     };
 
