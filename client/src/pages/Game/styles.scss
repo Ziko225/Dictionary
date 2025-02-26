@@ -1,0 +1,101 @@
+@import "../../theme";
+
+$shadow: 2px 4px 4px #3332;
+
+.game {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin: auto;
+    font-size: 20px;
+    padding: 0 15px;
+
+    @media (max-width: $mobileMax) {
+        font-size: 15px;
+    }
+
+    .game__title {
+        font-size: 50px;
+        margin-top: 10vh;
+        text-align: center;
+
+        @media (max-width: $mobileMax) {
+            flex-direction: column;
+            font-size: 35px;
+        }
+    }
+
+    .form {
+        display: flex;
+        justify-content: center;
+        font-size: 30px;
+        width: 100%;
+
+        .input {
+            border: none;
+            border-radius: 15px;
+            padding: 16px 14px;
+            width: 100%;
+            max-width: 700px;
+            box-shadow: $shadow;
+            margin-bottom: 20px;
+
+            @media (max-width: $mobileMax) {
+                flex-direction: column;
+                font-size: 25px;
+                max-width: 100%;
+            }
+        }
+
+        .input:disabled {
+            background-color: white
+        }
+
+        .ok {
+            outline: 4px solid #0f07;
+        }
+
+        .mistake {
+            outline: 4px solid #f007;
+        }
+
+        .warn {
+            outline: 4px solid #a5b30c77;
+        }
+    }
+
+    .button {
+        color: $textInComponent;
+        outline-color: $componentBackgroundColor;
+        font-weight: 800;
+        padding: 14px 24px;
+        border: none;
+        border-radius: 10px;
+        box-shadow: $shadow;
+        margin: auto;
+    }
+
+    .button--idk {
+        background-color: rgb(190, 116, 116);
+    }
+
+    .button--primary {
+        padding: 17px 28px;
+        margin-top: 15px;
+        max-width: 500px;
+        width: 50%;
+
+        @media (max-width: $mobileMax) {
+            margin-top: 25px;
+            min-width: 300px;
+        }
+    }
+
+    .buttonsBlock {
+        display: flex;
+        gap: 20px;
+        justify-content: space-around;
+    }
+}

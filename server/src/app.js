@@ -18,7 +18,7 @@ const app = express();
 app.use(express.json());
 app.use(cors({
     origin: process.env.CLIENT_URL,
-    credentials: true
+    credentials: true,
 }));
 app.use(cookieParser());
 
@@ -29,8 +29,8 @@ app.listen = function () {
 
     if (protocol === 'https') {
         const options = {
-            key: fs.readFileSync('credentials/privateKey.key', 'utf8'),
-            cert: fs.readFileSync('credentials/certificate.crt', 'utf8'),
+            key: fs.readFileSync('./credentials/privateKey.key', 'utf8'),
+            cert: fs.readFileSync('./credentials/certificate.crt', 'utf8'),
         };
 
         return https.createServer(options, app).listen(PORT);

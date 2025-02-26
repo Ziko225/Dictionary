@@ -1,0 +1,49 @@
+@import "../../theme";
+
+.auth {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20vh;
+    width: 100%;
+
+    .auth__form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+        min-width: 270px;
+
+        .button {
+            background-color: $componentBackgroundColor;
+            color: $textInComponent;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 20px;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .input {
+            border-radius: 6px;
+            padding: 12px 20px;
+            border: none;
+            box-shadow: 1px 1px 6px #2e2e2e4d;
+        }
+    }
+
+    .toggleButton {
+        border: none;
+        margin: 10px auto auto;
+        color: $linkColor;
+    }
+}
+
+.error {
+    color: #f90000;
+    font-weight: 600;
+    font-size: 17px;
+    margin-bottom: 7px;
+    text-align: center;
+}

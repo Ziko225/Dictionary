@@ -1,14 +1,15 @@
 const Router = require('express');
 const wordsRouter = require("./wordsRouter.js");
 const verbsRouter = require("./verbsRouter.js");
-const authRouter = require("./authRouter.js");
+const accountRouter = require("./accountRouter.js");
 
 const authMiddleware = require('../middleware/authMiddleware.js');
 
 const router = Router();
 
+router.use("/settings", authMiddleware);
 router.use("/words", authMiddleware, wordsRouter);
 router.use("/verbs", authMiddleware, verbsRouter);
-router.use("/auth", authRouter);
+router.use("/account", accountRouter);
 
 module.exports = router;

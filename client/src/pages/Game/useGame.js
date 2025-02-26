@@ -80,36 +80,12 @@ const useGame = () => {
         getRandomWord();
     };
 
-    const splitString = (word = "") => {
-        if (!word) {
-            return [];
-        }
-
-        const cleanWord = word
-            .replaceAll("/", "@")
-            .replaceAll(";", "@")
-            .replaceAll("'", "")
-            .replaceAll(",", "@");
-
-        return cleanWord.split("@").map((name) => {
-            if (name.includes("(")) {
-                const optional = name.slice(name.lastIndexOf("(", name.lastIndexOf(")")));
-                return name = name.replace(optional, "").trim();
-            }
-
-            return name = name.trim();
-        });
-    };
-
-    console.log(splitString("ці"))
-
     const submit = (event) => {
         event.preventDefault();
 
         if (isPause) {
             return;
         }
-
 
         const cleanTypedWord = cleanWord(typedWord);
 

@@ -1,19 +1,25 @@
-const dbLogic = require('./dbLogic');
+const dictionaryDataBaseLogic = require('./dataBaseLogic/dictionaryDataBaseLogic');
 const clean = require('../util/cleanFunc');
 
-const key = "verbs";
+const type = "verbs";
 class VerbsController {
 
     async get(req, res) {
-        const result = await dbLogic.getData(key);
-        res.status(200).json(result);
+        try {
+            const { email } = req.body;
+
+            const result = await dictionaryDataBaseLogic.getData(email, type);
+            res.status(200).json(result);
+        } catch (error) {
+            res.status(500).send();
+        }
     }
 
     async create(req, res) {
         try {
-            const { name, v2, v3, translate } = req.body;
-            if (!v2 || !v3) {
-                return res.status(400).json("v2 and v3 required");
+            const { name, v2, v3, translate, email } = req.body;
+            if (!name || !v2 || !v3 || !translate) {
+                return res.status(400).send();
             }
 
             const data = {
@@ -25,7 +31,7 @@ class VerbsController {
                 learned: false
             };
 
-            const result = await dbLogic.add(key, data);
+            const result = await dictionaryDataBaseLogic.add(email, type, data);
 
             if (!result.status) {
                 return res.status(400).json(result.msg);
@@ -33,16 +39,16 @@ class VerbsController {
 
             res.status(201).json(result.msg);
 
-        } catch (e) {
-            res.status(500).json(e);
+        } catch (error) {
+            res.status(500).send();
         }
     };
 
     async toggle(req, res) {
         try {
-            const { id } = req.body;
+            const { id, email } = req.body;
 
-            const result = await dbLogic.toggleLearn(key, +id);
+            const result = await dictionaryDataBaseLogic.toggleLearn(email, type, +id);
 
             if (!result.status) {
                 return res.status(400).json(result.msg);
@@ -50,15 +56,16 @@ class VerbsController {
 
             res.status(200).send();
         } catch (error) {
-            res.status(500).json(error.message);
+            res.status(500).send();
         }
     };
 
     async remove(req, res) {
         try {
             const { id } = req.params;
+            const { email } = req.body;
 
-            const result = await dbLogic.remove(key, +id);
+            const result = await dictionaryDataBaseLogic.remove(email, type, +id);
 
             if (!result.status) {
                 return res.status(400).json(result.msg);
@@ -66,7 +73,7 @@ class VerbsController {
 
             res.status(200).send();
         } catch (error) {
-            res.status(500).send(error);
+            res.status(500).send();
         }
     };
 };

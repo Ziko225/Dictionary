@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/authContext";
 
 const useHttp = () => {
-    const { setIsOffline, setIsAuth, isOffline, setIsLoading } = useContext(AuthContext);
+    const { setIsOffline, setIsAuth, isOffline } = useContext(AuthContext);
 
     const getApi = async (path, method, data) => {
         const url = process.env.REACT_APP_URL || "";
@@ -24,7 +24,6 @@ const useHttp = () => {
             response = null;
 
             setIsOffline(true);
-            setIsLoading(false);
 
             return response;
         }, responseTimeout);
@@ -94,13 +93,13 @@ const useHttp = () => {
             }
 
             const result = checkResponseStatus(response?.status);
-            setIsLoading(false);
+
 
             return result;
         } catch (error) {
 
             const result = checkResponseStatus(error?.response?.status);
-            setIsLoading(false);
+
 
             setIsOffline(true);
 

@@ -1,0 +1,89 @@
+@import "../../theme";
+
+.navigation {
+    display: flex;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 10PX
+}
+
+.userButton {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 0 10px;
+    margin-left: auto;
+    color: $textColor;
+    text-decoration: none;
+    list-style: none;
+    text-align: end;
+
+    svg {
+        grid-column: 2;
+        grid-row: span 2;
+    }
+
+    .userButton__font1 {
+        grid-column: 1;
+        margin: 0;
+        line-height: 1;
+        font-weight: 700;
+        font-size: 16px;
+    }
+
+    .userButton__font2 {
+        grid-column: 1;
+        grid-row: 2;
+        margin: 0;
+        line-height: 1;
+        font-size: 13px;
+        font-weight: 400;
+    }
+}
+
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 15px;
+}
+
+.nav__button {
+    color: $textColor;
+    text-decoration: none;
+    padding: 10px;
+    background-color: $backgroundColor;
+    transition: 0.2s;
+    box-shadow: 2px 2px 8px #2224;
+    font-weight: 800;
+    border-radius: 5px;
+
+    &:hover {
+        transform: translateY(-4px);
+    }
+}
+
+.active {
+    background-color: $componentBackgroundColor;
+    color: $textInComponent;
+    transform: translateY(-4px);
+}
+
+@media (max-width: 768px) {
+    .nav {
+        gap: 7px;
+    }
+
+    .nav__button {
+        padding: 7px;
+        font-size: 14px;
+
+        &:hover {
+            transform: translateY(-2px);
+        }
+    }
+
+    .active {
+        transform: translateY(-2px);
+    }
+}

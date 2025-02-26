@@ -1,12 +1,12 @@
-@import "./pages/Auth/styles.scss";
-@import "./pages/Dictionary/styles";
-@import "./pages/Dictionary/Verbs/styles";
-@import "./pages/Dictionary/Words/styles";
-@import "./pages/Game/styles";
-@import "./components/Navigation/styles.scss";
-@import "./components/Filter/styles.scss";
-@import "./components/SpeakButton/styles.scss";
-@import "./components/Loading/styles";
+// @import "./pages/Auth/styles.scss";
+// @import "./pages/Dictionary/styles";
+// @import "./pages/Dictionary/Verbs/styles";
+// @import "./pages/Dictionary/Words/styles";
+// @import "./pages/Game/styles";
+// @import "./components/Navigation/styles.scss";
+// @import "./components/Filter/styles.scss";
+// @import "./components/SpeakButton/styles.scss";
+// @import "./components/Loading/styles";
 
 *,
 *::before,
@@ -25,6 +25,11 @@ body {
 
 button {
     cursor: pointer;
+
+    &:hover {
+        background: none;
+        filter: brightness(110%);
+    }
 }
 
 button:hover {
@@ -34,3 +39,4 @@ button:hover {
 button:active {
     filter: brightness(120%);
 }
+
