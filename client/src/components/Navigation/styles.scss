@@ -93,6 +93,14 @@
     .navigation {
         .navigation__burgerButton {
             display: block;
+            padding: 0;
+            margin: auto 0;
+            color: $color-0-3;
+
+            svg {
+                width: 30px;
+                height: 30px;
+            }
         }
 
         .navigation__hideBG {

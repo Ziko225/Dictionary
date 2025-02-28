@@ -63,12 +63,12 @@ const Verbs = () => {
 
     return (
         <>
-            <Search />
             <Filter
                 learned={learned}
                 unlearned={unlearned}
                 toggleHandler={toggleHandler}
             />
+            <Search />
             <div className="verbs">
                 <ul className="verbs__ul">
                     <li className="ul__header">
