@@ -59,7 +59,7 @@ const Auth = () => {
         } catch (error) {
             console.error(error);
             if (error?.details?.status === 400) {
-                return setErrorMsg('Incorrect password or email');
+                return setErrorMsg('Enter the correct email');
             }
 
             if (error?.details?.status === 409) {
@@ -129,12 +129,9 @@ const Auth = () => {
                             : 'Sign-in'
                         }
                     </button>
-
                 </div>
             </form>
-
             <p className="error">{errorMsg}</p>
-
         </div>
     );
 };

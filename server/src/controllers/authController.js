@@ -60,17 +60,17 @@ class AuthController {
                 return res.status(400).send();
             }
 
-            const isSuccess = await accountDataBaseLogic.createDB(email, password);
+            const status = await accountDataBaseLogic.createDB(email, password);
 
-            if (isSuccess) {
-                await this.authorizate(res, email);
-
-                const userData = await accountDataBaseLogic.getAccountInfo(email);
-
-                return res.status(201).json(userData);
-            } else {
-                return res.status(409).send();
+            if (status !== 201) {
+                return res.status(status).send();
             }
+
+            await this.authorizate(res, email);
+
+            const userData = await accountDataBaseLogic.getAccountInfo(email);
+
+            return res.status(status).json(userData);
         } catch (error) {
             console.error(error);
             return res.status(500).send();

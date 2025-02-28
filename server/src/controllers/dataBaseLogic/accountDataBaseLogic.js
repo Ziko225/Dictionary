@@ -7,16 +7,25 @@ class accountDataBaseLogic {
         return await JSON.parse(fs.readFileSync(`${dataBasePath}/${email}.json`));
     }
 
+    async checkIsEmailExist(email) {
+        try {
+            const dataBasesList = await fs.readdirSync(dataBasePath);
+
+            return !!dataBasesList.find((dataBase) => dataBase === `${email}.json`);
+        } catch (error) {
+            fs.mkdirSync(dataBasePath);
+            return false;
+        }
+    }
+
     async createDB(email, password) {
         try {
-            const fileContent = await this.readDB(email);
+            const isEmailExist = await this.checkIsEmailExist(email);
 
-            if (fileContent) {
-                return false;
+            if (isEmailExist) {
+                return 409;
             }
 
-            return false;
-        } catch (error) {
             fs.writeFileSync(`${dataBasePath}/${email}.json`, JSON.stringify(
                 {
                     account: {
@@ -31,7 +40,10 @@ class accountDataBaseLogic {
             ));
 
             console.log(`(!) ### created new DataBase ${email}.json ###`);
-            return true;
+            return 201;
+        } catch (error) {
+            console.error(error);
+            return 500;
         }
     }
 
