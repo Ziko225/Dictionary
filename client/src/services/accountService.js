@@ -11,11 +11,11 @@ export const accountService = {
     },
 
     /**
-     * @param {object} params 
-     * @param {string} params.email
-     * @param {string} params.password
-     * @returns {Promise<response>}
-     */
+    * @param {object} params 
+    * @param {string} params.email
+    * @param {string} params.password
+    * @returns {Promise<response>}
+    */
     async login(params) {
         const response = await API.post(`account/login`, params);
 
@@ -35,10 +35,24 @@ export const accountService = {
     },
 
     /**
-   * @returns {Promise<response>}
-   */
+    * @returns {Promise<response>}
+    */
     async logOut() {
         const response = await API.get(`account/logout`);
+
+        return response;
+    },
+
+    /**
+    * @param {object} params 
+    * @param {string} params.email
+    * @param {string} params.nickname
+    * @param {string} params.password
+    * @param {string} params.language
+    * @returns {Promise<response>}
+    */
+    async changeSettings(params) {
+        const response = await API.put(`account/settings`, params);
 
         return response;
     },

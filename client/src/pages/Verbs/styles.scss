@@ -16,7 +16,7 @@ $shadowLite: 2px 2px 6px rgba(20, 20, 20, 0.3);
     flex-direction: column;
     align-items: center;
     margin: 20px 20px 50px;
-    color: $textColor;
+    color: $color-0-3;
 
     .verbs__ul {
         display: flex;
@@ -34,7 +34,7 @@ $shadowLite: 2px 2px 6px rgba(20, 20, 20, 0.3);
         }
 
         .ul__li {
-            background-color: $textInComponent;
+            background-color: $color-1;
             box-shadow: $shadow;
             margin-bottom: 20px;
             border-radius: 8px;
@@ -42,11 +42,11 @@ $shadowLite: 2px 2px 6px rgba(20, 20, 20, 0.3);
 
             .blurred {
                 padding: 5px 2px;
-                background-color: $componentBackgroundColor;
+                background-color: $mainColor;
                 opacity: 30%;
                 cursor: pointer;
                 filter: blur(7px);
-                color: $textInComponent;
+                color: $color-1;
 
                 &:active {
                     filter: blur(0px);
@@ -71,7 +71,7 @@ $shadowLite: 2px 2px 6px rgba(20, 20, 20, 0.3);
 
                 .li__speak {
                     background: none;
-                    color: $componentBackgroundColor;
+                    color: $mainColor;
                     z-index: 2;
                 }
 
@@ -121,8 +121,8 @@ $shadowLite: 2px 2px 6px rgba(20, 20, 20, 0.3);
                 }
 
                 .controller__button {
-                    background-color: $componentBackgroundColor;
-                    color: $textInComponent;
+                    background-color: $mainColor;
+                    color: $color-1;
                     min-width: 40px;
                     border: none;
                     margin-right: 20px;
@@ -130,7 +130,7 @@ $shadowLite: 2px 2px 6px rgba(20, 20, 20, 0.3);
                 }
 
                 .controller__button--remove {
-                    background-color: $removeColor;
+                    background-color: $color-3;
                     padding: 0 6px;
                     border-radius: 8px 0 0;
                     margin-right: 0;
@@ -173,8 +173,8 @@ $shadowLite: 2px 2px 6px rgba(20, 20, 20, 0.3);
             width: 100px;
             border: none;
             border-radius: 6px;
-            background-color: $componentBackgroundColor;
-            color: $textInComponent;
+            background-color: $mainColor;
+            color: $color-1;
             padding: 10px;
             box-shadow: $shadowLite
         }

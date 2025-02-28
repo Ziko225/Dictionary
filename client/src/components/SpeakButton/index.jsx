@@ -4,7 +4,7 @@ import "./styles.scss";
 
 const SpeakButton = ({ speak, data, className }) => {
     return (
-        <button className={`button ${className}`} onClick={() => speak(data)}><VolumeIco /></button>
+        <button className={`speakButton ${className}`} onClick={() => speak(data)}><VolumeIco /></button>
     );
 };
 

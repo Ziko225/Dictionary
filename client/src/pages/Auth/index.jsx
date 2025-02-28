@@ -18,7 +18,7 @@ const Auth = () => {
     });
 
     const [errorMsg, setErrorMsg] = useState('');
-    const { setStatus } = useContext(AuthContext);
+    const { setStatus, setUserData } = useContext(AuthContext);
 
     const navigate = useNavigate();
 
@@ -53,6 +53,7 @@ const Auth = () => {
                 throw new Error('Something get wrong');
             }
 
+            setUserData(await response.json());
             navigate(paths.wordsPath);
             setStatus('isAuth', true);
         } catch (error) {
@@ -114,20 +115,24 @@ const Auth = () => {
                         placeholder="Repeat password"
                     />
                 }
-                <button type="submit" className="button">
-                    {isRegistration
-                        ? 'Sign-up'
-                        : 'Sign-in'
-                    }
-                </button>
+                <div className='form__buttons'>
+                    <button type="button" onClick={toggleRegistration} className="toggleButton">
+                        {
+                            isRegistration
+                                ? 'Have an account?'
+                                : `Don't have an account?`
+                        }
+                    </button>
+                    <button type="submit" className="button">
+                        {isRegistration
+                            ? 'Sign-up'
+                            : 'Sign-in'
+                        }
+                    </button>
+
+                </div>
             </form>
-            <button onClick={toggleRegistration} className="toggleButton">
-                {
-                    isRegistration
-                        ? 'Have an account?'
-                        : `Don't have an account?`
-                }
-            </button>
+
             <p className="error">{errorMsg}</p>
 
         </div>

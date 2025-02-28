@@ -1,0 +1,49 @@
+@import "./theme.scss";
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Open Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: $color-1-2;
+    color: $color-0-1;
+}
+
+button {
+    cursor: pointer;
+
+    &:hover {
+        filter: brightness(110%);
+    }
+
+    &:active {
+        filter: brightness(120%);
+    }
+}
+
+a {
+    &:hover {
+        filter: brightness(110%);
+    }
+}
+
+select{
+    .selected{
+        font-weight: 700;
+    }
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 10px 120px;
+    min-width: 290px;
+    color: $color-0-3;
+}

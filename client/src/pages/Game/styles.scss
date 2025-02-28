@@ -67,8 +67,8 @@ $shadow: 2px 4px 4px #3332;
     }
 
     .button {
-        color: $textInComponent;
-        outline-color: $componentBackgroundColor;
+        color: $color-1;
+        background-color: $mainColor;
         font-weight: 800;
         padding: 14px 24px;
         border: none;

@@ -1,11 +1,11 @@
-const { config } = require('dotenv');
-config();
-
 const accountDataBaseLogic = require('./dataBaseLogic/accountDataBaseLogic');
 const jwt = require('jsonwebtoken');
+const constants = require('../constnts');
+const { config } = require('dotenv');
+
+config();
 
 const jswAccessKey = process.env.JWT_KEY;
-
 class AuthController {
     constructor() {
         this.login = this.login.bind(this);
@@ -13,9 +13,7 @@ class AuthController {
         this.authorizate = this.authorizate.bind(this);
     }
 
-    async authorizate(req, res) {
-        const { email } = req.body;
-
+    async authorizate(res, email) {
         const token = jwt.sign({ email }, jswAccessKey, { expiresIn: "320d" });
 
         res.cookie("token", token, {
@@ -44,9 +42,10 @@ class AuthController {
                 return res.status(400).send();
             }
 
-            await this.authorizate(req, res);
+            await this.authorizate(res, email);
+            const userData = await accountDataBaseLogic.getAccountInfo(email);
 
-            res.status(200).send();
+            res.status(200).json(userData);
         } catch (error) {
             console.error(error);
             res.status(500).send(error);
@@ -57,17 +56,18 @@ class AuthController {
         try {
             const { password, email } = req.body;
 
-            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-            if (!password || !email || !emailRegex.test(email)) {
+            if (!password || !email || !constants.emailRegex.test(email)) {
                 return res.status(400).send();
             }
 
             const isSuccess = await accountDataBaseLogic.createDB(email, password);
 
             if (isSuccess) {
-                await this.authorizate(req, res);
-                return res.status(201).send();
+                await this.authorizate(res, email);
+
+                const userData = await accountDataBaseLogic.getAccountInfo(email);
+
+                return res.status(201).json(userData);
             } else {
                 return res.status(409).send();
             }

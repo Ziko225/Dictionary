@@ -11,4 +11,6 @@ router.post("/registration", authController.registration);
 router.get("/getinfo", authMiddleware, AccountController.getInfo);
 router.get("/logout", authMiddleware, AccountController.logOut);
 
+router.put('/settings', authMiddleware, AccountController.settings)
+
 module.exports = router;

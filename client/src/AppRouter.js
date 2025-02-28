@@ -2,7 +2,6 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Game from "./pages/Game";
 import Settings from './pages/Settings';
 import { paths } from './constants.js';
-import Auth from './pages/Auth/index.jsx';
 import Verbs from './pages/Verbs/index.jsx';
 import Words from './pages/Words/index.jsx';
 
@@ -14,7 +13,6 @@ const AppRouter = () => {
             <Route path={paths.verbsPath} element={<Verbs />} />
             <Route path={paths.gamePath} element={<Game />} />
             <Route path={paths.settingsPath} element={<Settings />} />
-            <Route path={paths.authPath} element={<Auth />} />
             <Route path="*" element={<Navigate replace to={paths.wordsPath} />} />
         </Routes>
     );

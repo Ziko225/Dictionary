@@ -1,0 +1,36 @@
+@import "../../../../theme.scss";
+
+.settings__field {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: $color-0-3;
+    margin-top: 7px;
+
+    input,
+    select {
+        border: none;
+        box-shadow: $shadow;
+        border-radius: 6px;
+        padding: 4px 10px;
+        height: 32px;
+    }
+
+    p {
+        margin: 0;
+        font-weight: 700;
+    }
+
+    .settings__editButton {
+        padding: 0;
+        border: none;
+        background: none;
+        color: $color-0-3;
+
+        svg {
+            width: 20px;
+            height: 20px;
+            color: $color-0-5;
+        }
+    }
+}

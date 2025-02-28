@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
 
 import { accountService } from './services/accountService';
 
@@ -12,17 +11,16 @@ import { FilterContext } from "./context/filterContext";
 import AppRouter from './AppRouter';
 
 import Auth from './pages/Auth';
+
 import Navigation from './components/Navigation';
+import Loading from './components/Loading';
 
-import { paths } from './constants';
-
-import './styles.scss';
+import './globalStyles.scss';
 import 'normalize.css';
 
 function App() {
     const auth = useAuth();
     const filter = useFilter();
-    const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -39,7 +37,6 @@ function App() {
 
             auth.setUserData(await response.json());
 
-            navigate(paths.wordsPath);
             auth.setStatus('isAuth', true);
         } catch (error) {
             auth.setStatus('isAuth', false);
@@ -49,9 +46,7 @@ function App() {
     };
 
     if (isLoading) {
-        return (
-            <h2>Loading...</h2>
-        );
+        return <Loading />;
     }
 
     return (

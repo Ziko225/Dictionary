@@ -1,8 +1,10 @@
 const fs = require('fs');
 
+const dataBasePath = './dataBase';
+
 class accountDataBaseLogic {
     async readDB(email) {
-        return await JSON.parse(fs.readFileSync(`./dataBase/${email}.json`));
+        return await JSON.parse(fs.readFileSync(`${dataBasePath}/${email}.json`));
     }
 
     async createDB(email, password) {
@@ -15,12 +17,13 @@ class accountDataBaseLogic {
 
             return false;
         } catch (error) {
-            fs.writeFileSync(`./dataBase/${email}.json`, JSON.stringify(
+            fs.writeFileSync(`${dataBasePath}/${email}.json`, JSON.stringify(
                 {
                     account: {
                         email: email,
+                        username: 'User',
+                        language: 'en-US',
                         password: password,
-                        nickname: 'User'
                     },
                     words: [],
                     verbs: []
@@ -53,11 +56,60 @@ class accountDataBaseLogic {
 
             return {
                 email: account.email,
-                nickname: account.nickname,
+                username: account.username,
+                language: account.language,
             };
         } catch (error) {
             console.error(error);
             return null;
+        }
+    }
+
+    async changeAccountData(params) {
+        try {
+            const {
+                username,
+                email,
+                newEmail,
+                language,
+                password
+            } = params;
+
+            const dataBase = await this.readDB(email);
+
+            const currentDataBasePath = `${dataBasePath}/${newEmail || email}.json`;
+
+            if (newEmail) {
+                const dataBasesList = await fs.readdirSync(dataBasePath);
+
+                const isEmailExist = !!dataBasesList.find((email) => email === `${newEmail}.json`);
+
+                if (isEmailExist) {
+                    return 409;
+                }
+
+                await fs.renameSync(`${dataBasePath}/${email}.json`, currentDataBasePath);
+            }
+
+            const newAccountData = {
+                ...dataBase.account,
+                username: username || dataBase.account.username,
+                language: language || dataBase.account.language,
+                password: password || dataBase.account.password,
+                email: newEmail || dataBase.account.email,
+            };
+
+            const newData = {
+                ...dataBase,
+                account: newAccountData
+            };
+
+            await fs.writeFileSync(currentDataBasePath, JSON.stringify(newData));
+
+            return 200;
+        } catch (error) {
+            console.error(error);
+            return 500;
         }
     }
 };

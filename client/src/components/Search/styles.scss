@@ -1,9 +1,4 @@
-@import "../../theme";
-
-.offline {
-    margin: 10px 0 20px;
-    text-align: center;
-}
+@import "../../theme.scss";
 
 .fixedSearch {
     display: flex;
@@ -12,7 +7,7 @@
     width: 100%;
     top: 0;
     padding: 10px;
-    background-color: $textInComponent;
+    background-color: $color-1;
     z-index: 3;
     box-shadow: 2px 2px 5px #3332;
     opacity: 95%;
@@ -22,8 +17,8 @@
         border-radius: 6px;
         border: 0;
         padding: 5px 10px;
-        background-color: $componentBackgroundColor;
-        color: $textInComponent;
+        background-color: $mainColor;
+        color: $color-1;
     }
 
     .search {
@@ -48,8 +43,8 @@
     }
 
     .search__input {
-        color: $componentBackgroundColor;
-        outline-color: $componentBackgroundColor;
+        color: $mainColor;
+        outline-color: $mainColor;
         width: 100%;
         font-weight: 800;
         padding: 10px 37px 10px 16px;

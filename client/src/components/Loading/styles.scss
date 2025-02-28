@@ -4,9 +4,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;
+    height: 70vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
 
     .loading__ico {
-        color: $componentBackgroundColor;
+        color: $mainColor;
     }
 }

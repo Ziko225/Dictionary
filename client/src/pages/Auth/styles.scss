@@ -7,6 +7,10 @@
     margin-top: 20vh;
     width: 100%;
 
+    .title {
+        color: $color-0-3;
+    }
+
     .auth__form {
         display: flex;
         flex-direction: column;
@@ -15,29 +19,39 @@
         justify-content: center;
         min-width: 270px;
 
-        .button {
-            background-color: $componentBackgroundColor;
-            color: $textInComponent;
-            border: none;
-            border-radius: 6px;
-            padding: 12px 20px;
-            font-weight: 700;
-            font-size: 15px;
+
+        .form__buttons {
+            display: flex;
+            justify-content: space-between;
+
+            .button {
+                background-color: $mainColor;
+                color: $color-1;
+                border: none;
+                border-radius: 6px;
+                padding: 12px 20px;
+                font-weight: 700;
+                font-size: 15px;
+
+            }
+
+            .toggleButton {
+                border: none;
+                color: $color-2;
+                background: none;
+                font-size: 14px;
+            }
         }
 
         .input {
             border-radius: 6px;
             padding: 12px 20px;
             border: none;
-            box-shadow: 1px 1px 6px #2e2e2e4d;
+            box-shadow: $shadow;
         }
     }
 
-    .toggleButton {
-        border: none;
-        margin: 10px auto auto;
-        color: $linkColor;
-    }
+
 }
 
 .error {

@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { FilterContext } from "../../context/filterContext";
 
-import "./styles.scss"
+import "./styles.scss";
 
 const Filter = ({ game }) => {
     const { learned, unlearned, backward, toggleHandler } = useContext(FilterContext);
@@ -20,7 +20,8 @@ const Filter = ({ game }) => {
                 <div className="filter__block">
                     <button value="backward" onClick={toggleHandler} className={`block__button ${backward ? "active" : ""}`} />
                     <span className="block__text">Backwards words</span>
-                </div>}
+                </div>
+            }
         </div>
     );
 };

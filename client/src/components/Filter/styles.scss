@@ -6,7 +6,7 @@
     align-items: flex-start;
     gap: 10px;
     margin: 0 20px;
-    color: $textColor;
+    color: $color-0-3;
     position: fixed;
 
     @media (max-width: $tabletMax) {
@@ -30,7 +30,7 @@
         }
 
         .active {
-            background-color: $componentBackgroundColor;
+            background-color: $mainColor;
         }
     }
 }

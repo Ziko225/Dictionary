@@ -62,7 +62,7 @@ class VerbsController {
 
     async remove(req, res) {
         try {
-            const { id } = req.params;
+            const { id } = req.query;
             const { email } = req.body;
 
             const result = await dictionaryDataBaseLogic.remove(email, type, +id);

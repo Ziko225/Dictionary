@@ -5,3 +5,7 @@ export const paths = {
     settingsPath: '/settings',
     authPath: '/auth',
 };
+
+export const queryKeys = {
+    search: 'search'
+};

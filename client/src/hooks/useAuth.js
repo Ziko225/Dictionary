@@ -9,7 +9,8 @@ const useAuth = () => {
 
     const [userData, setUserData] = useState({
         email: '',
-        username: ''
+        username: '',
+        language: '',
     });
 
     /**
