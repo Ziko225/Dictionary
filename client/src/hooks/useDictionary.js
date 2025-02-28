@@ -1,119 +1,108 @@
 import { useContext, useEffect, useState } from 'react';
+
+import { useQueryParams } from './useQueryParams';
+
 import { AuthContext } from '../context/authContext';
-import { useLocation } from "react-router-dom";
-import useHttp from './useHttp';
+import { dictionaryService } from '../services/dictionaryService';
+import { queryKeys } from '../constants';
 
-const useDictionary = (isWordsPage) => {
-    const { isOffline, isLoading } = useContext(AuthContext);
+const useDictionary = (type) => {
+    const { userData } = useContext(AuthContext);
 
-    const [data, setData] = useState();
+    const { queryParams } = useQueryParams('search');
 
-    const [fixSearch, setFixSearch] = useState(false);
-
-    const { getApi } = useHttp();
-
-    const key = isWordsPage ? "words" : "verbs";
-
-    const location = useLocation();
+    const [data, setData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         getWords();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isOffline, isWordsPage]);
 
-    useEffect(() => {
-        if (isOffline) {
-            getApi("auth", "GET");
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [location]);
-
-    useEffect(() => {
-        window.addEventListener("scroll", windowSearchHandler);
-
-        return () => {
-            window.removeEventListener("scroll", windowSearchHandler);
-        };
     }, []);
 
-    const up = () => {
-        window.scrollTo(0, 0);
-    };
+    const service = {
+        words: {
+            get: dictionaryService.getWords,
+            add: dictionaryService.addWord,
+            toggleLearned: dictionaryService.toggleIsLearnedWord,
+            delete: dictionaryService.deleteWord,
+        },
 
-    const windowSearchHandler = () => {
-        if (window.scrollY > 200) {
-            setFixSearch(true);
-        } else if (window.scrollY < 100) {
-            setFixSearch(false);
+        verbs: {
+            get: dictionaryService.getVerbs,
+            add: dictionaryService.addVerb,
+            toggleLearned: dictionaryService.toggleIsLearnedVerb,
+            delete: dictionaryService.deleteVerb,
         }
     };
+
+
 
     const getWords = async () => {
-        if (isOffline) {
-            setData(JSON.parse(localStorage.getItem(key)));
+        try {
+            const response = await service[type].get();
+            const result = await response.json();
 
-            return true;
+            setData(result);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setIsLoading();
         }
-
-        const response = await getApi(key, "GET");
-
-        if (!response) {
-            return;
-        }
-
-        const result = await response.json();
-
-        setData(result);
-        localStorage.setItem(key, JSON.stringify(result));
-
-        return response;
     };
 
     const add = async (data) => {
-        const response = await getApi(key, "POST", data);
+        try {
+            await service[type].add(data);
+            await getWords();
 
-        if (response.ok) {
-            getWords();
             return true;
-        }
+        } catch (error) {
+            if (error?.details?.body) {
+                return error.details.body;
+            }
 
-        if (response.status === 400) {
-            return await response.json();
+            return "Something get wrong";
         }
-
-        return "Something get wrong";
     };
 
     const toggleIsLearned = async (id) => {
-        await getApi(key, "PUT", { id });
+        try {
+            await service[type].toggleLearned({ id });
 
-        getWords();
+            getWords();
+        } catch (error) {
+
+        }
     };
 
-    const removeWord = async (id) => {
-        await getApi(`${key}/${id}`, "DELETE");
+    const remove = async (id) => {
+        try {
+            await service[type].delete({ id });
 
-        getWords();
+            getWords();
 
-        return true;
+            return true;
+        } catch (error) {
+
+        }
     };
 
     const speak = (word) => {
         const utterance = new SpeechSynthesisUtterance(word);
-        utterance.lang = process.env.REACT_APP_LANGUAGE_SPEAK || "en-US";
+        utterance.lang = userData.language || "en-US";
         window.speechSynthesis.speak(utterance);
     };
 
+    const filteredData = queryParams?.[queryKeys.search]
+        ? data.filter((e) => e.name.match(queryParams.search.toLowerCase()))
+        : data;
+
     return {
-        data,
-        getWords,
+        data: filteredData,
         add,
-        up,
-        removeWord,
+        remove,
         toggleIsLearned,
         speak,
-        fixSearch,
-        isOffline,
         isLoading
     };
 };

@@ -5,6 +5,8 @@ const authMiddleware = async (req, res, next) => {
     try {
         const { token } = req.cookies;
 
+        const email = jwt.decode(token)?.email;
+
         if (!token) {
             res.status(401).json("Unauthorized");
             return;
@@ -16,6 +18,8 @@ const authMiddleware = async (req, res, next) => {
             req.status(401).json("Unauthorized");
             return;
         }
+
+        req.body.email = email;
 
         next();
     } catch (error) {

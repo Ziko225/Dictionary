@@ -1,0 +1,16 @@
+@import "../../theme";
+
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    .loading__ico {
+        color: $mainColor;
+    }
+}

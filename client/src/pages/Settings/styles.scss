@@ -1,0 +1,42 @@
+@import "../../theme.scss";
+
+.settings {
+    display: flex;
+    flex-direction: column;
+    background-color: $color-1;
+    max-width: 600px;
+    width: 100%;
+    margin: auto;
+    padding: 20px;
+    margin-top: 30px;
+    box-shadow: $shadow;
+    border-radius: 14px;
+
+    .settings__title {
+        margin: 0;
+        color: $color-0-3;
+    }
+
+    .line {
+        width: 100%;
+        background-color: $color-1-3;
+        height: 1px;
+        margin: 10px 0 0;
+    }
+
+    .settings__button {
+        background-color: $mainColor;
+        border: none;
+        color: $color-1;
+        font-weight: 700;
+        padding: 10px 20px;
+        border-radius: 7px;
+        box-shadow: $shadow;
+        margin-top: 15px;
+    }
+
+    .settings__button--exitButton {
+        align-self: flex-end;
+        background-color: $color-3-1;
+    }
+}

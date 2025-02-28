@@ -1,0 +1,9 @@
+@import "../../theme";
+
+.speakButton {
+    background-color: $mainColor;
+    color: $color-1;
+    border: none;
+    align-self: stretch;
+    padding: auto 5px;
+}

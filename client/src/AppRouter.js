@@ -1,19 +1,19 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import Dictionary from "./pages/Dictionary";
 import Game from "./pages/Game";
-
-export const wordsPath = "/";
-export const verbsPath = "/verbs";
-export const gamePath = "/game";
+import Settings from './pages/Settings';
+import { paths } from './constants.js';
+import Verbs from './pages/Verbs/index.jsx';
+import Words from './pages/Words/index.jsx';
 
 const AppRouter = () => {
 
     return (
         <Routes>
-            <Route path={wordsPath} element={<Dictionary path={wordsPath} />} />
-            <Route path={verbsPath} element={<Dictionary path={verbsPath} />} />
-            <Route path={gamePath} element={<Game />} />
-            <Route path="*" element={<Navigate replace to={wordsPath} />} />
+            <Route path={paths.wordsPath} element={<Words />} />
+            <Route path={paths.verbsPath} element={<Verbs />} />
+            <Route path={paths.gamePath} element={<Game />} />
+            <Route path={paths.settingsPath} element={<Settings />} />
+            <Route path="*" element={<Navigate replace to={paths.wordsPath} />} />
         </Routes>
     );
 };

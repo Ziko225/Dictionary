@@ -1,0 +1,36 @@
+@import "../../theme";
+
+.filter {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    margin: 0 20px;
+    color: $color-0-3;
+    position: fixed;
+
+    @media (max-width: $tabletMax) {
+        position: relative;
+    }
+
+    .filter__block {
+        display: flex;
+        align-items: center;
+
+        .block__button {
+            padding: 15px;
+            border: none;
+            box-shadow: 1px 1px 4px #2227;
+            border-radius: 8px;
+        }
+
+        .block__text {
+            margin-left: 10px;
+            font-weight: 700;
+        }
+
+        .active {
+            background-color: $mainColor;
+        }
+    }
+}
