@@ -1,7 +1,7 @@
 const url = process.env.REACT_APP_URL;
 const credentials = process.env.REACT_APP_CREDENTIALS;
 
-const instanceFetch = async (method, path, { params, body }) => {
+const http = async (method, path, { params, body }) => {
     const formattedUrl = url[url.length - 1] === '/' ? url : url + '/';
     const formattedParams = params ? `?${new URLSearchParams(params).toString()}` : '';
 
@@ -50,27 +50,27 @@ export const API = {
      * @param {string} path 
      */
     async get(path, params) {
-        return instanceFetch('GET', path, { params });
+        return http('GET', path, { params });
     },
 
     /**
     * @param {string} path 
     */
     async post(path, body, params) {
-        return instanceFetch('POST', path, { body, params });
+        return http('POST', path, { body, params });
     },
 
     /**
     * @param {string} path 
     */
     async put(path, body, params) {
-        return instanceFetch('PUT', path, { body, params });
+        return http('PUT', path, { body, params });
     },
 
     /**
     * @param {string} path 
     */
     async delete(path, params) {
-        return instanceFetch('DELETE', path, { params });
+        return http('DELETE', path, { params });
     },
 };

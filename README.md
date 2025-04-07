@@ -8,7 +8,7 @@
 - Responsiveness for use with mobile **✓**
 - Very easy to set up (uses JSON as a database) **✓**
 
-#### Include game ✓
+Include game ✓
 * if you enter the correct word, it will be marked as learned.
 * if you click "I do not know" button, the word will switch to unlearned.
 * Selects a random word from your dictionary.
@@ -35,37 +35,51 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### **`npm run eject`**
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
 ## **Server:**
 
 ### **`npm start`**
-Starts app at 5500 port.
+Starts NodeJS express server at 5500 (default) port.
 
 ### **`npm run dev`**
-Runs the app in the development mode at 5500 port.
+Runs the server in the development mode at 5500 (default) port.
+
+# Getting Started
+(If you're interested in trying out the app without installing it on your computer – just let me know and I’ll provide you with online access.)
+* Clone the repository or download manually.
+
+Backend
+* Open the server folder `/server`
+* Install dependencies there `npm install`
+* Create the .env file in the `/server` folder (You can use .local.env as an example)
+* (optional) If you need to use the `https` protocol - create `/credentials` folder and add `privateKey.key` and `certificate.crt` files to this folder.
+* Run the server `npm start`
+  
+Frontend
+* Open the client folder `/client`
+* Install dependencies there `npm install`
+* Create the .env file in the `/client` folder (You can use .local.env as an example)
+* Run the app `npm start`
 
 # Demo:
 
-## Dictionary (Learned words):
+## New UI version
+### Dictionary (Words):
+![Words page](./img/wordsNew.png)
+![Words page new UI 2](./img/wordsNew2.png)
+
+### Settings:
+![Words page new UI](./img/settings.png)
+
+## Old UI
+
+### Dictionary (Unlearned words):
 ![Words page](./img/words.png)
 
-## Dictionary (Unlearned words):
-![Unlearned words page](./img/learnedWords.png)
-
-## Dictionary (Irregular Verbs):
+### Dictionary (Irregular Verbs):
 ![Irregular Verbs page](./img/verbs.png)
 
-## Game:
+### Game:
 ![Game page](./img/game.gif)
 
-## Log in to the app:
+### Log in:
 ![Auth page](./img/auth.png)
