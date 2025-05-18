@@ -1,8 +1,8 @@
-const url = process.env.REACT_APP_URL;
-const credentials = process.env.REACT_APP_CREDENTIALS;
+const url = import.meta.env.VITE_ENDPOINT;
+const credentials = import.meta.env.VITE_CREDENTIALS;
 
 const http = async (method, path, { params, body }) => {
-    const formattedUrl = url[url.length - 1] === '/' ? url : url + '/';
+    const formattedUrl = url[url.length - 1] === '/' ? url : `${url}/`;
     const formattedParams = params ? `?${new URLSearchParams(params).toString()}` : '';
 
     const options = {

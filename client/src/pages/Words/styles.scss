@@ -1,4 +1,4 @@
-@import "../../theme";
+@use "../../theme" as *;
 
 @mixin buttonComponent {
     background-color: $mainColor;
@@ -97,44 +97,4 @@
         height: 100%;
         background-color: $color-3
     }
-}
-
-.addWord {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    margin: 90px 40px;
-    width: 100%;
-    max-width: 280px;
-    background-color: $color-1;
-    padding: 40px 30px;
-    border-radius: 15px;
-    box-shadow: $shadow;
-
-    .addWord__input {
-        border-radius: 6px;
-        padding: 0 12px;
-        margin-bottom: 9px;
-        height: 45px;
-        font-size: 15px;
-        border: 2px solid $color-1-1
-    }
-
-    .addWord__button {
-        border-radius: 6px;
-        padding: 12px 20px;
-        margin-bottom: 9px;
-        @include buttonComponent;
-        border: 1px solid $color-1-1
-    }
-}
-
-
-.error {
-    color: #f90000;
-    font-weight: 600;
-    font-size: 17px;
-    margin-bottom: 7px;
 }

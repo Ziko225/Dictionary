@@ -4,7 +4,7 @@ import { useQueryParams } from '../../hooks/useQueryParams';
 
 import { queryKeys } from '../../constants';
 
-import { ReactComponent as SearchIco } from "./search.svg";
+import SearchIco from "./search.svg?react";
 
 import "./styles.scss";
 
@@ -43,7 +43,7 @@ const Search = () => {
     };
 
     return (
-        <div className={fixSearch && "fixedSearch"}>
+        <div className={fixSearch ? "fixedSearch" : ''}>
             <div className="search">
                 <input
                     className="search__input"

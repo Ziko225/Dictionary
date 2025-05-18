@@ -3,7 +3,6 @@ import { useState } from 'react';
 const useAuth = () => {
     const [statuses, setStatuses] = useState({
         isAuth: localStorage.getItem('isAuth') === 'true',
-        isOffline: false,
         isLoading: true
     });
 
@@ -35,7 +34,6 @@ const useAuth = () => {
         userData,
         isLoading: statuses.isLoading,
         isAuth: statuses.isAuth,
-        isOffline: statuses.isOffline,
     };
 };
 

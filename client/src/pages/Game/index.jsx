@@ -12,101 +12,90 @@ import SpeakButton from "../../components/SpeakButton";
 import "./styles.scss";
 
 const Game = () => {
-    const { data, toggleIsLearned, speak, isOffline, isLoading } = useDictionary('words');
+    const { data, toggleIsLearned, speak, isLoading } = useDictionary('words');
 
     const { getFilteredData, learned, unlearned, backward, toggleHandler } = useContext(FilterContext);
 
-    const [isPause, setIsPause] = useState();
+    const [isPause, setIsPause] = useState(false);
+    const [words, setWords] = useState([]);
+    const [sessionWords, setSessionWords] = useState([]);
+    const [randomWord, setRandomWord] = useState(null);
+    const [typedWord, setTypedWord] = useState("");
+    const [status, setStatus] = useState("");
+    const [isNotEnoughWords, setIsNotEnoughWords] = useState(false);
 
-    const filteredData = getFilteredData(data);
+    const [isGameStarted, toggleIsGameStarted] = useToggle(false);
 
-    const [randomWord, setRandomWord] = useState({ name: "" });
+    useEffect(() => {
+        const newWords = getFilteredData(words);
+
+        if (!newWords[0] || newWords.length < 3) {
+            return setIsNotEnoughWords(true);
+        } else {
+            setIsNotEnoughWords(false);
+        }
+
+        setSessionWords(newWords);
+        getRandomWord(newWords);
+    }, [learned, unlearned, backward, words]);
 
     const inputRef = useRef(null);
 
-    const randomWordCurrentName = backward ? randomWord.translate : randomWord.name;
-
-    const randomWordName = randomWord.name;
-
-    const [typedWord, setTypedWord] = useState("");
-
-    const [status, setStatus] = useState("");
-
-    const [startGame, toggleStartGame] = useToggle(false);
-
-    const isEnoughWords = filteredData?.length >= 3;
-
-    useEffect(() => {
-        if (status === "") {
-            return;
-        }
-
-        setStatus("");
-    }, [randomWord]);
-
-    useEffect(() => {
-        newRandomWord();
-    }, [learned, unlearned, backward]);
+    const randomWordCurrentName = backward ? randomWord?.translate : randomWord?.name || '';
+    const randomWordName = randomWord?.name || '';
+    const word = backward ? randomWord?.name : randomWord?.translate || '';
 
     const cleanWord = (word) => {
         return word.toLowerCase().trim();
     };
 
-    const getRandomWord = () => {
-        const max = filteredData?.length;
-        const min = 3;
-
-        if (!filteredData || max < min) {
-            return false;
-        }
-
+    const getRandomWord = (words) => {
+        const max = words?.length;
         const randomNumber = Math.floor(Math.random() * max);
-
-        const nextRandomWord = filteredData[randomNumber];
-
-        if (!randomWord) {
-            setIsPause(false);
-            return setRandomWord(nextRandomWord);
-        }
-
-        if (nextRandomWord.name === randomWord.name) {
-            return getRandomWord();
-        }
+        const nextRandomWord = words[randomNumber];
 
         setRandomWord(nextRandomWord);
         setIsPause(false);
         inputRef.current?.focus();
     };
 
-    const newRandomWord = () => {
-        if (isPause) {
-            return;
-        }
+    const removeLastRandomWord = (lastRandomWord) => {
+        const newArray = sessionWords.filter((word) => word.id !== lastRandomWord.id);
+        setSessionWords(newArray);
 
-        getRandomWord();
+        return newArray;
     };
 
-    const submit = (event) => {
+    const start = () => {
+        if (!data[0] || data.length < 3) {
+            return setIsNotEnoughWords(true);
+        }
+
+        setWords(data);
+        toggleIsGameStarted();
+    };
+
+    const submit = async (event) => {
         event.preventDefault();
 
         if (isPause) {
             return;
         }
 
-        const cleanTypedWord = cleanWord(typedWord);
+        const cleanedTypedWord = cleanWord(typedWord);
 
         const splitString = (word = "") => {
             if (!word) {
                 return [];
             }
 
-            const cleanWord = word
+            const cleanedWord = word
                 .replaceAll("/", "@")
                 .replaceAll(";", "@")
                 .replaceAll("'", "")
                 .replaceAll(",", "@");
 
-            return cleanWord.split("@").map((name) => {
+            return cleanedWord.split("@").map((name) => {
                 if (name.includes("(")) {
                     const optional = name.slice(name.lastIndexOf("(", name.lastIndexOf(")")));
                     return name = name.replace(optional, "").trim();
@@ -116,9 +105,9 @@ const Game = () => {
             });
         };
 
-        const ok = () => {
+        const nextWord = async () => {
             if (!randomWord.learned) {
-                toggleIsLearned(randomWord.id);
+                await toggleIsLearned(randomWord.id);
             }
 
             setIsPause(true);
@@ -129,32 +118,34 @@ const Game = () => {
             const timeout = setTimeout(() => {
                 setStatus("");
                 setTypedWord("");
-                getRandomWord();
+
+                const newArray = removeLastRandomWord(randomWord);
+                getRandomWord(newArray);
                 clearTimeout(timeout);
             }, 2000);
         };
 
         if (backward) {
             const translate = cleanWord(randomWord.translate);
-            const isArrayIncludeTypedWord = splitString(translate).includes(cleanTypedWord);
+            const isArrayIncludeTypedWord = splitString(translate).includes(cleanedTypedWord);
 
             if (isArrayIncludeTypedWord) {
-                return ok();
+                return await nextWord();
             }
-        } else if (cleanTypedWord === cleanWord(randomWordCurrentName)) {
-            return ok();
+        } else if (cleanedTypedWord === cleanWord(randomWordCurrentName)) {
+            return await nextWord();
         }
 
         setStatus("mistake");
     };
 
-    const dontKnow = () => {
+    const dontKnow = async () => {
         if (isPause) {
             return;
         }
 
-        if (randomWord.learned) {
-            toggleIsLearned(randomWord.id);
+        if (randomWord?.learned) {
+            await toggleIsLearned(randomWord.id);
         }
 
         setIsPause(true);
@@ -162,33 +153,56 @@ const Game = () => {
         setTypedWord(randomWordCurrentName);
         speak(randomWordName);
 
-        const ok = () => {
-
+        const nextWord = () => {
             setTypedWord("");
-            getRandomWord();
+
+            const newArray = removeLastRandomWord(randomWord);
+            getRandomWord(newArray);
         };
 
-        setTimeout(ok, 3000);
+        setTimeout(nextWord, 3000);
     };
 
-    const start = () => {
-        toggleStartGame();
-        newRandomWord();
+    const skip = () => {
+        if (isPause) {
+            return;
+        }
+
+        const newArray = removeLastRandomWord(randomWord);
+        getRandomWord(newArray);
     };
 
-    const word = backward ? randomWord.name : randomWord.translate;
+    const retry = () => {
+        setWords([...data]);
+    };
 
-    if (!startGame) {
+    if (!isGameStarted) {
         return (
             <div className="game">
-                <h1>Learn words with game!</h1>
+                <h1>Play and learn!</h1>
                 <button className="button" onClick={start}>Start</button>
             </div>
         );
     }
 
     if (isLoading) {
-        return (<Loading />);
+        return <Loading />;
+    }
+
+    if (isNotEnoughWords) {
+        return (
+            <>
+                <Filter
+                    learned={learned}
+                    unlearned={unlearned}
+                    toggleHandler={toggleHandler}
+                    game
+                />
+                <div className='game'>
+                    <h3>Not enough words</h3>
+                </div>
+            </>
+        );
     }
 
     return (
@@ -201,9 +215,9 @@ const Game = () => {
             />
 
             <div className="game">
-                {isEnoughWords
+                <p>Words left: {sessionWords.length}</p>
+                {sessionWords[0]
                     ? <>
-                        {isOffline && <h2>Offline</h2>}
                         <h2 className="game__title">{word}</h2>
                         <form onSubmit={submit} className="form">
                             <input
@@ -216,13 +230,16 @@ const Game = () => {
                             />
                         </form>
                         <div className="buttonsBlock">
-                            {backward && <SpeakButton speak={() => speak(word)} />}
-                            <button onClick={newRandomWord} className="button">Skip</button>
+                            {backward && <SpeakButton className="buttonsBlock__button" speak={() => speak(word)} />}
+                            <button onClick={skip} className="button">Skip</button>
                             <button onClick={dontKnow} className="button button--idk">I don't know</button>
                         </div>
                         <button onClick={submit} className="button button--primary">Submit</button>
                     </>
-                    : <h3>Not enough words</h3>
+                    : <>
+                        <h3>You finish the game!</h3>
+                        <button onClick={retry} className="button">Retry?</button>
+                    </>
                 }
             </div>
         </>

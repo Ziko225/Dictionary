@@ -61,10 +61,10 @@ const Words = () => {
                     )
                     : <h2>Not found</h2>
                 }
-                {isBarOpen && <ModalsAddWord addWord={addWord} />}
+                {isBarOpen && <ModalsAddWord addWord={addWord} speak={speak} />}
                 <button onClick={toggleIsBarOpen} className='addButton'>+</button>
-            </div></>
-
+            </div>
+        </>
     );
 };
 

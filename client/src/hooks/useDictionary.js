@@ -16,8 +16,9 @@ const useDictionary = (type) => {
 
     useEffect(() => {
         getWords();
-
     }, []);
+
+    const querySearch = queryParams[queryKeys.search] || '';
 
     const service = {
         words: {
@@ -34,8 +35,6 @@ const useDictionary = (type) => {
             delete: dictionaryService.deleteVerb,
         }
     };
-
-
 
     const getWords = async () => {
         try {
@@ -93,12 +92,23 @@ const useDictionary = (type) => {
         window.speechSynthesis.speak(utterance);
     };
 
-    const filteredData = queryParams?.[queryKeys.search]
-        ? data.filter((e) => e.name.match(queryParams.search.toLowerCase()))
-        : data;
+    const isFilterInclude = text => text.includes(querySearch.toLowerCase());
+
+    const getFilteredData = () => {
+        try {
+            const filteredData = querySearch
+                ? data.filter((word) => isFilterInclude(word.name) || isFilterInclude(word.translate))
+                : data;
+
+            return filteredData;
+        } catch (error) {
+            console.error(error);
+            return data;
+        }
+    };
 
     return {
-        data: filteredData,
+        data: getFilteredData(),
         add,
         remove,
         toggleIsLearned,

@@ -5,8 +5,8 @@ import { useToggle } from '../../hooks/useToggle';
 
 import { AuthContext } from '../../context/authContext';
 
-import { ReactComponent as Avatar } from './avatar.svg';
-import { ReactComponent as BurgerIco } from "./burger.svg";
+import Avatar from './avatar.svg?react';
+import BurgerIco from "./burger.svg?react";
 
 import { paths } from '../../constants';
 

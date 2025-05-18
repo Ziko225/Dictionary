@@ -1,4 +1,4 @@
-import { ReactComponent as CircleIco } from "./circle.svg";
+import CircleIco from './circles.svg?react';
 import "./styles.scss";
 
 const Loading = () => {

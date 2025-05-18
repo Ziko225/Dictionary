@@ -1,6 +1,4 @@
-@import "../../theme";
-
-$shadow: 2px 4px 4px #3332;
+@use "../../theme" as *;
 
 .game {
     display: flex;
@@ -97,5 +95,9 @@ $shadow: 2px 4px 4px #3332;
         display: flex;
         gap: 20px;
         justify-content: space-around;
+
+        .buttonsBlock__button {
+            border-radius: 8px;
+        }
     }
 }

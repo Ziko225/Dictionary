@@ -39,7 +39,7 @@ class accountDataBaseLogic {
                 }
             ));
 
-            console.log(`(!) ### created new DataBase ${email}.json ###`);
+            console.info(`(!) ### created new DataBase ${email}.json ###`);
             return 201;
         } catch (error) {
             console.error(error);

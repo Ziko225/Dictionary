@@ -30,7 +30,7 @@ class dictionaryDataBaseLogic {
             if (db[type].filter((e) => e.name === name)[0]) {
                 result.status = false;
                 result.msg = `${name} already exist!`;
-                console.log(`[${email}]: (!) Trying to add new word: ${name}`);
+                console.info(`[${email}]: (!) Trying to add new word: ${name}`);
                 return result;
             };
 
@@ -40,7 +40,7 @@ class dictionaryDataBaseLogic {
 
             db[type].push(data);
 
-            console.log(`[${email}]: (!) Added new word: ${name}`);
+            console.info(`[${email}]: (!) Added new word: ${name}`);
 
             fs.writeFileSync(`./dataBase/${email}.json`, JSON.stringify(db));
 
@@ -79,7 +79,7 @@ class dictionaryDataBaseLogic {
             selectedWord.learned = !selectedWord.learned;
 
             fs.writeFile(`./dataBase/${email}.json`, JSON.stringify(db), () => {
-                console.log(
+                console.info(
                     `[${email}]: (!) Toggled learned word: ${selectedWord.name} ${selectedWord.learned
                         ? "V"
                         : "X"}`
@@ -124,7 +124,7 @@ class dictionaryDataBaseLogic {
             db[type] = newData;
 
             fs.writeFile(`./dataBase/${email}.json`, JSON.stringify(db), () => {
-                console.log(`[${email}]: (!) Word: ${selectedWord} removed successful`);
+                console.info(`[${email}]: (!) Word: ${selectedWord} removed successful`);
             });
 
             return result;

@@ -9,8 +9,7 @@ import { AuthContext } from '../../context/authContext';
 
 import SettingField from './components/SettingField';
 
-import { speakLanguages } from './variables';
-import { paths } from '../../constants';
+import { paths, speakLanguages } from '../../constants';
 
 import './styles.scss';
 

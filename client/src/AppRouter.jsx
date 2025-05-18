@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import Game from "./pages/Game";
-import Settings from './pages/Settings';
+import Game from "./pages/Game/index.jsx";
+import Settings from './pages/Settings/index.jsx';
 import { paths } from './constants.js';
 import Verbs from './pages/Verbs/index.jsx';
 import Words from './pages/Words/index.jsx';

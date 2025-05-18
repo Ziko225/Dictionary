@@ -1,4 +1,4 @@
-@import "../../theme";
+@use "../../theme" as *;
 
 .navigation {
     display: flex;
@@ -40,6 +40,8 @@
         svg {
             grid-column: 2;
             grid-row: span 2;
+            width: 40px;
+            height: 40px;
         }
 
         .userButton__font1 {

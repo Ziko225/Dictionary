@@ -3,3 +3,4 @@ build
 dataBase
 .env
 credentials
+netlify.toml

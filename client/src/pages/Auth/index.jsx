@@ -38,7 +38,7 @@ const Auth = () => {
     const handleSubmit = async (e) => {
         e.preventDefault(e);
 
-        const selectedService = isRegistration ? accountService.registration : accountService.login;
+        const authService = isRegistration ? accountService.registration : accountService.login;
 
         try {
             setErrorMsg('');
@@ -47,7 +47,7 @@ const Auth = () => {
                 return setErrorMsg('Passwords do not match');
             }
 
-            const response = await selectedService({ email: formData.email, password: formData.password });
+            const response = await authService({ email: formData.email, password: formData.password });
 
             if (!response.ok) {
                 throw new Error('Something get wrong');
@@ -59,7 +59,7 @@ const Auth = () => {
         } catch (error) {
             console.error(error);
             if (error?.details?.status === 400) {
-                return setErrorMsg('Enter the correct email');
+                return setErrorMsg('Email or password is wrong');
             }
 
             if (error?.details?.status === 409) {

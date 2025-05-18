@@ -1,4 +1,4 @@
-import { ReactComponent as EditIco } from "./edit.svg";
+import EditIco from "./edit.svg?react";
 
 import './styles.scss';
 

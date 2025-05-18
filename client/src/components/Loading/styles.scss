@@ -1,4 +1,4 @@
-@import "../../theme";
+@use "../../theme" as *;
 
 .loading {
     display: flex;
@@ -12,5 +12,7 @@
 
     .loading__ico {
         color: $mainColor;
+        width: 120px;
+        height: 120px;
     }
 }

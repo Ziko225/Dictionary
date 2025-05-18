@@ -1,14 +1,17 @@
 import { useRef, useState } from 'react';
+import SpeakButton from '../../../../components/SpeakButton';
 
-const ModalsAddWord = ({ addWord }) => {
-    const [name, setName] = useState("");
+import "./styles.scss";
+
+const ModalsAddWord = ({ addWord, speak }) => {
+    const [typedWord, setTypedWord] = useState("");
     const [translate, setTranslate] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
     const ref = useRef();
 
     const data = {
-        name,
+        name: typedWord,
         translate
     };
 
@@ -19,7 +22,7 @@ const ModalsAddWord = ({ addWord }) => {
             return setTranslate(target.value);
         }
 
-        return setName(target.value);
+        return setTypedWord(target.value);
     };
 
     const addNewWorld = async (e) => {
@@ -34,7 +37,7 @@ const ModalsAddWord = ({ addWord }) => {
 
         window.scrollTo(0, document.body.scrollHeight);
 
-        setName("");
+        setTypedWord("");
         setTranslate("");
         ref.current?.focus();
     };
@@ -42,16 +45,19 @@ const ModalsAddWord = ({ addWord }) => {
     return (
         <form onSubmit={addNewWorld} className='addWord'>
             <span className='error'>{errorMessage}</span>
-            <input
-                autoFocus
-                ref={ref}
-                value={name}
-                onChange={inputHandler}
-                required
-                name="name"
-                className='addWord__input'
-                placeholder='Word'
-            />
+            <div className='addWord__inputBox'>
+                <input
+                    autoFocus
+                    ref={ref}
+                    value={typedWord}
+                    onChange={inputHandler}
+                    required
+                    name="name"
+                    className='addWord__input'
+                    placeholder='Word'
+                />
+                <SpeakButton className="inputBox__speak" type="button" data={typedWord} speak={speak} />
+            </div>
             <input
                 value={translate}
                 onChange={inputHandler}

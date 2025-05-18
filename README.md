@@ -17,7 +17,7 @@ Include game ✓
 
 ## **Client:**
 
-### **`npm start`**
+### **`npm run dev` or `yarn dev`**
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
@@ -25,7 +25,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### **`npm run build`**
+### **`npm run build` or `yarn build`**
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -33,15 +33,18 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+See the section about [deployment](https://vite.dev/guide/build) for more information.
 
 ## **Server:**
 
-### **`npm start`**
+### **`npm start` or `yarn start`**
 Starts NodeJS express server at 5500 (default) port.
 
-### **`npm run dev`**
+### **`npm run dev` or `yarn dev`**
 Runs the server in the development mode at 5500 (default) port.
+
+### **`npm run build` or `yarn build`**
+(!) Experimental feature for bundling the backend server into a single file.
 
 # Getting Started
 (If you're interested in trying out the app without installing it on your computer – just let me know and I’ll provide you with online access.)
@@ -51,7 +54,7 @@ Backend
 * Open the server folder `/server`
 * Install dependencies there `npm install`
 * Create the .env file in the `/server` folder (You can use .local.env as an example)
-* (optional) If you need to use the `https` protocol - create `/credentials` folder and add `privateKey.key` and `certificate.crt` files to this folder.
+* (Optional, for advanced users)   If you need to use the `https` protocol - create `/credentials` folder and add `privateKey.key` and `certificate.crt` files to this folder.
 * Run the server `npm start`
   
 Frontend
