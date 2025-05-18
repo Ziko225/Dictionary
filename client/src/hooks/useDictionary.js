@@ -1,13 +1,16 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import { userStore } from 'store/userStore';
 
 import { useQueryParams } from './useQueryParams';
 
-import { AuthContext } from '../context/authContext';
-import { dictionaryService } from '../services/dictionaryService';
-import { queryKeys } from '../constants';
+import { dictionaryService } from 'services/dictionaryService';
+import { queryKeys } from 'constants';
 
 const useDictionary = (type) => {
-    const { userData } = useContext(AuthContext);
+    const {
+        userData
+    } = userStore();
 
     const { queryParams } = useQueryParams('search');
 

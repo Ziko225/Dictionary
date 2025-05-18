@@ -1,5 +1,6 @@
 # Dictionary
-### This app improves your English language learning experience!
+**This app improves your English learning experience** — and not only english!
+This online dictionary helps you remember words faster and more effectively with interactive learning modes.
 ### features:
 - Authorization using the JWT token **✓**
 - Listen to the pronunciation of words **✓**
@@ -12,6 +13,18 @@ Include game ✓
 * if you enter the correct word, it will be marked as learned.
 * if you click "I do not know" button, the word will switch to unlearned.
 * Selects a random word from your dictionary.
+
+## Technologies used:
+- React
+- React Router
+- Zustand
+- SASS (SCSS)
+- Vite
+- NodeJS (Express)
+- JSON as DataBase
+- JWT
+- nodemon
+- npm & yarn
 
 # Available Scripts:
 

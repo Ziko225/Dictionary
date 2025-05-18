@@ -1,12 +1,13 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useQueryParams } from '../../hooks/useQueryParams';
+import { useQueryParams } from 'hooks/useQueryParams';
 
-import { AuthContext } from '../../context/authContext';
-import { accountService } from '../../services/accountService';
+import { userStore } from 'store/userStore';
 
-import { paths } from '../../constants';
+import { accountService } from 'services/accountService';
+
+import { paths } from 'constants';
 
 import './styles.scss';
 
@@ -18,7 +19,8 @@ const Auth = () => {
     });
 
     const [errorMsg, setErrorMsg] = useState('');
-    const { setStatus, setUserData } = useContext(AuthContext);
+
+    const { changeIsAuth, changeUserData } = userStore();
 
     const navigate = useNavigate();
 
@@ -53,9 +55,9 @@ const Auth = () => {
                 throw new Error('Something get wrong');
             }
 
-            setUserData(await response.json());
+            changeUserData(await response.json());
             navigate(paths.wordsPath);
-            setStatus('isAuth', true);
+            changeIsAuth(true);
         } catch (error) {
             console.error(error);
             if (error?.details?.status === 400) {

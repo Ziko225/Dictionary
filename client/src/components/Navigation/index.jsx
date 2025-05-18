@@ -1,19 +1,19 @@
-import { useContext } from 'react';
 import { Link, NavLink } from "react-router-dom";
 
-import { useToggle } from '../../hooks/useToggle';
+import { useToggle } from 'hooks/useToggle';
 
-import { AuthContext } from '../../context/authContext';
+import { userStore } from 'store/userStore';
 
 import Avatar from './avatar.svg?react';
 import BurgerIco from "./burger.svg?react";
 
-import { paths } from '../../constants';
+import { paths } from 'constants';
 
 import "./styles.scss";
 
 const Navigation = () => {
-    const { userData } = useContext(AuthContext);
+    const { userData } = userStore();
+
     const [isMobileBarActive, toggleMobileBarActive, setMobileBarActive] = useToggle(false);
 
     const closeMobileBar = () => {

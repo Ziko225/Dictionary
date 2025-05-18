@@ -1,20 +1,19 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-import { FilterContext } from "../../context/filterContext";
+import { useToggle } from "hooks/useToggle";
+import useDictionary from "hooks/useDictionary";
+import useFilter from 'hooks/useFilter';
 
-import { useToggle } from "../../hooks/useToggle";
-import useDictionary from "../../hooks/useDictionary";
-
-import Filter from "../../components/Filter";
-import Loading from "../../components/Loading";
-import SpeakButton from "../../components/SpeakButton";
+import Filter from "components/Filter";
+import Loading from "components/Loading";
+import SpeakButton from "components/SpeakButton";
 
 import "./styles.scss";
 
 const Game = () => {
     const { data, toggleIsLearned, speak, isLoading } = useDictionary('words');
 
-    const { getFilteredData, learned, unlearned, backward, toggleHandler } = useContext(FilterContext);
+    const { getFilteredData, learned, unlearned, backward, toggleHandler } = useFilter();
 
     const [isPause, setIsPause] = useState(false);
     const [words, setWords] = useState([]);

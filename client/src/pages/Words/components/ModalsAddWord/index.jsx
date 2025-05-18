@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import SpeakButton from '../../../../components/SpeakButton';
+import SpeakButton from 'components/SpeakButton';
 
 import "./styles.scss";
 

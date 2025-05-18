@@ -1,4 +1,4 @@
-@use "../../theme" as *;
+@use "theme.scss" as *;
 
 .navigation {
     display: flex;
@@ -114,7 +114,7 @@
             flex-direction: column;
             align-items: flex-start;
             max-width: 220px;
-            position: absolute;
+            position: fixed;
             background-color: $mainColor;
             width: 100%;
             height: 100%;
@@ -156,6 +156,7 @@
             display: block;
             opacity: 0.5;
             z-index: 2;
+            position: fixed;
         }
 
         .navigation__nav--active {

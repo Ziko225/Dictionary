@@ -1,10 +1,9 @@
-import { useContext } from "react";
-import { FilterContext } from "../../context/filterContext";
+import useFilter from 'hooks/useFilter';
 
 import "./styles.scss";
 
 const Filter = ({ game }) => {
-    const { learned, unlearned, backward, toggleHandler } = useContext(FilterContext);
+    const { learned, unlearned, backward, toggleHandler } = useFilter();
 
     return (
         <div className="filter">

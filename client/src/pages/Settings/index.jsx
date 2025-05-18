@@ -1,20 +1,24 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useToggle } from '../../hooks/useToggle';
+import { useToggle } from 'hooks/useToggle';
 
-import { accountService } from '../../services/accountService';
+import { accountService } from 'services/accountService';
 
-import { AuthContext } from '../../context/authContext';
+import { userStore } from 'store/userStore';
 
 import SettingField from './components/SettingField';
 
-import { paths, speakLanguages } from '../../constants';
+import { paths, speakLanguages } from 'constants';
 
 import './styles.scss';
 
 const Settings = () => {
-    const { setStatus, userData, setUserData } = useContext(AuthContext);
+    const {
+        userData,
+        changeIsAuth,
+        changeUserData
+    } = userStore();
 
     const [errorMessage, setErrorMessage] = useState('');
     const [formData, setFormData] = useState({
@@ -53,7 +57,7 @@ const Settings = () => {
             setPasswordChange(false);
             setVoiceLanguageChange(false);
 
-            setUserData(await response.json());
+            changeUserData(await response.json());
 
             navigate(paths.wordsPath);
         } catch (error) {
@@ -77,12 +81,13 @@ const Settings = () => {
         try {
             await accountService.logOut();
 
-            setUserData({
+            changeUserData({
                 email: '',
                 username: '',
                 language: '',
             });
-            setStatus('isAuth', false);
+
+            changeIsAuth(false);
         } catch (error) {
             alert('Something get wrong, try again later');
         }
@@ -124,6 +129,11 @@ const Settings = () => {
                         onChange={(e) => changeFormData('password', e.currentTarget.value)}
                     />
                     <div className='line' />
+                    <p className='form__infoText'>
+                        Not all browsers support the voice function, and on iPhone
+                        it doesn't work at all because the voice language can
+                        only be set in the phone's settings.
+                    </p>
                     <SettingField
                         title="Voice language:"
                         value={selectedLanguage}

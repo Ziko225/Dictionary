@@ -1,9 +1,14 @@
-import { useToggle } from "./useToggle";
+import { filterStore } from 'store/filterStore';
 
 const useFilter = () => {
-    const [learned, toggleLearned] = useToggle(false);
-    const [unlearned, toggleUnlearned] = useToggle(true);
-    const [backward, toggleBackward] = useToggle(false);
+    const {
+        learned,
+        unlearned,
+        backward,
+        toggleLearned,
+        toggleUnlearned,
+        toggleBackward
+    } = filterStore();
 
     const getFilteredData = (data) => {
         if (!data) {

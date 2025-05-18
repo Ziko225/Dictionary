@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import { useQueryParams } from '../../hooks/useQueryParams';
+import { useQueryParams } from 'hooks/useQueryParams';
 
-import { queryKeys } from '../../constants';
+import { queryKeys } from 'constants';
 
 import SearchIco from "./search.svg?react";
 
 import "./styles.scss";
-
 
 const Search = () => {
     const [fixSearch, setFixSearch] = useState(false);

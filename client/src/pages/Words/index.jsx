@@ -1,14 +1,11 @@
-import { useContext } from 'react';
+import { useToggle } from "hooks/useToggle";
+import useDictionary from 'hooks/useDictionary';
+import useFilter from 'hooks/useFilter';
 
-import { useToggle } from "../../hooks/useToggle";
-import useDictionary from '../../hooks/useDictionary';
-
-import { FilterContext } from '../../context/filterContext';
-
-import SpeakButton from "../../components/SpeakButton";
-import Loading from '../../components/Loading';
-import Filter from '../../components/Filter';
-import Search from '../../components/Search';
+import SpeakButton from "components/SpeakButton";
+import Loading from 'components/Loading';
+import Filter from 'components/Filter';
+import Search from 'components/Search';
 import ModalsAddWord from "./components/ModalsAddWord";
 
 import "./styles.scss";
@@ -18,7 +15,7 @@ const Words = () => {
 
     const { data, speak, toggleIsLearned, remove, add: addWord, isLoading } = useDictionary('words');
 
-    const { getFilteredData, learned, unlearned, toggleHandler } = useContext(FilterContext);
+    const { getFilteredData, learned, unlearned, toggleHandler } = useFilter();
 
     const filteredData = getFilteredData(data);
 

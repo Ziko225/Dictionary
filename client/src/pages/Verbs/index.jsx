@@ -1,21 +1,19 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 
-import useDictionary from '../../hooks/useDictionary';
+import useDictionary from 'hooks/useDictionary';
+import useFilter from 'hooks/useFilter';
 
-import SpeakButton from "../../components/SpeakButton";
-import Loading from '../../components/Loading';
-import Filter from '../../components/Filter';
-import Search from '../../components/Search';
-
-import { FilterContext } from '../../context/filterContext';
+import SpeakButton from "components/SpeakButton";
+import Loading from 'components/Loading';
+import Filter from 'components/Filter';
+import Search from 'components/Search';
 
 import "./styles.scss";
 
 const Verbs = () => {
     const { data, speak, toggleIsLearned, remove, add: addVerb, isLoading } = useDictionary('verbs');
 
-
-    const { getFilteredData, learned, unlearned, toggleHandler } = useContext(FilterContext);
+    const { getFilteredData, learned, unlearned, toggleHandler } = useFilter();
 
     const [msg, setMsg] = useState("");
 

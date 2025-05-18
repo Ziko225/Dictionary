@@ -12,7 +12,8 @@
     "react-router-dom": "^6.14.2",
     "sass": "^1.85.1",
     "sass-loader": "^16.0.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "zustand": "^5.0.4"
   },
   "scripts": {
     "dev": "vite",
@@ -43,6 +44,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@vitejs/plugin-react": "^4.4.1",
+    "path": "^0.12.7",
     "vite": "^6.3.5",
     "vite-plugin-svgr": "^4.3.0"
   }
