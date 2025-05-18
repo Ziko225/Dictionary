@@ -46,7 +46,12 @@
 
     .words__speak {
         background: none;
-        color: $mainColor
+        color: $mainColor;
+
+        svg {
+            width: 19px;
+            height: 19px;
+        }
     }
 
     .words__word {

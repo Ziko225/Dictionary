@@ -66,6 +66,11 @@
                     background: none;
                     color: $mainColor;
                     z-index: 2;
+
+                    svg {
+                        width: 19px;
+                        height: 19px;
+                    }
                 }
 
                 .verb__text {
