@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { userStore } from 'store/userStore';
+import { dictionaryStore } from 'store/dictionaryStore';
 
 import { useQueryParams } from './useQueryParams';
 
@@ -8,9 +9,8 @@ import { dictionaryService } from 'services/dictionaryService';
 import { queryKeys } from 'constants';
 
 const useDictionary = (type) => {
-    const {
-        userData
-    } = userStore();
+    const { userData } = userStore();
+    const { dictionaryData, setDictionaryData } = dictionaryStore();
 
     const { queryParams } = useQueryParams('search');
 
@@ -23,7 +23,7 @@ const useDictionary = (type) => {
 
     const querySearch = queryParams[queryKeys.search] || '';
 
-    const service = {
+    const services = {
         words: {
             get: dictionaryService.getWords,
             add: dictionaryService.addWord,
@@ -39,12 +39,18 @@ const useDictionary = (type) => {
         }
     };
 
-    const getWords = async () => {
+    const getWords = async (forceUpdate) => {
         try {
-            const response = await service[type].get();
+            if (dictionaryData[type][0] && !forceUpdate) {
+                setData(dictionaryData[type]);
+                return setIsLoading(false);
+            }
+
+            const response = await services[type].get();
             const result = await response.json();
 
             setData(result);
+            setDictionaryData(result, type);
         } catch (error) {
             console.error(error);
         } finally {
@@ -54,8 +60,8 @@ const useDictionary = (type) => {
 
     const add = async (data) => {
         try {
-            await service[type].add(data);
-            await getWords();
+            await services[type].add(data);
+            await getWords(true);
 
             return true;
         } catch (error) {
@@ -69,9 +75,9 @@ const useDictionary = (type) => {
 
     const toggleIsLearned = async (id) => {
         try {
-            await service[type].toggleLearned({ id });
+            await services[type].toggleLearned({ id });
 
-            getWords();
+            getWords(true);
         } catch (error) {
 
         }
@@ -79,9 +85,9 @@ const useDictionary = (type) => {
 
     const remove = async (id) => {
         try {
-            await service[type].delete({ id });
+            await services[type].delete({ id });
 
-            getWords();
+            getWords(true);
 
             return true;
         } catch (error) {

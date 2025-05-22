@@ -10,7 +10,7 @@ const http = require('http');
 
 config();
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3001;
 const protocol = process.env.PROTOCOL || 'http';
 
 const app = express();

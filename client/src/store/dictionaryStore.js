@@ -1,10 +1,15 @@
 import { create } from 'zustand';
 
 export const dictionaryStore = create((set) => ({
-    words: [],
-    verbs: [],
+    dictionaryData: {
+        words: [],
+        verbs: [],
+    },
 
-    setWords: (newData) => set({ words: newData }),
-
-    setVerbs: (newData) => set({ verbs: newData }),
+    setDictionaryData: (newData, type) => set((previousState) => ({
+        dictionaryData: {
+            ...previousState.dictionaryData,
+            [type]: newData
+        }
+    })),
 }));

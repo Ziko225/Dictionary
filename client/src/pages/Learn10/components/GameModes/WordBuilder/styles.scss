@@ -1,0 +1,71 @@
+@use 'theme.scss' as *;
+
+.wordBuilder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10vh;
+
+    .wordBuilder__title {
+        margin: 10px 0 0;
+    }
+
+    .wordBuilder__info {
+        margin: 10px 0 0;
+    }
+
+    .wordBuilder__list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        list-style: none;
+        gap: 15px;
+        padding: 0;
+        max-width: 400px;
+        border: 1px solid $color-1-3;
+        border-radius: 10px;
+        padding: 10px 20px;
+        min-height: 62px;
+
+        li {
+            button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 10px;
+                background-color: $color-1;
+                font-size: 26px;
+                width: 40px;
+                height: 40px;
+                border: none;
+                border-radius: 8px;
+                box-shadow: $shadowLite;
+                text-transform: uppercase;
+
+                &:hover {
+                    background-color: $color-1-1
+                }
+            }
+        }
+    }
+
+    .wordBuilder__list--rightOrders {
+        max-width: 100%;
+        border: none;
+        border-bottom: 1px solid $color-1-3;
+        border-radius: 0;
+        width: 100%;
+        gap: 3px;
+        border-width: 2px;
+    }
+
+    .wordBuilder__list--ok {
+        border-color: $color-4;
+        border-width: 2px;
+    }
+
+    .wordBuilder__list--error {
+        border-color: $color-3-1;
+        border-width: 2px;
+    }
+}

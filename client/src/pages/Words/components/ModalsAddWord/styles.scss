@@ -13,7 +13,6 @@
     padding: 30px;
     border-radius: 15px;
     box-shadow: $shadow;
-    gap: 9px;
 
     .addWord__inputBox {
         display: flex;
@@ -27,6 +26,11 @@
         height: 45px;
         font-size: 15px;
         border: 2px solid $color-1-1;
+        margin-top: 7px;
+    }
+
+    .addWord__input--first {
+        margin: 0;
     }
 
     .inputBox__speak {
@@ -50,6 +54,12 @@
         font-weight: 700;
         color: $color-1-1;
         background-color: $mainColor;
+        margin: 7px 0 0;
+    }
+
+    .addWord__tips {
+        font-size: 13px;
+        margin: 4px 0 0;
     }
 }
 

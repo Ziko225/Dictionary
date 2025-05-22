@@ -1,9 +1,19 @@
 @use "theme.scss" as *;
 
 .speakButton {
-    background-color: $mainColor;
-    color: $color-1;
+    color: $mainColor;
     border: none;
     align-self: stretch;
     padding: auto 5px;
+
+    &:hover {
+        svg {
+            filter: brightness(140%);
+        }
+    }
+
+    svg {
+        width: 30px;
+        height: auto;
+    }
 }

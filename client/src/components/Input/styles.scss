@@ -1,0 +1,10 @@
+@use 'theme.scss' as *;
+
+.customInput {
+    border: none;
+    box-shadow: $shadow;
+    padding: 10px 20px;
+    border-radius: 8px;
+    width: 100%;
+    font-size: 18px;
+}

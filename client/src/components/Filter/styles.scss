@@ -22,6 +22,14 @@
             border: none;
             box-shadow: 1px 1px 4px #2227;
             border-radius: 8px;
+
+            &:hover {
+                filter: brightness(110%);
+            }
+
+            &:active {
+                filter: brightness(120%);
+            }
         }
 
         .block__text {

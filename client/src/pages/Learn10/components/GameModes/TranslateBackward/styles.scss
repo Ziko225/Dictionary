@@ -1,0 +1,97 @@
+@use 'theme.scss' as *;
+
+.translateBackward {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10vh;
+
+    .translateBackward__timer {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        p {
+            font-size: 25px;
+            line-height: 1;
+        }
+
+        svg {
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    .translateBackward__title {
+        font-size: 46px;
+        margin: 20px 0 0;
+    }
+
+    .translateBackward__subtitle {
+        margin: 10px 0 0;
+    }
+
+    .translateBackward__buttons {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-top: 30px;
+        max-width: 500px;
+
+        button {
+            border: none;
+            box-shadow: $shadowLite;
+            padding: 10px 20px;
+            font-size: 24px;
+            border-radius: 8px;
+
+
+            &:hover {
+                color: $color-1;
+                background-color: $mainColor;
+            }
+
+            &:active {
+                color: $color-1;
+                background-color: $mainColor;
+                filter: brightness(120%);
+            }
+        }
+
+
+        .button--correct {
+            background-color: $color-4-1;
+            color: $color-1;
+
+            &:hover,
+            &:active {
+                background-color: $color-4-1 ;
+                color: $color-1;
+            }
+        }
+
+        .button--error {
+            background-color: $color-3-1;
+            color: $color-1;
+
+            &:hover,
+            &:active {
+                background-color: $color-3-1 ;
+                color: $color-1;
+            }
+        }
+    }
+}
+
+.translateBackward__startButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    svg {
+        width: 20px;
+        height: 20px;
+    }
+}

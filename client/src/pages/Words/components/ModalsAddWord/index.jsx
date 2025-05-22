@@ -56,7 +56,7 @@ const ModalsAddWord = ({ addWord, speak }) => {
                     className='addWord__input'
                     placeholder='Word'
                 />
-                <SpeakButton className="inputBox__speak" type="button" data={typedWord} speak={speak} />
+                <SpeakButton className="inputBox__speak" type="button" onClick={() => speak(typedWord)} />
             </div>
             <input
                 value={translate}
@@ -67,6 +67,9 @@ const ModalsAddWord = ({ addWord, speak }) => {
                 placeholder='Translate'
             />
             <button className='addWord__button'>Add</button>
+            <p className='addWord__tips'>
+                Tip: Add more translated words for the best experience - word1,&nbsp;word2
+            </p>
         </form>
     );
 };

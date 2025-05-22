@@ -1,0 +1,51 @@
+@use 'theme.scss' as *;
+
+.randomWords {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 10px 0 0;
+    padding: 0;
+    gap: 12px;
+
+    .learned {
+        pointer-events: none;
+        opacity: 30%;
+        background-color: $color-4;
+    }
+
+    li {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding: 8px 15px;
+        background-color: $color-1;
+        border-radius: 8px;
+        box-shadow: $shadowLite;
+        font-size: 20px;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $mainColor;
+            color: $color-1
+        }
+    }
+}
+
+.randomTranslateWords {
+    margin-right: auto;
+    list-style: none;
+
+    li {
+        font-size: 18px;
+        margin-top: 7px;
+    }
+
+    .learned {
+        pointer-events: none;
+        opacity: 50%;
+        text-decoration: line-through;
+    }
+}
