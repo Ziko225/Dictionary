@@ -2,11 +2,11 @@ import VolumeIco from "./volume.svg?react";
 
 import "./styles.scss";
 
-const SpeakButton = ({ speak: speakLogic, data, className, ...props }) => {
+const SpeakButton = ({ onClick, className, ...props }) => {
     return (
         <button
-            className={`speakButton ${className}`}
-            onClick={() => speakLogic(data)}
+            className={`speakButton${className ? ` ${className}` : ''}`}
+            onClick={onClick}
             {...props}
         >
             <VolumeIco />

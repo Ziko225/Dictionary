@@ -8,6 +8,8 @@ import Filter from 'components/Filter';
 import Search from 'components/Search';
 import ModalsAddWord from "./components/ModalsAddWord";
 
+import TrashIcon from 'components/icons/trash.svg?react';
+
 import "./styles.scss";
 
 const Words = () => {
@@ -39,21 +41,22 @@ const Words = () => {
                 {filteredData[0]
                     ? filteredData.map((word) =>
                         <div className="words" key={word.id}>
-                            <SpeakButton className="words__speak" speak={speak} data={word.name} />
+                            <SpeakButton className="words__speak" onClick={() => speak(word.name)} />
                             <span className='words__word'>{word.name}:</span>
                             <span className='words__translate'>{word.translate}</span>
 
+                            {word.learned &&
+                                <button onClick={() => remove(word.id)} className='words__removeButton'>
+                                    <TrashIcon />
+                                </button>
+                            }
                             <button
+                                aria-label='Toggle is word learned'
                                 onClick={() => toggleIsLearned(word.id)}
                                 className='words__button'
                                 type='submit'>
                                 {word.learned ? "Learned" : "✓"}
                             </button>
-                            {word.learned &&
-                                <button onClick={() => remove(word.id)} className='words__removeButton'>
-                                    X
-                                </button>
-                            }
                         </div>
                     )
                     : <h2>Not found</h2>

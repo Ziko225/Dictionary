@@ -1,0 +1,42 @@
+@use 'theme.scss' as *;
+
+.listenType {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10vh;
+
+    .listenType__title {
+        text-align: center;
+        font-size: 30px;
+        margin: 0;
+    }
+
+    .listenType__speakButton {
+        margin: auto;
+
+        svg {
+            width: 200px;
+            height: 200px;
+        }
+    }
+
+    .listenType__input {
+        padding: 15px 25px;
+        max-width: 400px;
+        width: 100%;
+        font-size: 26px;
+        margin-top: 30px;
+    }
+
+    .listenType__input--ok {
+        background-color: $color-4;
+    }
+
+    .listenType__input--error {
+        background-color: $color-3-1;
+    }
+
+    .listenType__button {
+        margin: 15px 0 0;
+    }
+}

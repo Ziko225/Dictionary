@@ -7,6 +7,9 @@ import SpeakButton from "components/SpeakButton";
 import Loading from 'components/Loading';
 import Filter from 'components/Filter';
 import Search from 'components/Search';
+import Input from 'components/Input';
+
+import TrashIcon from 'components/icons/trash.svg?react';
 
 import "./styles.scss";
 
@@ -68,6 +71,34 @@ const Verbs = () => {
             />
             <Search />
             <div className="verbs">
+                {msg && <span className="error">{msg}</span>}
+                <div className="addingBlock">
+                    <Input
+                        value={newVerb.name}
+                        onChange={(e) => submitInput('name', e.currentTarget.value)}
+                        className="addingBlock__input"
+                        placeholder="Base form"
+                    />
+                    <Input
+                        value={newVerb.v2}
+                        onChange={(e) => submitInput('v2', e.currentTarget.value)}
+                        className="addingBlock__input"
+                        placeholder="v2"
+                    />
+                    <Input
+                        value={newVerb.v3}
+                        onChange={(e) => submitInput('v3', e.currentTarget.value)}
+                        className="addingBlock__input"
+                        placeholder="v3"
+                    />
+                    <Input
+                        value={newVerb.translate}
+                        onChange={(e) => submitInput('translate', e.currentTarget.value)}
+                        className="addingBlock__input"
+                        placeholder="Translation"
+                    />
+                    <button onClick={addNewVerb} className="addingBlock__button">Add</button>
+                </div>
                 <ul className="verbs__ul">
                     <li className="ul__header">
                         <h4>Base form</h4>
@@ -78,7 +109,7 @@ const Verbs = () => {
                         filteredData?.map((verb) =>
                             <li key={verb.id} className="ul__li">
                                 <div className="li__verb">
-                                    <SpeakButton className="li__speak" speak={speak} data={`${verb.name}, ${verb.v2}, ${verb.v3}`} />
+                                    <SpeakButton className="li__speak" onClick={() => speak(`${verb.name}, ${verb.v2}, ${verb.v3}`)} />
                                     <span className="verb__text">{verb.name}</span>
                                     <span className="verb__text blurred">{verb.v2}</span>
                                     <span className="verb__text blurred">{verb.v3}</span>
@@ -89,7 +120,7 @@ const Verbs = () => {
                                         <span className="blurred translate__text">{verb.translate}</span>
                                     </div>
 
-                                    <button className="controller__button" onClick={() => toggleIsLearned(verb.id)}>
+                                    <button className={`controller__button${verb.learned ? ' controller__button--active' : ''}`} onClick={() => toggleIsLearned(verb.id)}>
                                         {verb.learned ? "Learned" : "✓"}
                                     </button>
 
@@ -97,7 +128,7 @@ const Verbs = () => {
                                         <button
                                             className="controller__button controller__button--remove"
                                             onClick={() => remove(verb.id)} >
-                                            X
+                                            <TrashIcon />
                                         </button>
                                     }
                                 </div>
@@ -107,34 +138,6 @@ const Verbs = () => {
                     }
                 </ul>
                 {!data[0] && <h2 className="title">Not found</h2>}
-                {msg && <span className="error">{msg}</span>}
-                <div className="addingBlock">
-                    <input
-                        value={newVerb.name}
-                        onChange={(e) => submitInput('name', e.currentTarget.value)}
-                        className="addingBlock__input"
-                        placeholder="Base form"
-                    />
-                    <input
-                        value={newVerb.v2}
-                        onChange={(e) => submitInput('v2', e.currentTarget.value)}
-                        className="addingBlock__input"
-                        placeholder="v2"
-                    />
-                    <input
-                        value={newVerb.v3}
-                        onChange={(e) => submitInput('v3', e.currentTarget.value)}
-                        className="addingBlock__input"
-                        placeholder="v3"
-                    />
-                    <input
-                        value={newVerb.translate}
-                        onChange={(e) => submitInput('translate', e.currentTarget.value)}
-                        className="addingBlock__input"
-                        placeholder="Translation"
-                    />
-                    <button onClick={addNewVerb} className="addingBlock__button">Add</button>
-                </div>
             </div >
         </>
     );

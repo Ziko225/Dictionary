@@ -12,6 +12,10 @@
     box-shadow: $shadow;
     border-radius: 14px;
 
+    @media (max-width: $mobileMax) {
+        margin-top: 0;
+    }
+
     .settings__title {
         margin: 0;
         color: $color-0-3;

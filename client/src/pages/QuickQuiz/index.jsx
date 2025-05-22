@@ -7,10 +7,14 @@ import useFilter from 'hooks/useFilter';
 import Filter from "components/Filter";
 import Loading from "components/Loading";
 import SpeakButton from "components/SpeakButton";
+import Button from 'components/Button';
+
+import { arrayUtils } from 'utils/array';
+import { stringUtils } from 'utils/string';
 
 import "./styles.scss";
 
-const Game = () => {
+const QuickQuiz = () => {
     const { data, toggleIsLearned, speak, isLoading } = useDictionary('words');
 
     const { getFilteredData, learned, unlearned, backward, toggleHandler } = useFilter();
@@ -24,6 +28,8 @@ const Game = () => {
     const [isNotEnoughWords, setIsNotEnoughWords] = useState(false);
 
     const [isGameStarted, toggleIsGameStarted] = useToggle(false);
+
+    const { cleanWord } = stringUtils;
 
     useEffect(() => {
         const newWords = getFilteredData(words);
@@ -44,10 +50,6 @@ const Game = () => {
     const randomWordName = randomWord?.name || '';
     const word = backward ? randomWord?.name : randomWord?.translate || '';
 
-    const cleanWord = (word) => {
-        return word.toLowerCase().trim();
-    };
-
     const getRandomWord = (words) => {
         const max = words?.length;
         const randomNumber = Math.floor(Math.random() * max);
@@ -66,12 +68,16 @@ const Game = () => {
     };
 
     const start = () => {
-        if (!data[0] || data.length < 3) {
-            return setIsNotEnoughWords(true);
-        }
+        try {
+            if (!data[0] || data.length < 3) {
+                return setIsNotEnoughWords(true);
+            }
 
-        setWords(data);
-        toggleIsGameStarted();
+            setWords(data);
+            toggleIsGameStarted();
+        } catch (error) {
+            setIsNotEnoughWords(true);
+        }
     };
 
     const submit = async (event) => {
@@ -82,27 +88,6 @@ const Game = () => {
         }
 
         const cleanedTypedWord = cleanWord(typedWord);
-
-        const splitString = (word = "") => {
-            if (!word) {
-                return [];
-            }
-
-            const cleanedWord = word
-                .replaceAll("/", "@")
-                .replaceAll(";", "@")
-                .replaceAll("'", "")
-                .replaceAll(",", "@");
-
-            return cleanedWord.split("@").map((name) => {
-                if (name.includes("(")) {
-                    const optional = name.slice(name.lastIndexOf("(", name.lastIndexOf(")")));
-                    return name = name.replace(optional, "").trim();
-                }
-
-                return name = name.trim();
-            });
-        };
 
         const nextWord = async () => {
             if (!randomWord.learned) {
@@ -126,7 +111,7 @@ const Game = () => {
 
         if (backward) {
             const translate = cleanWord(randomWord.translate);
-            const isArrayIncludeTypedWord = splitString(translate).includes(cleanedTypedWord);
+            const isArrayIncludeTypedWord = arrayUtils.cleanAndSplitWords(translate).includes(cleanedTypedWord);
 
             if (isArrayIncludeTypedWord) {
                 return await nextWord();
@@ -154,6 +139,7 @@ const Game = () => {
 
         const nextWord = () => {
             setTypedWord("");
+            setStatus("");
 
             const newArray = removeLastRandomWord(randomWord);
             getRandomWord(newArray);
@@ -178,8 +164,8 @@ const Game = () => {
     if (!isGameStarted) {
         return (
             <div className="game">
-                <h1>Play and learn!</h1>
-                <button className="button" onClick={start}>Start</button>
+                <h1 className='game__title'>Play and learn!</h1>
+                <Button onClick={start}>Play!</Button>
             </div>
         );
     }
@@ -217,7 +203,7 @@ const Game = () => {
                 <p>Words left: {sessionWords.length}</p>
                 {sessionWords[0]
                     ? <>
-                        <h2 className="game__title">{word}</h2>
+                        <h2 className="game__word">{word}</h2>
                         <form onSubmit={submit} className="form">
                             <input
                                 required
@@ -229,15 +215,15 @@ const Game = () => {
                             />
                         </form>
                         <div className="buttonsBlock">
-                            {backward && <SpeakButton className="buttonsBlock__button" speak={() => speak(word)} />}
-                            <button onClick={skip} className="button">Skip</button>
-                            <button onClick={dontKnow} className="button button--idk">I don't know</button>
+                            {backward && <SpeakButton className="buttonsBlock__button" onClick={() => speak(word)} />}
+                            <Button onClick={skip}>Skip</Button>
+                            <Button className="button--idk" onClick={dontKnow}>I don't know</Button>
                         </div>
-                        <button onClick={submit} className="button button--primary">Submit</button>
+                        <Button className="button--primary" onClick={submit}>Submit</Button>
                     </>
                     : <>
                         <h3>You finish the game!</h3>
-                        <button onClick={retry} className="button">Retry?</button>
+                        <Button onClick={retry}>Retry?</Button>
                     </>
                 }
             </div>
@@ -245,4 +231,4 @@ const Game = () => {
     );
 };
 
-export default Game;
+export default QuickQuiz;

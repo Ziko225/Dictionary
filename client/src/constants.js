@@ -4,6 +4,7 @@ export const paths = {
     gamePath: "/game",
     settingsPath: '/settings',
     authPath: '/auth',
+    learn10: '/daily-words'
 };
 
 export const queryKeys = {

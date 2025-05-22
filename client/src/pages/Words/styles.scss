@@ -91,15 +91,32 @@
         margin-left: auto;
         width: 100%;
         height: 100%;
+        font-size: 15px;
+        padding: 5px;
+
+        &:hover {
+            filter: brightness(120%);
+        }
 
         @media (max-width: $mobileMax) {
-            font-size: 14px;
+            font-size: 12px;
+            padding: 4px;
         }
     }
 
     .words__removeButton {
         @include buttonComponent;
-        height: 100%;
-        background-color: $color-3
+        color: $color-3;
+        margin-right: 4px;
+        align-self: center;
+        justify-self: center;
+        border: none;
+        background: none;
+        margin-top: 2px;
+        padding: 0;
+
+        &:hover {
+            filter: brightness(130%);
+        }
     }
 }

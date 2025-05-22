@@ -15,6 +15,12 @@
     }
 
     .game__title {
+        font-size: 28px;
+        text-align: center;
+        margin-top: 10vh;
+    }
+
+    .game__word {
         font-size: 50px;
         margin-top: 10vh;
         text-align: center;
@@ -62,17 +68,6 @@
         .warn {
             outline: 4px solid #a5b30c77;
         }
-    }
-
-    .button {
-        color: $color-1;
-        background-color: $mainColor;
-        font-weight: 800;
-        padding: 14px 24px;
-        border: none;
-        border-radius: 10px;
-        box-shadow: $shadow;
-        margin: auto;
     }
 
     .button--idk {

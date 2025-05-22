@@ -1,0 +1,11 @@
+@use 'theme.scss' as *;
+
+.learn10 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .learn10__counter {
+        margin: 0 auto 0 0;
+    }
+}

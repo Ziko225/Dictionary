@@ -1,0 +1,21 @@
+@use 'theme.scss' as *;
+
+.button {
+    color: $color-1;
+    background-color: $mainColor;
+    font-weight: 700;
+    font-size: 18px;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: $shadow;
+    margin: auto;
+
+    &:hover {
+        filter: brightness(110%);
+    }
+
+    &:active {
+        filter: brightness(120%);
+    }
+}
