@@ -5,12 +5,13 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
-    margin: 0 20px;
+    margin: 80px 20px 0;
     color: $color-0-3;
     position: fixed;
 
     @media (max-width: $tabletMax) {
         position: relative;
+        margin: 0 20px;
     }
 
     .filter__block {

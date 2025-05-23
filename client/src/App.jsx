@@ -54,6 +54,9 @@ function App() {
             ? <>
                 <Navigation />
                 <AppRouter />
+                <footer className='footer'>
+                    © 2023-2025 Nazar Bychyk. Apache 2.0.
+                </footer>
             </>
             : <Auth />
     );

@@ -6,6 +6,12 @@
     box-sizing: border-box;
 }
 
+#root{
+    display: flex;
+    flex-direction: column;
+    min-height: 100lvh;
+}
+
 body {
     margin: 0;
     font-family: 'Open Sans', sans-serif;
@@ -38,4 +44,12 @@ select {
     align-items: center;
     margin: 20px 10px 120px;
     min-width: 290px;
+}
+
+.footer{
+    text-align: center;
+    color: #bbb;
+    font-size: 12px;
+    padding: 20px;
+    margin-top: auto;
 }

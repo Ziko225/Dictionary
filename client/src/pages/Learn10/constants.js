@@ -2,8 +2,8 @@ export const dataStorageKey = 'learn-10-data';
 
 export const wordProgress = {
     1: 'listenAndType',
-    2: 'translateForward',
-    3: 'translateBackward',
+    2: 'translateBackward',
+    3: 'translateForward',
     4: 'wordBuilder',
     5: 'miniSprint',
 };

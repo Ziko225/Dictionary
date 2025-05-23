@@ -152,11 +152,11 @@ const Learn10 = () => {
     const gameModes = {
         0: <WordPreview gameLogic={standardGameLogic} />,
         1: <ListenAndType gameLogic={standardGameLogic} />,
-        2: <TranslateForward gameLogic={standardGameLogic} />,
-        3: <TranslateBackward
+        2: <TranslateBackward
             gameLogic={standardGameLogic}
             unlearnedWords={onlyUnlearnedWords}
         />,
+        3: <TranslateForward gameLogic={standardGameLogic} />,
         4: <WordBuilder gameLogic={standardGameLogic} />,
         5: <TranslateBackward
             gameLogic={standardGameLogic}
