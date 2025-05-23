@@ -30,7 +30,7 @@ const Navigation = () => {
                 <BurgerIco />
             </button>
 
-            <nav className={`navigation__nav${isMobileBarActive ? 'navigation__nav--active' : ''}`}>
+            <nav className={`navigation__nav${isMobileBarActive ? ' navigation__nav--active' : ''}`}>
                 <NavLink onClick={closeMobileBar} className="nav__link" to={paths.wordsPath}>Dictionary</NavLink>
                 <NavLink onClick={closeMobileBar} className="nav__link" to={paths.verbsPath}>Irregular verbs</NavLink>
                 <NavLink onClick={closeMobileBar} className="nav__link" to={paths.gamePath}>Quick quiz</NavLink>
