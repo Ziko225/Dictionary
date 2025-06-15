@@ -6,7 +6,7 @@ import Button from 'components/Button';
 import './styles.scss';
 
 const TranslateForward = ({ gameLogic }) => {
-    const { wordsArray, nextExercise, setIsWordCorrect } = gameLogic;
+    const { wordsArray, nextExercise, setIsWordCorrect, speak } = gameLogic;
 
     const {
         answerStatus,
@@ -15,7 +15,7 @@ const TranslateForward = ({ gameLogic }) => {
         checkWord,
         typedWord,
         setTypedWord
-    } = useGame({ wordsArray, nextExercise, setIsWordCorrect });
+    } = useGame({ wordsArray, nextExercise, setIsWordCorrect, speak, withSpeak: true });
 
     const statusClassNames = {
         correct: 'translateForward__input--ok',

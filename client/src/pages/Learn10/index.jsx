@@ -90,19 +90,23 @@ const Learn10 = () => {
         setGameStages((previousStep) => previousStep + 1);
     };
 
-    const checkIsWordLearned = async (wordId) => {
+    const checkIsWordLearned = (wordId) => {
         if (gameStages !== totalStagesLength) {
             return false;
         }
 
-        const selectedWordIndex = random10Words.findIndex((word) => word.id === wordId);
-        const isLearned = wordCheckList.every(mode => random10Words[selectedWordIndex].wordProgress.includes(mode));
-
-        if (isLearned && !random10Words[selectedWordIndex].learned) {
-            toggleIsLearned(wordId);
-        }
+        const selectedWord = random10Words.find((word) => word.id === wordId);
+        const isLearned = wordCheckList.every(mode => selectedWord.wordProgress.includes(mode));
 
         return isLearned;
+    };
+
+    const toggleIsWordLearned = async (wordId) => {
+        const selectedWord = data.find((word) => word.id === wordId);
+
+        if (!selectedWord.learned) {
+            toggleIsLearned(wordId);
+        }
     };
 
     const setIsWordCorrect = async (wordId) => {
@@ -119,8 +123,12 @@ const Learn10 = () => {
 
         updatedRandomWords[selectedWordIndex].wordProgress = newWordProgress;
 
-        const isWordLearned = await checkIsWordLearned(wordId);
-        updatedRandomWords[selectedWordIndex].learned = isWordLearned;
+        const isWordLearned = checkIsWordLearned(wordId);
+
+        if (isWordLearned) {
+            updatedRandomWords[selectedWordIndex].learned = isWordLearned;
+            await toggleIsWordLearned(wordId);
+        }
 
         setRandom10Words(updatedRandomWords);
         const localStorageData = getLocalStorageData();
