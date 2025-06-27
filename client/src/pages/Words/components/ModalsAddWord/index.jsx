@@ -46,6 +46,7 @@ const ModalsAddWord = ({ addWord, speak }) => {
         <form onSubmit={addNewWorld} className='addWord'>
             <span className='error'>{errorMessage}</span>
             <div className='addWord__inputBox'>
+                <SpeakButton className="inputBox__speak" type="button" onClick={() => speak(typedWord)} />
                 <input
                     autoFocus
                     ref={ref}
@@ -56,7 +57,6 @@ const ModalsAddWord = ({ addWord, speak }) => {
                     className='addWord__input'
                     placeholder='Word'
                 />
-                <SpeakButton className="inputBox__speak" type="button" onClick={() => speak(typedWord)} />
             </div>
             <input
                 value={translate}
