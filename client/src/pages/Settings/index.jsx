@@ -6,6 +6,7 @@ import { useToggle } from 'hooks/useToggle';
 import { accountService } from 'services/accountService';
 
 import { userStore } from 'store/userStore';
+import { dictionaryStore } from 'store/dictionaryStore';
 
 import SettingField from './components/SettingField';
 
@@ -34,6 +35,8 @@ const Settings = () => {
     const [doesUsernameChange, toggleUsernameChange, setUsernameChange] = useToggle(false);
     const [doesPasswordChange, togglePasswordChange, setPasswordChange] = useToggle(false);
     const [doesVoiceLanguageChange, toggleVoiceLanguageChange, setVoiceLanguageChange] = useToggle(false);
+
+    const { clearDictionaryData } = dictionaryStore();
 
     const isEdditFieldOpen = doesEmailChange || doesUsernameChange || doesPasswordChange || doesVoiceLanguageChange;
     const selectedLanguage = speakLanguages.find((e) => e.code === userData.language)?.language || 'Not selected';
@@ -86,6 +89,8 @@ const Settings = () => {
                 username: '',
                 language: '',
             });
+
+            clearDictionaryData();
 
             changeIsAuth(false);
         } catch (error) {

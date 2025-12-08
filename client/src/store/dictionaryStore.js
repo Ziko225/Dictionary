@@ -12,4 +12,10 @@ export const dictionaryStore = create((set) => ({
             [type]: newData
         }
     })),
+    clearDictionaryData: () => set(() => ({
+        dictionaryData: {
+            words: [],
+            verbs: [],
+        }
+    }))
 }));
